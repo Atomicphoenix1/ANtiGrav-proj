@@ -1,27 +1,29 @@
 # ANtiGrav Projects Suite
 **AI-Driven Automation Solutions for Efficiency & Content Management**
 
-This repository contains a collection of automation tools designed to streamline complex workflows using Python, n8n, and AI (LLMs). The suite focuses on two core domains: High-precision Transcription & Formatting, and Intelligent Personnel Scheduling.
+This repository contains core automation tools designed to streamline complex workflows using Python, n8n, and AI (LLMs).
 
-## 🚀 Projects Overview
+## 🚀 Core Projects
 
-### 1. [Transcription & Formatting Pipeline](./Transcription-Pipeline)
-An end-to-end system that handles audio conversion, AI-driven transcription formatting, and scholarly document generation.
-- **Core Tech:** Python (FFmpeg, Docx), n8n, AI Studio (Gemini).
-- **Key Outcome:** Automated conversion of raw media into professional, RTL-aligned Word and PDF documents with scholastic styling.
-
-### 2. [Scheduling & Personnel Automation](./Scheduling-Automation)
-A visual scheduling engine that bridges Google Forms data with an interactive UI to manage participant availability.
-- **Core Tech:** HTML/JS, n8n, Google Sheets API.
+### 1. [Conflict](./Conflict) (Scheduling & Personnel Automation)
+A visual coordination engine that transforms the tedious process of finding common availability into a streamlined, one-minute task.
 - **Key Outcome:** Reduced coordination time from 45 minutes to <2 minutes (95% efficiency gain).
+- **Includes:** Visual UI (HTML) and n8n density logic.
+
+### 2. [Formatter_Final](./Formatter_Final) (Document Transcription & Formatting)
+An end-to-end system that handles AI-driven transcription formatting and scholarly document generation.
+- **Key Outcome:** Automated conversion of raw text into professional, RTL-aligned Word and PDF documents with scholastic styling.
+- **Includes:** Python formatting engine, tagging prompts, and distribution logic.
+
+### 3. [n8nion](./n8nion) (Workflow Exports)
+Standard JSON exports for n8n workflows used across the ANtiGrav suite.
 
 ---
 
-## 🛠️ Requirements & Setup
-Each project folder contains its own detailed README with setup instructions.
-- **Python 3.10+**
-- **n8n** (Local or Cloud)
-- **FFmpeg** (for audio processing)
+## 🛠️ Key Technical Skills Demonstrated
+- **Prompt-based Automation** (Vibe Coding workflow optimization).
+- **Advanced Python Scripting** (Docx/PDF manipulation, FFmpeg).
+- **n8n Workflow Engineering** (Integration with Google Sheets, Telegram, and Local OS).
 
 ---
 *Developed by Seif Rabie Sakr as part of the ANtiGrav Automation Series.*
