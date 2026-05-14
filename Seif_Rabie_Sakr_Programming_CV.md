@@ -41,5 +41,5 @@ Junior Nano Science student at Zewail City with a 3.82 GPA, focused on technical
 ## Technical Skills
 - **Automation:** Prompt-based Automation using tools like **n8n** and **Anti-gravity**.
 - **Programming:** Python (Fundamentals & Debugging), minor HTML & CSS.
-- **Instruction:** Student Engagement, Interactive Classroom Management, Project-based Learning.
+- **Instruction:** Student Engagement, Project-based Learning.
 - **Languages:** Arabic (Native), English (Professional Working Proficiency).

@@ -1,6 +1,6 @@
-# Deterministic Document Formatting Suite
+# Document Formatting & Transcription Suite
 
-A 4-stage automation workflow designed to transform audio lectures into professionally formatted, publication-ready documents. While the initial transcription utilizes AI for text generation, the **workflow orchestration is entirely deterministic**, ensuring consistent and predictable output.
+A multi-stage automation workflow designed to transform audio lectures into professionally formatted, publication-ready documents. It focuses on reliability and consistent document structure.
 
 ## ⚙️ The Workflow Mechanism
 
@@ -21,10 +21,10 @@ A 4-stage automation workflow designed to transform audio lectures into professi
 - **Process:** 
   1. The workflow sends the files to a **Telegram Admin Bot** for review.
   2. The system waits for **Human Approval**.
-  3. Once approved, the workflow automatically forwards the final documents to the designated public/private distribution chat.
+  3. Once approved, the workflow automatically forwards the final documents to the designated distribution chat.
 
 ## 🛠️ Design Philosophy
-This system is **NOT an AI agent pipeline**. It is a structured, code-driven workflow that uses AI as a tool for the *transcription* component while maintaining total control over the formatting and distribution logic.
+This system is a structured, code-driven workflow. It uses AI as a tool for the *transcription* component while maintaining total control over the formatting and distribution logic to ensure predictable results.
 
 ---
 *Developed as part of the ANtiGrav Automation Series.*
