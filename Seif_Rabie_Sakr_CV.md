@@ -1,5 +1,5 @@
 # Seif Rabie Sakr
-**s-seif.sakr@zewailcity.edu.eg** | **seefraber31@gmail.com** | **+20 121 257 8915** | **Alexandria, Egypt**
+**s-seif.sakr@zewailcity.edu.eg** | **seefraber31@gmail.com** | **+20 121 257 8915** | **[GitHub](https://github.com/Atomicphoenix1/ANtiGrav-proj)** | **Alexandria, Egypt**
 
 ## Professional Summary
 Junior Nano Science student at Zewail City with a 3.82 GPA and a strong academic foundation in physics and chemistry. Blends rigorous scientific training with practical expertise in **Prompt-based Automation**, Python fundamentals, and technical instruction. Focused on leveraging AI tools to solve practical coordination challenges and engage diverse audiences through high-energy STEM education.
