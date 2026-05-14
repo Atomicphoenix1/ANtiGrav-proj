@@ -126,7 +126,7 @@
               "id": "e656b8ef-4266-4f50-bd41-703b4bdb04df",
               "name": "GOOGLE_API_KEY",
               "type": "string",
-              "value": "AIzaSyA9wTXIejfLfGzp9tWCtAqDI7fk-BKlguI"
+              "value": "YOUR_GOOGLE_API_KEY_HERE"
             },
             {
               "id": "32db428d-a2e2-48a0-92c6-3880e744d140",
