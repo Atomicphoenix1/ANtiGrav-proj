@@ -32,14 +32,14 @@ Junior Nano Science student at Zewail City with a 3.82 GPA, focused on technical
 - Integrated with n8n for automated Telegram distribution with built-in human approval gates.
 
 **Personnel Management & Scheduling Automation** *(n8n / Visual Dashboard)*
-- Developed a visual scheduling tool that maps complex string-based availability (e.g., Arabic time periods) into standardized time blocks.
-- Optimized time-slot coordination from a **45-minute manual process to less than 2 minutes** (95% efficiency gain).
-- Utilized an interactive visual dashboard with participant heatmaps, visibility filters, and automated "Top 4" recommendations.
+- Developed a visual tool that maps string-based availability (e.g., Arabic time periods like **المغرب للعيشة**) into standardized blocks.
+- Automated a workflow that retrieves checkbox-based data from **Google Forms/Sheets** via **n8n** to populate a visual availability dashboard.
+- Optimized time-slot coordination from 45 minutes to less than 2 minutes (95% efficiency gain) with participant heatmaps and filters.
 
 ---
 
 ## Technical Skills
 - **Automation:** Prompt-based Automation using tools like **n8n** and **Anti-gravity**.
-- **Programming:** Python (Fundamentals & Debugging).
-- **Instruction:** Technical Pedagogy (Teaching Methods), Student Engagement, Curriculum Delivery.
+- **Programming:** Python (Fundamentals & Debugging), minor HTML & CSS.
+- **Instruction:** Student Engagement, Interactive Classroom Management, Project-based Learning.
 - **Languages:** Arabic (Native), English (Professional Working Proficiency).
