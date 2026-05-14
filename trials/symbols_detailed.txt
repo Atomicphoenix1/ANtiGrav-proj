@@ -1,0 +1,21 @@
+--- Symbol Types Found ---
+
+Type: Name: Picture 9, Descr: None, Size: 2114550x609600
+Count: 5
+Paragraphs: [4, 43, 106, 118, 180]
+
+Type: Name: Picture 10, Descr: None, Size: 2038350x914400
+Count: 6
+Paragraphs: [38, 51, 103, 113, 156, 176]
+
+Type: Name: Picture 9, Descr: None, Size: 2036445x914400
+Count: 4
+Paragraphs: [194, 212, 293, 310]
+
+Type: Name: Picture 10, Descr: None, Size: 2112645x609600
+Count: 1
+Paragraphs: [200]
+
+Type: Name: Picture 11, Descr: None, Size: 2112645x609600
+Count: 4
+Paragraphs: [250, 255, 299, 322]

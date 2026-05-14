@@ -1,0 +1,6 @@
+
+[Odd Pages]
+  Text: 'كتاب التوحيد' (Style: Header)
+
+[Even Pages]
+  Text: 'للشيخ محمد بن عبد الوهاب' (Style: Header)

@@ -1,0 +1,193 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "5d7bdaf1-f375-459e-b6e9-a73cb24c42f5",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -208,
+        -272
+      ],
+      "id": "63f4fcd5-a284-40da-ac31-38bb9428856a",
+      "name": "Webhook",
+      "webhookId": "5d7bdaf1-f375-459e-b6e9-a73cb24c42f5"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1QR40agdKqa0DLF7IGYdllJ1uhJbdbnoNsKczqWkyih8",
+          "mode": "list",
+          "cachedResultName": "المواعيد المتاحة (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QR40agdKqa0DLF7IGYdllJ1uhJbdbnoNsKczqWkyih8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 255375025,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QR40agdKqa0DLF7IGYdllJ1uhJbdbnoNsKczqWkyih8/edit#gid=255375025"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        -48
+      ],
+      "id": "8f5515bc-6528-4136-8294-3d7338f75c1c",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "EN5CkbM3AEDtmoL5",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through every row (item) coming from the previous node\nfor (const item of $input.all()) {\n  \n  // Use 'item' instead of '$input.first()' to target every row\n  delete item.json[\"هل عندك تعليق على معاد؟\"];\n  delete item.json[\"row_number\"];\n\n  \n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        -272
+      ],
+      "id": "b27e6f25-dd0b-4053-8410-b84733dbab18",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through all incoming items\nfor (const item of $input.all()) {\n  const rawSchedule = item.json[\"المواعيد\"];\n  \n  if (rawSchedule) {\n    // 1. Split by comma\n    // 2. Trim whitespace from each item\n    // 3. Filter out any empty strings\n    item.json.split_appointments = rawSchedule.split(',')\n      .map(s => s.trim())\n      .filter(s => s.length > 0);\n  } else {\n    item.json.split_appointments = [];\n  }\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        -272
+      ],
+      "id": "727058a7-5dbf-463f-af32-58882b69a88f",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Define the Master Translation Map\nconst idMap = {\n  \"طول اليوم\": \"X\",\n  \"6ص-7ص\": \"T1\",\n  \"7ص-8ص\": \"T2\",\n  \"8ص-9ص\": \"T3\",\n  \"جميع ما سبق\": \"S1\",\n  \"9ص-10ص\": \"T4\",\n  \"10ص-11ص\": \"T5\",\n  \"11ص-12م\": \"T6\",\n  \"جميع ما سبق 2\": \"S2\",\n  \"12م-الظهر\": \"T7\",\n  \"1:30م : 2م\": \"T8\",\n  \"2م-3م\": \"T9\",\n  \"جميع ما سبق 3\": \"S3\",\n  \"3م-4م\": \"T10\",\n  \"4م-العصر\": \"T11\",\n  \"5م-6م\": \"T12\",\n  \"جميع ما سبق 4\": \"S4\",\n  \"6م-7م\": \"T13\",\n  \"7م- المغرب\": \"T14\",\n  \"8م- العشاء\": \"T15\",\n  \"جميع ما سبق 5\": \"S5\",\n  \"9:30م- 10م\": \"T16\",\n  \"10م-11م\": \"T17\",\n  \"11م-12م\": \"T18\",\n  \"جميع ما سبق 6\": \"S6\"\n};\n\n// 2. Process every item coming from Google Sheets\nfor (const item of $input.all()) {\n  const rawText = item.json[\"المواعيد\"] || \"\";\n  \n  // Split the string by comma and clean whitespace\n  const selections = rawText.split(',').map(s => s.trim());\n  \n  // Map the Arabic text to the IDs. If not found, keep original text\n  item.json.appointment_ids = selections.map(choice => {\n    return idMap[choice] || choice; \n  });\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        -272
+      ],
+      "id": "99909ba3-f6c3-4f75-ae8c-7806e7f737f5",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        -272
+      ],
+      "id": "6189c0fd-c757-4f42-8de4-7961ff184c6f",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gWhx0NpfERg3p1y1",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        []
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "c84b75f4-b6e7-477b-ba9a-411297e53bda",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "97cdaab89af73ebd5970b4d23e9d1859d7eb3b935c78db3eb6127ddba5b4902d"
+  },
+  "id": "qv2QUc38nw1ojryT",
+  "tags": []
+}

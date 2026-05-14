@@ -1,0 +1,98 @@
+{
+  "name": "Seif OS Telegram Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "id": "1",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.message.from.id}}",
+              "operation": "equal",
+              "value2": "YOUR_TELEGRAM_USER_ID"
+            }
+          ]
+        }
+      },
+      "id": "2",
+      "name": "Security Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "modelName": "gemini-1.5-flash",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "4",
+      "name": "Gemini 1.5 Flash",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [600, 500]
+    },
+    {
+      "parameters": {
+        "name": "os_terminal",
+        "description": "Run a PowerShell command on Seif's Windows machine. Input: the command string.",
+        "command": "python \"C:\\Users\\saif_\\Desktop\\downs\\حاليًا\\يومي\\Lectures\\ANtiGrav\\CV fetcher\\os_bridge.py\" exec \"{{$parameter.command}}\""
+      },
+      "id": "5",
+      "name": "PowerShell Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolExecuteCommand",
+      "typeVersion": 1,
+      "position": [800, 500]
+    },
+    {
+      "parameters": {
+        "name": "file_fetcher",
+        "description": "List files or find a project file path. Use 'list [category]' or 'find [filename]'.",
+        "command": "python \"C:\\Users\\saif_\\Desktop\\downs\\حاليًا\\يومي\\Lectures\\ANtiGrav\\CV fetcher\\os_bridge.py\" {{$parameter.action}} \"{{$parameter.query}}\""
+      },
+      "id": "6",
+      "name": "File Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolExecuteCommand",
+      "typeVersion": 1,
+      "position": [950, 500]
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [[{"node": "Security Check", "type": "main", "index": 0}]]
+    },
+    "Security Check": {
+      "main": [[{"node": "AI Agent", "type": "main", "index": 0}]]
+    },
+    "Gemini 1.5 Flash": {
+      "ai_languageModel": [[{"node": "AI Agent", "type": "ai_languageModel", "index": 0}]]
+    },
+    "PowerShell Tool": {
+      "ai_tool": [[{"node": "AI Agent", "type": "ai_tool", "index": 0}]]
+    },
+    "File Tool": {
+      "ai_tool": [[{"node": "AI Agent", "type": "ai_tool", "index": 0}]]
+    }
+  }
+}

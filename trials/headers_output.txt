@@ -1,0 +1,17 @@
+=========================================
+Analyzing Headers: C:\Users\saif_\Desktop\downs\حاليًا\يومي\Lectures\ANtiGrav\تفريغ كتاب التوحيد - باب 9.docx
+=========================================
+
+--- Section 1 Headers ---
+
+[Primary Header]
+  Para 1: Text: 'كتاب التوحيد' (Style: Header) | Graphic/Image
+[First Page Header] Linked to previous section.
+
+[Even Page Header]
+  Para 1: Text: 'للشيخ محمد بن عبد الوهاب' (Style: Header) | Graphic/Image
+  Para 2: Graphic/Image
+=========================================
+Analyzing Headers: C:\Users\saif_\Desktop\downs\حاليًا\يومي\Lectures\ANtiGrav\تمبلت التفريغات الجديد.docx
+=========================================
+Failed to open C:\Users\saif_\Desktop\downs\حاليًا\يومي\Lectures\ANtiGrav\تمبلت التفريغات الجديد.docx: Package not found at 'C:\Users\saif_\Desktop\downs\حاليًا\يومي\Lectures\ANtiGrav\تمبلت التفريغات الجديد.docx'

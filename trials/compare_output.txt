@@ -1,0 +1,183 @@
+--- Document: Al-Islam_Red_FinalWord.docx ---
+Paragraph 1:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'وَأَرْبَعِمِائَةٍ وَأَلْفٍ، وَ...'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+  Run 2: 'وَأَمَّا المَسْأَلَةُ الرَّابِ...'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: True
+    Color: #FF0000
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+Paragraph 2:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'الشيخ: ذَكَرْنَا فِي المَجْلِس...'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+Paragraph 3:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'طالب: ظُهُورُ صُورَةِ خِطَابِ ...'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+Paragraph 4:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'الشيخ: وَذَكَرْنَا أَنَّ لَهُ ...'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+Paragraph 5:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'طالب:'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+  Run 2: '(إجابة غير واضحة)'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: True
+    Color: #FF0000
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+  Run 3: '.'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+==================================================
+--- Document: Final2.docx ---
+Paragraph 1:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'الأُولَى، سَنَةَ سَبْعٍ وَأَرْ...'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+Paragraph 2:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'الشيخ: ذَكَرْنَا فِي المَجْلِس...'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+Paragraph 3:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'طالب: ظُهُورُ صُورَةِ خِطَابِ ...'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+Paragraph 4:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'الشيخ: وَذَكَرْنَا أَنَّ لَهُ ...'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+Paragraph 5:
+  Alignment: RIGHT (2)
+  RTL (w:bidi): False
+  Run 1: 'طالب:'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True
+  Run 2: '(إجابة غير واضحة)'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: True
+    Color: #FF0000
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): True
+    Complex Script RTL (w:rtl): True
+  Run 3: '.'
+    Font Name: AAAGoldenLotus Stg1_Ver1
+    Font Size: 18.0
+    Bold: True
+    Italic: None
+    Color: None (Auto)
+    Complex Script Font: AAAGoldenLotus Stg1_Ver1
+    Complex Script Bold (w:bCs): True
+    Complex Script Italic (w:iCs): False
+    Complex Script RTL (w:rtl): True

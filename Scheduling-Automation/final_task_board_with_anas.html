@@ -1,0 +1,250 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.wrap { padding: 1rem 0; font-family: var(--font-sans); }
+h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.sub { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 1.2rem; }
+.deadline { display: flex; align-items: center; gap: 10px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 14px; margin-bottom: 1.5rem; font-size: 13px; }
+.dl-main { font-weight: 500; color: var(--color-text-primary); }
+.dl-sub { color: var(--color-text-secondary); font-size: 12px; }
+.section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: var(--color-text-secondary); text-transform: uppercase; margin: 1.2rem 0 8px; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.2rem; margin-bottom: 10px; }
+.card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.av { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; }
+.av-blue{background:#B5D4F4;color:#0C447C} .av-purple{background:#CECBF6;color:#3C3489}
+.av-teal{background:#9FE1CB;color:#085041} .av-amber{background:#FAC775;color:#633806}
+.av-coral{background:#F5C4B3;color:#4A1B0C} .av-green{background:#C0DD97;color:#27500A}
+.av-pink{background:#F4C0D1;color:#4B1528} .av-gray{background:#D3D1C7;color:#2C2C2A}
+.av-gold{background:#EF9F27;color:#412402}
+.name { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+.role-tag { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+.tasks { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.ti { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
+.dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+.dot-blue{background:#378ADD} .dot-purple{background:#7F77DD} .dot-teal{background:#1D9E75}
+.dot-amber{background:#BA7517} .dot-coral{background:#D85A30} .dot-green{background:#639922}
+.dot-pink{background:#D4537E} .dot-gray{background:#888780} .dot-gold{background:#EF9F27}
+.output-box { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 8px 12px; font-size: 12px; color: var(--color-text-secondary); border-left: 3px solid var(--color-border-secondary); }
+.output-box strong { color: var(--color-text-primary); font-weight: 500; }
+.rule-box { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 12px 14px; margin-top: 1.2rem; }
+.rule-title { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.rule-item { font-size: 13px; color: var(--color-text-primary); padding: 3px 0; }
+.timeline { display: flex; flex-direction: column; gap: 6px; margin-top: 0.5rem; }
+.tl-item { display: flex; align-items: center; gap: 10px; font-size: 13px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 8px 12px; border: 0.5px solid var(--color-border-tertiary); }
+.tl-date { font-weight: 500; color: var(--color-text-primary); min-width: 80px; }
+.tl-desc { color: var(--color-text-secondary); }
+.formula { text-align: center; font-size: 13px; font-weight: 500; color: var(--color-text-primary); background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px; margin-top: 1rem; border: 0.5px solid var(--color-border-tertiary); }
+.leader-banner { background: #FAC775; border-radius: var(--border-radius-lg); padding: 12px 16px; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px; border: 0.5px solid #BA7517; }
+.leader-text { font-size: 14px; font-weight: 500; color: #412402; }
+.leader-sub { font-size: 12px; color: #633806; margin-top: 2px; }
+</style>
+
+<div class="wrap">
+  <h1>Final Task Board — Slimnastics Assignment</h1>
+  <p class="sub">9 members · 3 questions · Led by Anas Adin</p>
+
+  <div class="leader-banner">
+    <div class="av av-gold" style="width:44px;height:44px;font-size:14px;">AA</div>
+    <div>
+      <div class="leader-text">👑 Anas Adin — Team Leader &amp; Final Compiler</div>
+      <div class="leader-sub">Collects all parts · Reviews quality · Compiles &amp; submits the final PDF on Moodle</div>
+    </div>
+  </div>
+
+  <div class="deadline">
+    <span style="font-size:18px">📅</span>
+    <div>
+      <div class="dl-main">Deadline: Friday 25 April 2026 · 11:59 PM</div>
+      <div class="dl-sub">Submit one PDF via Moodle · Include all 9 names &amp; IDs on cover page</div>
+    </div>
+  </div>
+
+  <!-- ANAS CARD -->
+  <div class="section-label">👑 Team Leader — Compilation &amp; Submission</div>
+  <div class="card" style="border: 2px solid #EF9F27;">
+    <div class="card-head">
+      <div class="av av-gold">AA</div>
+      <div>
+        <div class="name">Anas Adin — Team Leader</div>
+        <div class="role-tag">Final compiler · Editor · Moodle submission</div>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li class="ti"><span class="dot dot-gold"></span>Collect all written parts from every member in one organised folder (WhatsApp or Google Drive)</li>
+      <li class="ti"><span class="dot dot-gold"></span>Read through every section — check for repetition, missing theory, weak examples</li>
+      <li class="ti"><span class="dot dot-gold"></span>Merge all answers into one document following the structure: Cover page → Introduction → Q1 → Q2 → Q3 → Conclusion → References</li>
+      <li class="ti"><span class="dot dot-gold"></span>Fix grammar, ensure consistent formatting (font, headings, spacing, page numbers)</li>
+      <li class="ti"><span class="dot dot-gold"></span>Make sure cover page lists ALL 9 team member names and IDs</li>
+      <li class="ti"><span class="dot dot-gold"></span>Send the near-final PDF to the group for last review (by 24 April)</li>
+      <li class="ti"><span class="dot dot-gold"></span>Submit the ONE final PDF on Moodle before 25 April 11:59 PM</li>
+    </ul>
+    <div class="output-box"><strong>Output:</strong> One polished, complete PDF submitted on Moodle ✅</div>
+  </div>
+
+  <!-- COORDINATOR -->
+  <div class="section-label">🔵 Project Coordinator</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="av av-blue">SN</div>
+      <div>
+        <div class="name">سيد نعمان — Project Coordinator</div>
+        <div class="role-tag">WhatsApp follow-up · Keeps team on track · Supports Anas</div>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li class="ti"><span class="dot dot-blue"></span>Send this task board to all members on WhatsApp with internal deadlines</li>
+      <li class="ti"><span class="dot dot-blue"></span>Follow up with each member daily — make sure no one is late</li>
+      <li class="ti"><span class="dot dot-blue"></span>Write the introduction (5–6 lines) and conclusion (5–6 lines) for the full document</li>
+      <li class="ti"><span class="dot dot-blue"></span>Send all collected parts to Anas for final compilation</li>
+    </ul>
+    <div class="output-box"><strong>Output:</strong> Introduction + conclusion paragraphs + coordinated team delivery</div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="section-label">🔴 Question 1 — Innovation (Fingar's Framework)</div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="av av-purple">SR</div>
+      <div>
+        <div class="name">سيف ربيع صقر — Innovation Extractor</div>
+        <div class="role-tag">Step 1 of Q1 · Send output to Karim</div>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li class="ti"><span class="dot dot-purple"></span>Read the full case and extract ALL innovations as bullet points only — no explanation</li>
+      <li class="ti"><span class="dot dot-purple"></span>Find: inclusive ballet concept, authentic social media, Slimnastics Curriculum, Sportainment, gymnastics expansion, Opera House performances, USA partnership, merchandise, parent workshops</li>
+      <li class="ti"><span class="dot dot-purple"></span>Note where each innovation appears in the case (which phase/year)</li>
+    </ul>
+    <div class="output-box"><strong>Output:</strong> Bullet list of 8–10 innovations → send to Karim</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="av av-teal">KA</div>
+      <div>
+        <div class="name">Karim — Fingar Classifier</div>
+        <div class="role-tag">Step 2 of Q1 · Send table to Karim M. Sharaf</div>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li class="ti"><span class="dot dot-teal"></span>Take سيف's list and classify each innovation using Fingar's domains: Product, Process, Marketing/Channel, Business Model, Management</li>
+      <li class="ti"><span class="dot dot-teal"></span>Write 1–2 sentence definition of each Fingar domain for the theory section</li>
+      <li class="ti"><span class="dot dot-teal"></span>Deliver as a table: Innovation | Fingar Domain | One-line reason</li>
+    </ul>
+    <div class="output-box"><strong>Output:</strong> Classification table + theory definitions → send to Karim M. Sharaf</div>
+  </div>
+
+  <div class="card" style="border: 2px solid #B5D4F4;">
+    <div class="card-head">
+      <div class="av av-amber">KS</div>
+      <div>
+        <div class="name">Karim M. Sharaf — Q1 Main Writer ⭐</div>
+        <div class="role-tag">Writes the full Q1 answer · Most important part</div>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li class="ti"><span class="dot dot-amber"></span>Take Karim's table and write the complete Q1 answer</li>
+      <li class="ti"><span class="dot dot-amber"></span>For each innovation: What problem it solved → How Esmail implemented it → Impact on growth &amp; competitive advantage</li>
+      <li class="ti"><span class="dot dot-amber"></span>Formula for every paragraph: Theory (Fingar domain) → Case Example → Business Impact</li>
+      <li class="ti"><span class="dot dot-amber"></span>Use case data: 1,500 students by 2017, 50% profit margin, $65,000/month revenue, Cairo Opera House, USA partnership</li>
+      <li class="ti"><span class="dot dot-amber"></span>End with a strong conclusion sentence on competitive advantage</li>
+    </ul>
+    <div class="output-box"><strong>Output:</strong> Full Q1 answer · 450–550 words → send to Anas</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="section-label">🟢 Question 2 — Entrepreneurial Traits</div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="av av-coral">MO</div>
+      <div>
+        <div class="name">Moaz — Trait Extractor</div>
+        <div class="role-tag">Step 1 of Q2 · Send output to Nezar</div>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li class="ti"><span class="dot dot-coral"></span>Read the case and list 5 entrepreneurial traits Esmail shows — bullet points only, no analysis</li>
+      <li class="ti"><span class="dot dot-coral"></span>For each trait note the exact moment in the case: Resilience (COVID + 2015 show disaster), Risk-taking ($1,300 startup, bank loan), Opportunity recognition (influencer, Sheikh Zayed groups), Innovation (curriculum, gymnastics), Community leadership (family culture)</li>
+    </ul>
+    <div class="output-box"><strong>Output:</strong> 5 traits with case evidence → send to Nezar</div>
+  </div>
+
+  <div class="card" style="border: 2px solid #9FE1CB;">
+    <div class="card-head">
+      <div class="av av-green">NM</div>
+      <div>
+        <div class="name">Nezar Mohamed — Q2 Main Writer ⭐</div>
+        <div class="role-tag">Writes the full Q2 answer</div>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li class="ti"><span class="dot dot-green"></span>Take Moaz's list and choose the best 3 traits</li>
+      <li class="ti"><span class="dot dot-green"></span>For each trait: (1) Define using a theory/scholar, (2) Give the specific case example, (3) Explain the impact on Esmail's decisions and Slimnastics' success</li>
+      <li class="ti"><span class="dot dot-green"></span>Formula: Definition → Case Example → Impact on business</li>
+      <li class="ti"><span class="dot dot-green"></span>Suggested: Resilience, Opportunity Recognition, Innovation/Risk-taking</li>
+    </ul>
+    <div class="output-box"><strong>Output:</strong> Full Q2 answer · 400–500 words → send to Anas</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="section-label">🟡 Question 3 — Leadership</div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="av av-pink">YS</div>
+      <div>
+        <div class="name">Youssef Salama — Leadership Extractor</div>
+        <div class="role-tag">Step 1 of Q3 · Send output to Ziad</div>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li class="ti"><span class="dot dot-pink"></span>Read the case and extract all leadership actions, behaviors and decisions as organised bullet points</li>
+      <li class="ti"><span class="dot dot-pink"></span>Group into: hands-on leadership, strategic decisions, community building, crisis management</li>
+      <li class="ti"><span class="dot dot-pink"></span>Examples: doing receptionist work herself, firing abusive instructor, paying staff salaries during COVID, distributing equity, building "Slimnastics family" culture</li>
+    </ul>
+    <div class="output-box"><strong>Output:</strong> Organised leadership evidence by category → send to Ziad</div>
+  </div>
+
+  <div class="card" style="border: 2px solid #FAC775;">
+    <div class="card-head">
+      <div class="av av-gray">ZI</div>
+      <div>
+        <div class="name">Ziad — Q3 Main Writer + Formatter ⭐</div>
+        <div class="role-tag">Writes full Q3 answer + formats the PDF</div>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li class="ti"><span class="dot dot-gray"></span>Take Youssef's bullet points and write the full Q3 answer</li>
+      <li class="ti"><span class="dot dot-gray"></span>Identify leadership style: Transformational + Participative — define both with theory</li>
+      <li class="ti"><span class="dot dot-gray"></span>Link to: strategic direction (curriculum, expansion), growth (1,500 students, Opera House), community ("family" culture, parent advocacy)</li>
+      <li class="ti"><span class="dot dot-gray"></span>Add critical point: Founder dependency problem — investors invested in HER not the brand; 2023 exit dilemma proves the risk</li>
+      <li class="ti"><span class="dot dot-gray"></span>Formula: Leadership Style (theory) → Case Evidence → Outcome</li>
+      <li class="ti"><span class="dot dot-gray"></span>Then format the full document as a clean PDF — consistent headings, font, spacing, page numbers — and send to Anas</li>
+    </ul>
+    <div class="output-box"><strong>Output:</strong> Full Q3 answer (400–500 words) + formatted PDF → send to Anas</div>
+  </div>
+
+  <div class="formula">✅ Every answer must follow: &nbsp;<strong>Theory → Case Example → Impact</strong></div>
+
+  <div class="rule-box" style="margin-top:1rem;">
+    <div class="rule-title">🚨 Rules for everyone</div>
+    <div class="rule-item">❌ Do not copy from each other or repeat information</div>
+    <div class="rule-item">❌ Do not write theory without a case example</div>
+    <div class="rule-item">✅ Extractors send output FIRST before writers begin</div>
+    <div class="rule-item">✅ Send your part to Anas Adin when done</div>
+    <div class="rule-item">✅ Every answer must reference real moments from the Slimnastics case</div>
+  </div>
+
+  <div class="section-label" style="margin-top:1.2rem;">📅 Internal deadlines</div>
+  <div class="timeline">
+    <div class="tl-item"><span class="tl-date">18 April</span><span class="tl-desc">Extractors (سيف, Moaz, Youssef) send bullet lists to their writers</span></div>
+    <div class="tl-item"><span class="tl-date">19 April</span><span class="tl-desc">Karim sends Fingar table to Karim M. Sharaf</span></div>
+    <div class="tl-item"><span class="tl-date">21 April</span><span class="tl-desc">All writers (Karim M. Sharaf, Nezar, Ziad) send full answers to Anas</span></div>
+    <div class="tl-item"><span class="tl-date">22 April</span><span class="tl-desc">سيد نعمان sends intro + conclusion to Anas</span></div>
+    <div class="tl-item"><span class="tl-date">23 April</span><span class="tl-desc">Anas reviews, merges &amp; edits full document</span></div>
+    <div class="tl-item"><span class="tl-date">24 April</span><span class="tl-desc">Ziad formats final PDF · Anas sends to group for approval</span></div>
+    <div class="tl-item" style="border-color:#A32D2D;"><span class="tl-date" style="color:#A32D2D">25 April</span><span class="tl-desc" style="color:#A32D2D;font-weight:500">Anas submits ONE PDF on Moodle before 11:59 PM ✅</span></div>
+  </div>
+</div>

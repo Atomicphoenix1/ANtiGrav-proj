@@ -1,0 +1,98 @@
+{
+  "name": "Seif OS Agent (Code Tools)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "id": "1",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.message.from.id}}",
+              "operation": "equal",
+              "value2": "YOUR_TELEGRAM_USER_ID"
+            }
+          ]
+        }
+      },
+      "id": "2",
+      "name": "Security Check",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [550, 300]
+    },
+    {
+      "parameters": {
+        "modelName": "gemini-1.5-flash",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "4",
+      "name": "Gemini 1.5 Flash",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [500, 500]
+    },
+    {
+      "parameters": {
+        "name": "os_terminal",
+        "description": "Run a PowerShell command on Seif's machine. Input: command string.",
+        "jsCode": "const { execSync } = require('child_process');\n\n// We call the os_bridge script\ntry {\n  const scriptPath = 'C:\\\\Users\\\\saif_\\\\Desktop\\\\downs\\\\حاليًا\\\\يومي\\\\Lectures\\\\ANtiGrav\\\\CV fetcher\\\\os_bridge.py';\n  // We need to escape the input query carefully\n  const escapedInput = input.replace(/\"/g, '\\\"');\n  const command = `python \"${scriptPath}\" exec \"${escapedInput}\"`;\n  const output = execSync(command, { encoding: 'utf8' });\n  return output;\n} catch (error) {\n  return `Error: ${error.message}`;\n}"
+      },
+      "id": "5",
+      "name": "Custom Code Terminal Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1,
+      "position": [750, 500]
+    },
+    {
+      "parameters": {
+        "name": "cv_file_fetcher",
+        "description": "List or find project files. Input: 'list [category]' or 'find [filename]'.",
+        "jsCode": "const { execSync } = require('child_process');\n\ntry {\n  const scriptPath = 'C:\\\\Users\\\\saif_\\\\Desktop\\\\downs\\\\حاليًا\\\\يومي\\\\Lectures\\\\ANtiGrav\\\\CV fetcher\\\\os_bridge.py';\n  const [action, ...rest] = input.split(' ');\n  const query = rest.join(' ');\n  const command = `python \"${scriptPath}\" ${action} \"${query}\"`;\n  const output = execSync(command, { encoding: 'utf8' });\n  return output;\n} catch (error) {\n  return `Error: ${error.message}`;\n}"
+      },
+      "id": "6",
+      "name": "Custom Code File Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1,
+      "position": [900, 500]
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [[{"node": "Security Check", "type": "main", "index": 0}]]
+    },
+    "Security Check": {
+      "main": [[{"node": "AI Agent", "type": "main", "index": 0}]]
+    },
+    "Gemini 1.5 Flash": {
+      "ai_languageModel": [[{"node": "AI Agent", "type": "ai_languageModel", "index": 0}]]
+    },
+    "Custom Code Terminal Tool": {
+      "ai_tool": [[{"node": "AI Agent", "type": "ai_tool", "index": 0}]]
+    },
+    "Custom Code File Tool": {
+      "ai_tool": [[{"node": "AI Agent", "type": "ai_tool", "index": 0}]]
+    }
+  }
+}

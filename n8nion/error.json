@@ -1,0 +1,66 @@
+{
+  "name": "error",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "4ddf2c02-6ef8-4559-b024-5dbcc11fbab5",
+      "name": "When Workflow Fails",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "-5116213075",
+        "text": "=⚠️ Workflow Error Alert\n\nWorkflow: {{ $json.workflow.name }}\nStatus: {{ $json.execution.status }}\nError: {{ $json.error.message }}\nTime: {{ $json.execution.stoppedAt }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "8b489584-6f23-48bf-907d-d476d9f9b948",
+      "name": "Send Error Notification",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        464,
+        304
+      ],
+      "webhookId": "a2658044-9a13-4b5d-9c40-7f6e87ed2aac",
+      "credentials": {
+        "telegramApi": {
+          "id": "p0kipYNYu5MGXBtN",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Workflow Fails": {
+      "main": [
+        [
+          {
+            "node": "Send Error Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "73f3fc87-5f88-408b-8657-278b534e0807",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c76f59e425d7f4af4e3b3a4d44c6b80afa1d7eb0696ee9d59a98986a78c78284"
+  },
+  "id": "arhG4q9xBUKGmRUr",
+  "tags": []
+}

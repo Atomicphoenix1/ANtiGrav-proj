@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Analytics Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        ::-webkit-scrollbar {
+            height: 10px;
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+            border: 2px solid #020617;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        body {
+            margin: 0;
+            background-color: #020617;
+            font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sticky-left-col {
+            position: sticky;
+            left: 0;
+            z-index: 40;
+            background: rgba(2, 6, 23, 0.95);
+        }
+
+        .sticky-corner {
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 60;
+            background: rgba(2, 6, 23, 0.95);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class ErrorBoundary extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { hasError: false, error: null };
+            }
+            static getDerivedStateFromError(error) {
+                return { hasError: true, error };
+            }
+            componentDidCatch(error, errorInfo) {
+                console.error("ErrorBoundary caught an error", error, errorInfo);
+            }
+            render() {
+                if (this.state.hasError) {
+                    return <div style={{ color: 'white', padding: '20px', background: 'red' }}><h1>Crash Error</h1><pre>{this.state.error.toString()}</pre></div>;
+                }
+                return this.props.children;
+            }
+        }
+
+        const { useState, useMemo, useEffect } = React;
+
+        // ----- Inline SVG Icons -----
+        const Users = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>;
+        const Zap = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>;
+        const AlertTriangle = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>;
+        const Trash2 = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /></svg>;
+        const UserPlus = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><line x1="19" y1="8" x2="19" y2="14" /><line x1="16" y1="11" x2="22" y2="11" /></svg>;
+        const Terminal = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>;
+        const X = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>;
+        const Download = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>;
+        const RefreshCw = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" /></svg>;
+        const Target = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg>;
+        const Eye = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>;
+        const EyeOff = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" /><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" /><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" /><line x1="2" y1="2" x2="22" y2="22" /></svg>;
+        const EyeOffIcon = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" /><line x1="1" y1="1" x2="23" y2="23" /></svg>;
+        const Search = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>;
+        const GripVertical = ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="9" cy="12" r="1" /><circle cx="9" cy="5" r="1" /><circle cx="9" cy="19" r="1" /><circle cx="15" cy="12" r="1" /><circle cx="15" cy="5" r="1" /><circle cx="15" cy="19" r="1" /></svg>;
+
+        // ----- App Constants -----
+        const SLOTS = Array.from({ length: 48 }, (_, i) => i / 2);
+        const COLORS = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#06b6d4', '#8b5cf6', '#d946ef', '#14b8a6', '#f43f5e'];
+        const N8N_WEBHOOK_URL = 'https://atomicphoenix1.app.n8n.cloud/webhook/5d7bdaf1-f375-459e-b6e9-a73cb24c42f5';
+
+        const ID_TO_TIME = {
+            'X': { start: 6.0, end: 24.0 },
+            'T1': { start: 6.0, end: 7.0 },
+            'T2': { start: 7.0, end: 8.0 },
+            'T3': { start: 8.0, end: 9.0 },
+            'S1': { start: 6.0, end: 9.0 },
+            'T4': { start: 9.0, end: 10.0 },
+            'T5': { start: 10.0, end: 11.0 },
+            'T6': { start: 11.0, end: 12.0 },
+            'S2': { start: 9.0, end: 12.0 },
+            'T7': { start: 12.0, end: 13.0 },
+            'T8': { start: 13.5, end: 14.0 },
+            'T9': { start: 14.0, end: 15.0 },
+            'S3': { start: 12.0, end: 15.0 },
+            'T10': { start: 15.0, end: 16.0 },
+            'T11': { start: 16.0, end: 16.5 },
+            'T12': { start: 17.0, end: 18.0 },
+            'S4': { start: 15.0, end: 18.0 },
+            'T13': { start: 18.0, end: 19.0 },
+            'T14': { start: 19.0, end: 19.5 },
+            'T15': { start: 20.0, end: 21.0 },
+            'S5': { start: 18.0, end: 21.0 },
+            'T16': { start: 21.5, end: 22.0 },
+            'T17': { start: 22.0, end: 23.0 },
+            'T18': { start: 23.0, end: 24.0 },
+            'S6': { start: 21.5, end: 24.0 }
+        };
+
+        // Fallback generic parser if IDs aren't available
+        function parseTimeBlocks(text) {
+            if (!text || typeof text !== 'string') return [];
+            let blocks = [];
+            if (text.includes("طول اليوم")) return [{ start: 0, end: 24 }];
+            const segments = text.split(',').map(s => s.trim());
+            for (let seg of segments) {
+                if (seg === "جميع ما سبق") blocks.push({ start: 6, end: 9 });
+                else if (seg === "جميع ما سبق 2") blocks.push({ start: 9, end: 12 });
+                else if (seg === "جميع ما سبق 3") blocks.push({ start: 12, end: 15 });
+                else if (seg === "جميع ما سبق 4") blocks.push({ start: 15, end: 18 });
+                else if (seg === "جميع ما سبق 5") blocks.push({ start: 18, end: 21 });
+                else if (seg === "جميع ما سبق 6") blocks.push({ start: 21, end: 24 });
+                else if (seg.includes("6ص")) blocks.push({ start: 6, end: 7 });
+                else if (seg.includes("7ص")) blocks.push({ start: 7, end: 8 });
+                else if (seg.includes("8ص")) blocks.push({ start: 8, end: 9 });
+                else if (seg.includes("9ص")) blocks.push({ start: 9, end: 10 });
+                else if (seg.includes("10ص")) blocks.push({ start: 10, end: 11 });
+                else if (seg.includes("11ص")) blocks.push({ start: 11, end: 12 });
+                else if (seg.includes("12م")) blocks.push({ start: 12, end: 13 });
+                else if (seg.includes("1:30م") || seg.includes("1.30م")) blocks.push({ start: 13.5, end: 14 });
+                else if (seg.includes("1م")) blocks.push({ start: 13, end: 14 });
+                else if (seg.includes("2م")) blocks.push({ start: 14, end: 15 });
+                else if (seg.includes("3م")) blocks.push({ start: 15, end: 16 });
+                else if (seg.includes("4م") || seg.includes("العصر")) blocks.push({ start: 16, end: 17 });
+                else if (seg.includes("5م")) blocks.push({ start: 17, end: 18 });
+                else if (seg.includes("6م")) blocks.push({ start: 18, end: 19 });
+                else if (seg.includes("7م") || seg.includes("المغرب")) blocks.push({ start: 19, end: 19.5 });
+                else if (seg.includes("8م") || seg.includes("العشاء")) blocks.push({ start: 20, end: 21 });
+                else if (seg.includes("9:30م") || seg.includes("9.30م")) blocks.push({ start: 21.5, end: 22 });
+                else if (seg.includes("9م")) blocks.push({ start: 21, end: 22 });
+                else if (seg.includes("10م")) blocks.push({ start: 22, end: 23 });
+                else if (seg.includes("11م")) blocks.push({ start: 23, end: 24 });
+            }
+
+            let finalBlocks = [];
+            for (let h of SLOTS) {
+                let isCovered = blocks.some(b => h >= b.start && h < b.end);
+                if (isCovered) {
+                    let last = finalBlocks[finalBlocks.length - 1];
+                    if (last && last.end === h) {
+                        last.end = h + 0.5;
+                    } else {
+                        finalBlocks.push({ start: h, end: h + 0.5 });
+                    }
+                }
+            }
+            return finalBlocks;
+        }
+
+        const formatTime = (floatTime) => {
+            if (floatTime === 24) return "12:00 AM";
+            const h = Math.floor(floatTime);
+            const m = floatTime % 1 === 0.5 ? '30' : '00';
+            const period = h >= 12 && h < 24 ? 'PM' : 'AM';
+            const displayH = h % 12 === 0 ? 12 : h % 12;
+            return `${displayH}:${m} ${period}`;
+        };
+
+        function App() {
+            const [participants, setParticipants] = useState([]);
+            const [showWebhookLog, setShowWebhookLog] = useState(false);
+            const [isSyncing, setIsSyncing] = useState(false);
+            const [errorMsg, setErrorMsg] = useState('');
+            const [isModalOpen, setIsModalOpen] = useState(false);
+            const [newUserName, setNewUserName] = useState('');
+
+            // NEW: 6AM - 12AM toggle logic
+            const [hideEarlyMorning, setHideEarlyMorning] = useState(true);
+            const activeSlots = useMemo(() => hideEarlyMorning ? SLOTS.filter(s => s >= 6) : SLOTS, [hideEarlyMorning]);
+
+            // Time Query State
+            const [queryStart, setQueryStart] = useState(15.0);
+            const [queryEnd, setQueryEnd] = useState(17.0);
+            const [queryMode, setQueryMode] = useState('available');
+            const [draggedUserIdx, setDraggedUserIdx] = useState(null);
+
+            const handleDragStart = (e, index) => {
+                e.dataTransfer.effectAllowed = 'move';
+                setDraggedUserIdx(index);
+            };
+
+            const handleDragOver = (e, index) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            };
+
+            const handleDrop = (e, index) => {
+                e.preventDefault();
+                if (draggedUserIdx === null || draggedUserIdx === index) return;
+                
+                setParticipants(prev => {
+                    const newOrder = [...prev];
+                    const activeParts = prev.filter(p => !p.hidden);
+                    const draggedId = activeParts[draggedUserIdx].id;
+                    const targetId = activeParts[index].id;
+                    
+                    const trueDragIdx = newOrder.findIndex(p => p.id === draggedId);
+                    const trueTargetIdx = newOrder.findIndex(p => p.id === targetId);
+                    
+                    const [movedItem] = newOrder.splice(trueDragIdx, 1);
+                    newOrder.splice(trueTargetIdx, 0, movedItem);
+                    return newOrder;
+                });
+                setDraggedUserIdx(null);
+            };
+
+            const fetchScheduleFromN8N = async () => {
+                setIsSyncing(true);
+                setErrorMsg('');
+                try {
+                    const response = await fetch(N8N_WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'get_schedule' }),
+                    });
+
+                    if (response.ok) {
+                        const responseText = await response.text();
+                        let data;
+                        try {
+                            data = JSON.parse(responseText);
+                        } catch (e) {
+                            throw new Error(`n8n returned empty or invalid JSON`);
+                        }
+
+                        let fetchedParticipants = [];
+                        if (Array.isArray(data)) fetchedParticipants = data;
+                        else if (data && data.schedule && Array.isArray(data.schedule)) fetchedParticipants = data.schedule;
+                        else if (data && data.participants && Array.isArray(data.participants)) fetchedParticipants = data.participants;
+                        else fetchedParticipants = [data];
+
+                        let extracted = [];
+                        for (let p of fetchedParticipants) {
+                            if (p.text && typeof p.text === 'string') {
+                                try {
+                                    let cleanText = p.text.trim();
+                                    if (cleanText.startsWith('```json')) cleanText = cleanText.substring(7);
+                                    else if (cleanText.startsWith('```')) cleanText = cleanText.substring(3);
+                                    if (cleanText.endsWith('```')) cleanText = cleanText.substring(0, cleanText.length - 3);
+                                    cleanText = cleanText.trim();
+
+                                    let parsed = JSON.parse(cleanText);
+                                    if (Array.isArray(parsed)) extracted.push(...parsed);
+                                    else extracted.push({ ...p, ...parsed });
+                                } catch (e) {
+                                    extracted.push(p);
+                                }
+                            } else {
+                                extracted.push(p);
+                            }
+                        }
+
+                        const mappedParticipants = extracted.map((p, index) => {
+                            let blocks = [];
+                            if (p.appointment_ids && Array.isArray(p.appointment_ids)) {
+                                p.appointment_ids.forEach(id => {
+                                    if (ID_TO_TIME[id]) blocks.push({ ...ID_TO_TIME[id] });
+                                });
+                            } else if (p.parsed_blocks && Array.isArray(p.parsed_blocks)) {
+                                blocks = p.parsed_blocks;
+                            } else {
+                                if (p['المواعيد']) blocks.push(...parseTimeBlocks(p['المواعيد']));
+                                for (let i = 1; i <= 6; i++) {
+                                    const textVal = p[`موعد ${i}`] || p[`time ${i}`];
+                                    if (textVal) blocks.push(...parseTimeBlocks(textVal));
+                                }
+                                if (blocks.length === 0 && (p.time || p.timing)) blocks.push(...parseTimeBlocks(p.time || p.timing));
+                            }
+
+                            blocks.sort((a, b) => a.start - b.start);
+                            const merged = [];
+                            for (let b of blocks) {
+                                if (merged.length === 0) merged.push(b);
+                                else {
+                                    let last = merged[merged.length - 1];
+                                    if (b.start <= last.end) last.end = Math.max(last.end, b.end);
+                                    else merged.push(b);
+                                }
+                            }
+
+                            return {
+                                id: p.id || `u${index}_${Date.now()}`,
+                                name: p['الاسم'] || p['Column 1'] || p.name || p.participant || p.user || `User ${p.row_number || index + 1}`,
+                                color: COLORS[index % COLORS.length],
+                                blocks: merged,
+                                hidden: false
+                            };
+                        });
+
+                        setParticipants(mappedParticipants);
+                    } else {
+                        setErrorMsg(`❌ Error: Received status ${response.status}`);
+                    }
+                } catch (error) {
+                    setErrorMsg(`❌ Network Error: ${error.message}`);
+                } finally {
+                    setIsSyncing(false);
+                }
+            };
+
+            const addParticipant = () => {
+                if (!newUserName.trim()) return;
+                const newEntry = {
+                    id: `u${Date.now()}`,
+                    name: newUserName,
+                    color: COLORS[participants.length % COLORS.length],
+                    blocks: [],
+                    hidden: false
+                };
+                setParticipants([...participants, newEntry]);
+                setNewUserName('');
+                setIsModalOpen(false);
+            };
+
+            const removeParticipant = (id) => setParticipants(participants.filter(p => p.id !== id));
+            const toggleVisibility = (id) => setParticipants(participants.map(p => p.id === id ? { ...p, hidden: !p.hidden } : p));
+
+            const toggleBlock = (userId, hour) => {
+                setParticipants(prev => prev.map(p => {
+                    if (p.id !== userId) return p;
+                    const blockIdx = p.blocks.findIndex(b => hour >= b.start && hour < b.end);
+                    let newBlocks = [...p.blocks];
+                    if (blockIdx > -1) {
+                        const block = p.blocks[blockIdx];
+                        newBlocks.splice(blockIdx, 1);
+                        if (block.start === hour) {
+                            if (block.end > hour + 0.5) newBlocks.push({ start: hour + 0.5, end: block.end });
+                        } else if (block.end === hour + 0.5) {
+                            newBlocks.push({ start: block.start, end: hour });
+                        } else {
+                            newBlocks.push({ start: block.start, end: hour });
+                            newBlocks.push({ start: hour + 0.5, end: block.end });
+                        }
+                    } else {
+                        newBlocks.push({ start: hour, end: hour + 0.5 });
+                    }
+
+                    newBlocks.sort((a, b) => a.start - b.start);
+                    const merged = [];
+                    for (let b of newBlocks) {
+                        if (merged.length === 0) merged.push(b);
+                        else {
+                            let last = merged[merged.length - 1];
+                            if (b.start <= last.end) last.end = Math.max(last.end, b.end);
+                            else merged.push(b);
+                        }
+                    }
+                    return { ...p, blocks: merged };
+                }));
+            };
+
+            const activeParticipants = useMemo(() => participants.filter(p => !p.hidden), [participants]);
+
+            const mergedRects = useMemo(() => {
+                if (activeParticipants.length === 0) return [];
+                let rects = [];
+                for (let h of activeSlots) {
+                    let group = activeParticipants.map((p, i) => p.blocks.some(b => h >= b.start && h < b.end) ? i : -1).filter(i => i > -1);
+                    if (group.length > 0) {
+                        let last = rects[rects.length - 1];
+                        if (last && last.endSlot === h && JSON.stringify(last.users) === JSON.stringify(group)) last.endSlot = h + 0.5;
+                        else rects.push({ startSlot: h, endSlot: h + 0.5, users: group });
+                    }
+                }
+                return rects;
+            }, [activeParticipants, activeSlots]);
+
+            const bridgeRects = useMemo(() => {
+                if (activeParticipants.length === 0) return [];
+                let bridges = [];
+                for (let h of activeSlots) {
+                    let available = activeParticipants.map((p, i) => p.blocks.some(b => h >= b.start && h < b.end) ? i : -1).filter(i => i > -1);
+                    for (let k = 0; k < available.length - 1; k++) {
+                        if (available[k + 1] - available[k] > 1) {
+                            let last = bridges[bridges.length - 1];
+                            if (last && last.endSlot === h && last.topUser === available[k] && last.bottomUser === available[k+1]) last.endSlot = h + 0.5;
+                            else bridges.push({ startSlot: h, endSlot: h + 0.5, topUser: available[k], bottomUser: available[k+1] });
+                        }
+                    }
+                }
+                return bridges;
+            }, [activeParticipants, activeSlots]);
+
+            const queryResults = useMemo(() => {
+                if (queryStart >= queryEnd) return [];
+                return activeParticipants.filter(p => {
+                    const isAvailable = p.blocks.some(b => b.start <= queryStart && b.end >= queryEnd);
+                    return queryMode === 'available' ? isAvailable : !isAvailable;
+                });
+            }, [activeParticipants, queryStart, queryEnd, queryMode]);
+
+            const slotData = useMemo(() => {
+                return activeSlots.map(h => {
+                    const availablePeople = activeParticipants.filter(p => p.blocks.some(b => h >= b.start && h < b.end));
+                    return { h, count: availablePeople.length, total: activeParticipants.length };
+                });
+            }, [activeParticipants, activeSlots]);
+
+            const optimalWindows = useMemo(() => {
+                if (activeParticipants.length === 0) return [];
+                const windowLengths = [1, 1.5, 2];
+                let candidates = [];
+
+                for (let len of windowLengths) {
+                    const slotsNeeded = len * 2;
+                    for (let i = 0; i <= SLOTS.length - slotsNeeded; i++) {
+                        const startH = SLOTS[i];
+                        const endH = startH + len;
+                        const available = activeParticipants.filter(p => p.blocks.some(b => b.start <= startH && b.end >= endH));
+                        candidates.push({ start: startH, end: endH, duration: len, count: available.length, missing: activeParticipants.filter(p => !available.includes(p)) });
+                    }
+                }
+
+                candidates.sort((a, b) => b.count !== a.count ? b.count - a.count : b.duration - a.duration);
+                const finalSelection = [];
+                for (let c of candidates) {
+                    if (c.count === 0) continue;
+                    if (!finalSelection.some(sel => (c.start < sel.end && c.end > sel.start))) {
+                        finalSelection.push(c);
+                        if (finalSelection.length >= 4) break;
+                    }
+                }
+                return finalSelection;
+            }, [activeParticipants]);
+
+            return (
+                <div className="min-h-screen text-slate-100 p-4 md:p-8">
+                    <header className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6 glass-panel p-6 rounded-3xl shadow-2xl">
+                        <div>
+                            <h1 className="text-3xl md:text-4xl font-black tracking-tighter bg-gradient-to-r from-teal-400 to-cyan-500 bg-clip-text text-transparent uppercase flex items-center gap-3">
+                                <Target className="text-teal-400" size={32} /> Schedule Analytics
+                            </h1>
+                            <p className="text-slate-400 mt-2 text-sm font-medium flex items-center gap-2">
+                                <span className={`w-2 h-2 rounded-full ${isSyncing ? 'bg-amber-500 animate-ping' : 'bg-green-500 animate-pulse shadow-[0_0_8px_#22c55e]'}`}></span>
+                                {isSyncing ? 'Synchronizing payload...' : 'Live Dashboard Connected'}
+                            </p>
+                            {errorMsg && <p className="text-rose-500 text-sm mt-2 font-bold">{errorMsg}</p>}
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={() => setHideEarlyMorning(!hideEarlyMorning)}
+                                className={`flex items-center gap-2 px-4 py-3 rounded-2xl border transition-colors text-xs font-bold uppercase tracking-wider ${hideEarlyMorning ? 'bg-slate-800 border-slate-700 text-white' : 'bg-transparent border-slate-700 text-slate-400 hover:text-white'}`}
+                            >
+                                {hideEarlyMorning ? <EyeOffIcon size={16} className="text-slate-400" /> : <Eye size={16} className="text-slate-400" />}
+                                {hideEarlyMorning ? 'Showing 6AM-12AM' : 'Showing 24 Hours'}
+                            </button>
+                            <button
+                                onClick={fetchScheduleFromN8N}
+                                disabled={isSyncing}
+                                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 disabled:opacity-50 rounded-2xl transition-all shadow-lg shadow-cyan-500/20 group"
+                            >
+                                <RefreshCw size={18} className={`${isSyncing ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'}`} />
+                                <span className="font-bold tracking-wide uppercase text-sm">{isSyncing ? 'Fetching' : 'Push Data'}</span>
+                            </button>
+                        </div>
+                    </header>
+
+                    <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+                        {/* LEFT COLUMN: Insights & Roster */}
+                        <div className="lg:col-span-4 space-y-6 flex flex-col">
+
+                            {/* Time Query Tool */}
+                            <div className="glass-panel p-6 rounded-3xl shadow-xl border-t border-cyan-500/20">
+                                <h2 className="text-sm font-black uppercase tracking-widest mb-4 flex items-center gap-2 text-cyan-400">
+                                    <Search size={18} /> Time Query Tool
+                                </h2>
+                                <div className="grid grid-cols-2 gap-3 mb-4">
+                                    <div>
+                                        <label className="text-[10px] text-slate-500 uppercase font-bold mb-1 block">Start Time</label>
+                                        <select className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-white" value={queryStart} onChange={e => setQueryStart(Number(e.target.value))}>
+                                            {SLOTS.map(h => <option key={`start-${h}`} value={h}>{formatTime(h)}</option>)}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="text-[10px] text-slate-500 uppercase font-bold mb-1 block">End Time</label>
+                                        <select className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-white" value={queryEnd} onChange={e => setQueryEnd(Number(e.target.value))}>
+                                            {SLOTS.filter(h => h > queryStart).map(h => <option key={`end-${h}`} value={h}>{formatTime(h)}</option>)}
+                                            <option value={24}>12:00 AM</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="flex rounded-xl overflow-hidden border border-slate-700 mb-4">
+                                    <button onClick={() => setQueryMode('available')} className={`flex-1 text-[10px] py-2 font-black tracking-widest uppercase transition-colors ${queryMode === 'available' ? 'bg-teal-600 text-white' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'}`}>Available</button>
+                                    <button onClick={() => setQueryMode('missing')} className={`flex-1 text-[10px] py-2 font-black tracking-widest uppercase transition-colors ${queryMode === 'missing' ? 'bg-rose-600 text-white' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'}`}>Missing</button>
+                                </div>
+                                <div className="max-h-[150px] overflow-y-auto pr-2 space-y-1.5">
+                                    {queryResults.length === 0 && <p className="text-xs text-slate-500 text-center py-2 italic">No participants match.</p>}
+                                    {queryResults.map(r => (
+                                        <div key={r.id} className="text-xs font-bold text-slate-300 py-1.5 px-3 bg-slate-900/50 rounded-lg flex items-center gap-2 border border-slate-800/50">
+                                            <div className="w-2 h-2 rounded-full shadow-sm" style={{ backgroundColor: r.color }}></div>
+                                            {r.name}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Optimal Windows Panel */}
+                            <div className="glass-panel p-6 rounded-3xl shadow-xl border-t border-teal-500/20">
+                                <h2 className="text-sm font-black uppercase tracking-widest mb-6 flex items-center gap-2 text-teal-400">
+                                    <Zap size={18} /> Optimal Meeting Times
+                                </h2>
+                                <div className="space-y-4">
+                                    {optimalWindows.length > 0 ? (
+                                        optimalWindows.map((win, i) => (
+                                            <div key={i} className="bg-slate-900/80 p-4 rounded-2xl border border-slate-700/50 shadow-md">
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <span className="font-mono text-teal-300 text-sm font-bold">
+                                                        {formatTime(win.start)} - {formatTime(win.end)}
+                                                    </span>
+                                                    <span className={`text-[10px] px-2 py-1 rounded-lg font-black tracking-tighter uppercase ${win.count === activeParticipants.length ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-cyan-500/20 text-cyan-400'}`}>
+                                                        {win.count}/{activeParticipants.length} available
+                                                    </span>
+                                                </div>
+                                                {win.missing.length > 0 ? (
+                                                    <div className="mt-3 pt-3 border-t border-slate-800">
+                                                        <p className="text-[10px] text-slate-500 font-bold uppercase mb-1">Missing ({win.missing.length}):</p>
+                                                        <div className="flex flex-wrap gap-1">
+                                                            {win.missing.map(m => (
+                                                                <span key={m.id} className="text-[10px] px-2 py-0.5 bg-rose-500/10 text-rose-300 rounded border border-rose-500/20 truncate max-w-[120px]">
+                                                                    {m.name}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="mt-3 pt-3 border-t border-slate-800 flex items-center gap-2 text-green-400 text-xs font-bold">
+                                                        <Zap size={14} className="text-green-400" /> Perfect Attendance!
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="text-slate-500 text-sm text-center py-6 border border-dashed border-slate-700 rounded-2xl">No viable overlapping windows found.</p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Roster Panel */}
+                            <div className="glass-panel p-6 rounded-3xl shadow-xl flex-1 flex flex-col min-h-[300px]">
+                                <div className="flex justify-between items-center mb-6">
+                                    <h2 className="text-sm font-black uppercase tracking-widest flex items-center gap-2 text-slate-300">
+                                        <Users size={18} /> Roster ({participants.length})
+                                    </h2>
+                                    <button onClick={() => setIsModalOpen(true)} className="p-1.5 bg-slate-800 hover:bg-teal-500/20 text-slate-400 hover:text-teal-400 rounded-xl transition-all"><UserPlus size={16} /></button>
+                                </div>
+                                <div className="space-y-2 overflow-y-auto pr-2 flex-1">
+                                    {participants.length === 0 && (
+                                        <div className="text-center text-slate-500 text-sm py-8 border border-dashed border-slate-700 rounded-2xl">No payload received.</div>
+                                    )}
+                                    {participants.map(p => (
+                                        <div key={p.id} className={`flex items-center justify-between group p-3 rounded-2xl border transition-all ${p.hidden ? 'bg-slate-900/30 border-slate-800/50 opacity-60' : 'bg-slate-900/50 border-slate-800 hover:border-slate-600'}`}>
+                                            <div className="flex items-center gap-3 overflow-hidden">
+                                                <div className={`w-3 h-3 rounded-full shadow-sm flex-shrink-0 ${p.hidden ? 'grayscale' : ''}`} style={{ backgroundColor: p.color }}></div>
+                                                <span className={`text-sm font-bold truncate ${p.hidden ? 'text-slate-500 line-through' : 'text-slate-200'}`}>{p.name}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <button onClick={() => toggleVisibility(p.id)} className={`p-1 flex-shrink-0 transition-colors ${p.hidden ? 'text-slate-600 hover:text-slate-400' : 'text-teal-400 hover:text-teal-300'}`}>
+                                                    {p.hidden ? <EyeOff size={16} /> : <Eye size={16} />}
+                                                </button>
+                                                <button onClick={() => removeParticipant(p.id)} className="text-slate-600 opacity-0 group-hover:opacity-100 hover:text-rose-500 transition-all p-1 flex-shrink-0"><Trash2 size={14} /></button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* RIGHT COLUMN: Interactive Timeline */}
+                        <div className="lg:col-span-8 space-y-6">
+                            <div className="glass-panel rounded-[2rem] border border-slate-700/50 shadow-2xl overflow-hidden flex flex-col h-full max-h-[85vh]">
+
+                                {/* Unified Scroll Container */}
+                                <div className="overflow-auto flex flex-col h-full relative">
+                                    <div className="min-w-max pb-6">
+
+                                        {/* Sticky Header & Heatmap */}
+                                        <div className="sticky-header pt-6 px-6 pb-4">
+                                            <div className="grid grid-cols-[160px_1fr] items-end mb-4">
+                                                <div className="sticky-corner text-[10px] text-slate-500 uppercase font-black tracking-widest pb-1 pr-4 bg-[#020617]">Availability<br />Heatmap</div>
+                                                <div className="grid gap-0.5 h-10 items-end" style={{ gridTemplateColumns: `repeat(${activeSlots.length}, minmax(20px, 1fr))` }}>
+                                                    {slotData.map(slot => {
+                                                        const intensity = slot.total > 0 ? (slot.count / slot.total) : 0;
+                                                        return (
+                                                            <div
+                                                                key={slot.h}
+                                                                className="w-full rounded-t-sm transition-all duration-300 relative group"
+                                                                style={{
+                                                                    height: `${Math.max(10, intensity * 100)}%`,
+                                                                    backgroundColor: intensity === 0 ? '#1e293b' : `rgba(20, 184, 166, ${Math.max(0.2, intensity)})`,
+                                                                    borderTop: intensity > 0 ? '1px solid rgba(45, 212, 191, 0.5)' : 'none'
+                                                                }}
+                                                            >
+                                                                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50">
+                                                                    {slot.count}/{slot.total} available
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-[160px_1fr]">
+                                                <div className="sticky-left-col pr-4 border-r border-slate-800 bg-[#020617]"></div>
+                                                <div className="grid gap-0.5 relative" style={{ gridTemplateColumns: `repeat(${activeSlots.length}, minmax(20px, 1fr))` }}>
+                                                    {activeSlots.map(h => (
+                                                        <div key={h} className="text-[9px] font-mono text-center font-bold text-slate-500 pb-2 border-b-2 border-slate-800">
+                                                            {Number.isInteger(h) ? (h === 24 ? '00' : h.toString().padStart(2, '0')) : ''}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Scrollable Rows Body */}
+                                        <div className="px-6 pt-4 relative">
+
+                                            <div className="absolute inset-y-0 left-6 right-6 grid grid-cols-[160px_1fr] pointer-events-none z-0">
+                                                <div className="border-r border-slate-800"></div>
+                                                <div className="grid gap-0.5 h-full" style={{ gridTemplateColumns: `repeat(${activeSlots.length}, minmax(20px, 1fr))` }}>
+                                                    {activeSlots.map(h => (
+                                                        <div key={h} className={`h-full ${Number.isInteger(h) ? 'border-r border-slate-700/30' : 'border-r border-slate-800/20'}`}></div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-4 relative z-10">
+                                                {activeParticipants.map((user, rowIdx) => (
+                                                    <div 
+                                                        key={user.id} 
+                                                        draggable
+                                                        onDragStart={(e) => handleDragStart(e, rowIdx)}
+                                                        onDragOver={(e) => handleDragOver(e, rowIdx)}
+                                                        onDrop={(e) => handleDrop(e, rowIdx)}
+                                                        className={`grid grid-cols-[160px_1fr] items-center relative transition-transform ${draggedUserIdx === rowIdx ? 'opacity-50 scale-[0.98]' : ''}`}
+                                                    >
+                                                        {/* Sticky Name & Color Box */}
+                                                        <div className="sticky-left-col pr-4 truncate flex items-center gap-2 py-2 border-r border-slate-800/50 bg-[#020617] cursor-grab active:cursor-grabbing">
+                                                            <GripVertical size={14} className="text-slate-500 hover:text-slate-300 transition-colors flex-shrink-0" />
+                                                            <div className="w-3 h-3 rounded-full flex-shrink-0 shadow-[0_0_8px_currentColor]" style={{ backgroundColor: user.color, color: user.color }}></div>
+                                                            <div className="text-xs font-bold text-slate-200 truncate" title={user.name}>{user.name}</div>
+                                                        </div>
+
+                                                        <div className="grid gap-0.5 h-10 bg-slate-900/60 rounded-xl p-0.5 border border-slate-800 relative shadow-inner" style={{ gridTemplateColumns: `repeat(${activeSlots.length}, minmax(20px, 1fr))` }}>
+                                                            {activeSlots.map(h => (
+                                                                <div
+                                                                    key={h}
+                                                                    onClick={() => toggleBlock(user.id, h)}
+                                                                    className="h-full cursor-pointer hover:bg-white/5 rounded-sm transition-colors"
+                                                                />
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {/* Merged Blocks Overlay */}
+                                            <div className="absolute inset-y-0 left-6 right-6 grid grid-cols-[160px_1fr] pointer-events-none z-20 pt-4">
+                                                <div></div>
+                                                <div className="relative w-full h-full">
+                                                    <div className="absolute inset-x-0 top-0 grid gap-0.5 px-[3px]" style={{ gridTemplateColumns: `repeat(${activeSlots.length}, minmax(20px, 1fr))` }}>
+                                                        {mergedRects.map((rect, idx) => {
+                                                            const displayStart = Math.max(activeSlots[0], rect.startSlot);
+                                                            const displayEnd = Math.min(activeSlots[activeSlots.length - 1] + 0.5, rect.endSlot);
+                                                            if (displayStart >= displayEnd) return null;
+
+                                                            const startIndex = activeSlots.indexOf(displayStart);
+                                                            const endIndex = activeSlots.indexOf(displayEnd - 0.5) + 1;
+                                                            if (startIndex === -1 || endIndex === 0) return null;
+
+                                                            const colStart = startIndex + 1;
+                                                            const colEnd = endIndex + 1;
+                                                            const lengthInSlots = colEnd - colStart;
+
+                                                            const top = rect.users[0] * 56;
+                                                            const height = rect.users.length * 40 + (rect.users.length - 1) * 16;
+                                                            const isMerged = rect.users.length > 1;
+                                                            const baseColor = isMerged ? '#0ea5e9' : activeParticipants[rect.users[0]].color;
+
+                                                            return (
+                                                                <div
+                                                                    key={'rect-' + rect.users.join('-') + '-' + rect.startSlot}
+                                                                    className={`absolute left-0 right-0 rounded-lg overflow-hidden border border-white/20 z-20 pointer-events-none ${isMerged ? 'shadow-[0_0_20px_rgba(14,165,233,0.4)]' : 'shadow-md'}`}
+                                                                    style={{
+                                                                        gridColumnStart: colStart,
+                                                                        gridColumnEnd: colEnd,
+                                                                        top: `${top + 3}px`,
+                                                                        height: `${height - 6}px`,
+                                                                        width: '100%',
+                                                                        background: isMerged 
+                                                                            ? `linear-gradient(135deg, ${baseColor}dd, #14b8a6bb)` 
+                                                                            : `linear-gradient(135deg, ${baseColor}dd, ${baseColor}99)`,
+                                                                    }}
+                                                                >
+                                                                    <div className="absolute inset-x-0 top-0 h-1/2 bg-white/10 pointer-events-none"></div>
+                                                                    {Array.from({ length: Math.max(0, lengthInSlots - 1) }).map((_, i) => (
+                                                                        <div 
+                                                                            key={i} 
+                                                                            className="absolute top-0 bottom-0 w-[1px] bg-white/40 shadow-[0_0_6px_rgba(255,255,255,0.8)] pointer-events-none" 
+                                                                            style={{ left: `${((i + 1) / lengthInSlots) * 100}%` }}
+                                                                        ></div>
+                                                                    ))}
+                                                                    {isMerged && (
+                                                                        <div className="absolute inset-0 flex items-center justify-center opacity-50">
+                                                                            <Zap size={16} className="text-white drop-shadow-md" />
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            );
+                                                        })}
+
+                                                        {/* Bridge Render */}
+                                                        {bridgeRects.map((bridge, idx) => {
+                                                            const displayStart = Math.max(activeSlots[0], bridge.startSlot);
+                                                            const displayEnd = Math.min(activeSlots[activeSlots.length - 1] + 0.5, bridge.endSlot);
+                                                            if (displayStart >= displayEnd) return null;
+
+                                                            const startIndex = activeSlots.indexOf(displayStart);
+                                                            const endIndex = activeSlots.indexOf(displayEnd - 0.5) + 1;
+                                                            if (startIndex === -1 || endIndex === 0) return null;
+
+                                                            const colStart = startIndex + 1;
+                                                            const colEnd = endIndex + 1;
+
+                                                            // Calculate exact bridge gap
+                                                            const top = bridge.topUser * 56 + 37;
+                                                            const height = (bridge.bottomUser * 56 + 3) - top;
+
+                                                            return (
+                                                                <div
+                                                                    key={`bridge-${bridge.topUser}-${bridge.bottomUser}-${bridge.startSlot}`}
+                                                                    className="absolute left-0 right-0 z-10 opacity-60 pointer-events-none"
+                                                                    style={{
+                                                                        gridColumnStart: colStart,
+                                                                        gridColumnEnd: colEnd,
+                                                                        top: `${top}px`,
+                                                                        height: `${height}px`,
+                                                                        width: '100%',
+                                                                        background: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(14,165,233,0.15) 10px, rgba(14,165,233,0.15) 20px)'
+                                                                    }}
+                                                                >
+                                                                    <div className="absolute inset-y-0 left-0 border-l-2 border-dashed border-cyan-500/40" />
+                                                                    <div className="absolute inset-y-0 right-0 border-r-2 border-dashed border-cyan-500/40" />
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+
+                    {/* Debug Payload Box */}
+                    <div className="max-w-7xl mx-auto mt-8 glass-panel p-6 rounded-3xl border border-slate-700/50">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-xs font-black uppercase tracking-[0.2em] flex items-center gap-2 text-slate-400">
+                                <Terminal size={16} /> Debug Payload
+                            </h3>
+                            <button
+                                onClick={() => setShowWebhookLog(!showWebhookLog)}
+                                className="text-[10px] uppercase font-bold bg-slate-800 px-3 py-1 rounded-lg hover:bg-slate-700 transition-colors"
+                            >
+                                {showWebhookLog ? 'Hide' : 'Show JSON'}
+                            </button>
+                        </div>
+                        {showWebhookLog && (
+                            <pre className="text-[10px] font-mono text-teal-300 bg-slate-950 p-4 rounded-xl overflow-x-auto border border-slate-800 max-h-[300px] overflow-y-auto">
+                                {JSON.stringify(participants, null, 2)}
+                            </pre>
+                        )}
+                    </div>
+
+                    {isModalOpen && (
+                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+                            <div className="bg-slate-900 border border-slate-700 w-full max-w-sm rounded-3xl p-8 shadow-2xl">
+                                <div className="flex justify-between items-center mb-6">
+                                    <h3 className="text-lg font-black uppercase tracking-tight text-white">Add Participant</h3>
+                                    <button onClick={() => setIsModalOpen(false)} className="text-slate-500 hover:text-white"><X size={20} /></button>
+                                </div>
+                                <input
+                                    autoFocus
+                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-4 text-sm text-white focus:outline-none focus:border-teal-500 mb-6"
+                                    placeholder="Enter Name..."
+                                    value={newUserName}
+                                    onChange={(e) => setNewUserName(e.target.value)}
+                                    onKeyDown={(e) => e.key === 'Enter' && addParticipant()}
+                                />
+                                <button onClick={addParticipant} className="w-full py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-xl font-bold text-sm uppercase tracking-wider transition-all">Add To Roster</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<ErrorBoundary><App /></ErrorBoundary>);
+    </script>
+</body>
+
+</html>

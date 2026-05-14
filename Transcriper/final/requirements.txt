@@ -1,0 +1,6 @@
+gradio
+beautifulsoup4
+python-docx
+pywin32
+Pillow
+requests

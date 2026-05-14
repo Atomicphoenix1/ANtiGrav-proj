@@ -1,0 +1,75 @@
+{
+  "name": "mp3",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "sendAudio",
+        "chatId": "-5252913902",
+        "binaryData": true,
+        "binaryPropertyName": "mp3",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        64,
+        -48
+      ],
+      "id": "55599c46-a1c2-47d0-9394-c6dacb05b354",
+      "name": "Send an audio file",
+      "webhookId": "3418ed38-4549-4975-8249-20d4202ddb42",
+      "credentials": {
+        "telegramApi": {
+          "id": "jFH4UglkbhsurCN7",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "6973bd50-c567-4e5b-8c56-51d59318dadd",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -160,
+        -48
+      ],
+      "id": "afd78140-c49a-4732-8596-a5c9ade94e72",
+      "name": "Webhook1",
+      "webhookId": "1a536908-0e0e-486d-841b-f7339c4e99fb"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Send an audio file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "arhG4q9xBUKGmRUr",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false
+  },
+  "versionId": "5ff5bd78-dd6f-4020-b3a6-3d6000ff3bc0",
+  "meta": {
+    "instanceId": "c76f59e425d7f4af4e3b3a4d44c6b80afa1d7eb0696ee9d59a98986a78c78284"
+  },
+  "id": "9fQvrbpzDsgFHOlP",
+  "tags": []
+}
