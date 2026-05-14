@@ -1,6 +1,0 @@
-
-[Odd/Primary Page Header]
-  Line 1: Text: 'كتاب التوحيد' (Font: None, Size: 16.0, Bold: True)
-
-[Even Page Header]
-  Line 1: Text: 'للشيخ محمد بن عبد الوهاب' (Font: None, Size: 16.0, Bold: True)
