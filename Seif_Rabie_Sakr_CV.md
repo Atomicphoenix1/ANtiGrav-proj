@@ -46,7 +46,7 @@ Junior Nano Science student at Zewail City with a 3.82 GPA and a strong academic
 
 **Computational Chemistry & Material Characterization** *(Academic)*
 - Conducted quantum chemistry computational calculations utilizing **Gaussian** software as part of a side internship.
-- Authored detailed coursework reports for **Analytical & Physical Chemistry**, **Nano Fabrication**, and **Modern Characterization** courses.
+- Authored  coursework reports for **Analytical & Physical Chemistry**, **Nano Fabrication**, and **Modern Characterization** courses.
 - Documented experimental procedures for the synthesis and characterization of nanomaterials including **AgNPs**, **AuNPs**, **Lipid NPs**, **SPIONS**, and **Micelles**, utilizing techniques such as **AFM** and **STM** microscopy.
 
 ---

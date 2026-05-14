@@ -1,56 +1,30 @@
-# Islamic Lecture Formatter — Final Production Suite
+# Deterministic Document Formatting Suite
 
-This folder contains the complete, automated pipeline for formatting Islamic lecture transcripts into scholarly-compliant Microsoft Word documents.
+A 4-stage automation workflow designed to transform audio lectures into professionally formatted, publication-ready documents. While the initial transcription utilizes AI for text generation, the **workflow orchestration is entirely deterministic**, ensuring consistent and predictable output.
 
-## 📂 Folder Structure
-- `run.py`: The main script you will use to generate documents.
-- `v2_formatter.py`: The formatting engine (don't edit).
-- `tagging_prompt.md`: The instructions to copy-paste into AI Studio.
-- `sample.md`: A complete example of a tagged transcript.
-- `fasils.py`: Decorative symbols for section breaks.
-- `backup/`: A folder for you to keep copies of your transcripts.
+## ⚙️ The Workflow Mechanism
 
----
+### Stage 1: Transcription (AI Studio)
+- **Action:** Audio files are processed using high-precision prompts on **AI Studio** (Gemini/Whisper) to generate a raw text transcript.
 
-## 🚀 How to Use (3-Step Workflow)
+### Stage 2: Prompt-based Tagging
+- **Action:** The raw transcript is passed through a secondary tagging prompt.
+- **Goal:** Identifying structural elements such as headers, "Matn" (source text), and Q&A segments with predetermined tags.
 
-### Step 1: AI Studio Tagging
-1. Open a new chat in **AI Studio** (gemini-1.5-pro or 1.5-flash).
-2. Copy the entire contents of `tagging_prompt.md` and paste it into the chat.
-3. Paste your raw transcription text after the prompt and press Enter.
-4. When it finishes, click the **"Copy Markdown"** button (this is crucial to keep the tags).
+### Stage 3: Python Formatting Engine
+- **Logic:** A custom Python script imports the tagged Markdown.
+- **Formatting:** It applies specific styles to each tag using a **`.docx` template**.
+- **Output:** Automatically exports both a **Microsoft Word (.docx)** and **PDF** version of the document.
 
-### Step 2: Save the File
-1. Paste the tagged text into a new text file inside this folder.
-2. Save it with a `.md` extension (e.g., `lesson_01.md`).
+### Stage 4: n8n Distribution & Human Approval
+- **Orchestration:** The files are linked to an **n8n workflow**.
+- **Process:** 
+  1. The workflow sends the files to a **Telegram Admin Bot** for review.
+  2. The system waits for **Human Approval**.
+  3. Once approved, the workflow automatically forwards the final documents to the designated public/private distribution chat.
 
-### Step 3: Generate the Word Doc
-You have two options:
-
-#### Option A: Web Interface (Easiest)
-1. Run: `python gradio_app.py`
-2. Enter the output name and paste the tagged text.
-3. Click "Generate". It will automatically create DOCX/PDF and send them to Telegram.
-
-#### Option B: Terminal
-1. Save the tagged text as `lecture.md` and run:
-   ```bash
-   python run.py lecture.md
-   ```
+## 🛠️ Design Philosophy
+This system is **NOT an AI agent pipeline**. It is a structured, code-driven workflow that uses AI as a tool for the *transcription* component while maintaining total control over the formatting and distribution logic.
 
 ---
-
-## 🛠 Features
-- **Automatic PDF**: Every DOCX is automatically converted to PDF.
-- **n8n/Telegram Integration**: Documents are sent to your Telegram via n8n immediately after creation.
-- **End Symbol**: Documents now end with a decorative green symbol automatically.
-
----
-
-## 🎨 Setting the Icon
-To use the `app_icon.ico` for the launcher:
-1. Right-click `Start_Formatter.bat` and select **Create Shortcut**.
-2. Right-click the new shortcut and select **Properties**.
-3. Go to the **Shortcut** tab and click **Change Icon...**.
-4. Click **Browse...** and select `app_icon.ico` from this folder.
-5. Click **OK** and rename the shortcut to "Islamic Formatter".
+*Developed as part of the ANtiGrav Automation Series.*
