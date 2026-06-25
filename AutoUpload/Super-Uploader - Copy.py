@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore", message="torchcodec")
 # =========================================================================
 # ⚙️ PORTABILITY CONFIGURATION
 # =========================================================================
-GEMINI_API_KEY = "AQ.Ab8RN6L0epbx7yKIz0sl_M-hZPdTc_GH-0m9tiQuJg4J1APKVA"
+GEMINI_API_KEY = ""
 V2_FORMATTER_DIR = r"C:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload"
 WORD_TEMPLATE_PATH = r"C:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\template.docx"
 

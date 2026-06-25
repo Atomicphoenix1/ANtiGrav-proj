@@ -24,7 +24,7 @@ warnings.filterwarnings("ignore", message="torchcodec")
 # ⚙️ PORTABILITY CONFIGURATION
 # =========================================================================
 GEMINI_API_KEY = ""
-DASHSCOPE_API_KEY = "sk-ws-H.IHXHXE.GItf.MEQCIF-i2YB42gqFUgULkrcEIGM1E3dF_Jak6e2FoH5H2QMaAiANIa0IkPoM_H-7ORx2rpdkCD0bGinvXeX6A3hQs4OgXA"
+DASHSCOPE_API_KEY = ""
 DASHSCOPE_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 V2_FORMATTER_DIR = r"C:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload"
 WORD_TEMPLATE_PATH = r"C:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\template.docx"

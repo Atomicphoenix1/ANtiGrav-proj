@@ -3,7 +3,7 @@ import os
 # Load API keys from env
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyDWw-nuW8sOAPldx5j6lh6qoyUM1GagNA0")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
 # Proxy configuration
 PORT = int(os.environ.get("PORT", "8000"))

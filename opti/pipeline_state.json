@@ -1,5 +1,5 @@
 {
-  "gemini_api_key": "AQ.Ab8RN6IJxxix6hZDrf9dQ1iLyCtpzsrM5Oqu-3jJh9rBphDmGw",
+  "gemini_api_key": "",
   "n8n_webhook_url": "",
   "n8n_log_bridge_enabled": false,
   "last_model": "gemini-3-flash-preview",

@@ -32,7 +32,7 @@ except ImportError:
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_FILE_PATH = os.path.join(SCRIPT_DIR, "n8n_live_logs.txt")
 
-GEMINI_API_KEY = "AQ.Ab8RN6L0epbx7yKIz0sl_M-hZPdTc_GH-0m9tiQuJg4J1APKVA"
+GEMINI_API_KEY = ""
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3-flash-preview")
 
 
