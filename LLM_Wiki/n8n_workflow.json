@@ -1,0 +1,300 @@
+{
+  "name": "Antigravity Telegram LLM Wiki Integrator",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "telegram-trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        380,
+        240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-api-credentials-placeholder",
+          "name": "Telegram Bot API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValueString": "={{ $json.message.text }}",
+                  "rightValueString": "❓"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "operator": "startsWith",
+                    "rightValue": "❓"
+                  }
+                ]
+              },
+              "renameKey": "question_query"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValueString": "={{ $json.message.text }}",
+                  "rightValueString": "💡"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "operator": "startsWith",
+                    "rightValue": "💡"
+                  },
+                  {
+                    "leftValue": "={{ $json.message.reply_to_message }}",
+                    "operator": "exists"
+                  }
+                ]
+              },
+              "renameKey": "mufti_answer"
+            }
+          ]
+        },
+        "fallbackOutput": "ignore"
+      },
+      "id": "route-message",
+      "name": "Route Telegram Message",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        600,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.BACKEND_API_URL }}/add-qa",
+        "sendHeaders": true,
+        "headersUi": {
+          "parameter": [
+            {
+              "name": "X-API-Key",
+              "value": "={{ $env.BACKEND_SECURITY_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "question",
+              "value": "={{ $json.message.reply_to_message.text.replace('❓', '').trim() }}"
+            },
+            {
+              "name": "answer",
+              "value": "={{ $json.message.text.replace('💡', '').trim() }}"
+            },
+            {
+              "name": "asker_id",
+              "value": "={{ $json.message.reply_to_message.from.id.toString() }}"
+            },
+            {
+              "name": "message_id",
+              "value": "={{ $json.message.reply_to_message.message_id.toString() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "api-add-qa",
+      "name": "Add QA to Wiki API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        860,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.BACKEND_API_URL }}/search",
+        "sendHeaders": true,
+        "headersUi": {
+          "parameter": [
+            {
+              "name": "X-API-Key",
+              "value": "={{ $env.BACKEND_SECURITY_TOKEN }}"
+            }
+          ]
+        },
+        "sendQueryParameters": true,
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "q",
+              "value": "={{ $json.message.text.replace('❓', '').trim() }}"
+            },
+            {
+              "name": "threshold",
+              "value": "0.6"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "api-search",
+      "name": "Search Wiki RAG API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        860,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.answer }}",
+        "additionalFields": {
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        }
+      },
+      "id": "telegram-send-answer",
+      "name": "Reply with Search Result",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        140
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-api-credentials-placeholder",
+          "name": "Telegram Bot API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "تمت أرشفة هذه الفتوى بنجاح في الويكي الخاص بك! ✅",
+        "additionalFields": {
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        }
+      },
+      "id": "telegram-confirm-add",
+      "name": "Confirm Wiki Archive",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        340
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-api-credentials-placeholder",
+          "name": "Telegram Bot API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.found_match }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-match-found",
+      "name": "If Match Found",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        140
+      ]
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Route Telegram Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Telegram Message": {
+      "main": [
+        [
+          {
+            "node": "Search Wiki RAG API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Add QA to Wiki API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Wiki RAG API": {
+      "main": [
+        [
+          {
+            "node": "check-match-found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add QA to Wiki API": {
+      "main": [
+        [
+          {
+            "node": "Confirm Wiki Archive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check-match-found": {
+      "main": [
+        [
+          {
+            "node": "Reply with Search Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

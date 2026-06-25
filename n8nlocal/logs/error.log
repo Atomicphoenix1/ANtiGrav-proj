@@ -1,0 +1,85 @@
+2026-05-27 23:00:55 +03:00: C:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2026-05-27 23:00:55 +03:00: :: Created by npm, please don't edit manually.
+2026-05-27 23:00:55 +03:00: ^
+2026-05-27 23:00:55 +03:00: 
+2026-05-27 23:00:55 +03:00: SyntaxError: Unexpected token ':'
+2026-05-27 23:00:55 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2026-05-27 23:00:55 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2026-05-27 23:00:55 +03:00:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2026-05-27 23:00:55 +03:00:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2026-05-27 23:00:55 +03:00:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2026-05-27 23:00:55 +03:00:     at Object.<anonymous> (C:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\n8nlocal\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-05-27 23:00:55 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2026-05-27 23:00:55 +03:00:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2026-05-27 23:00:55 +03:00:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2026-05-27 23:00:55 +03:00:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2026-05-27 23:00:56 +03:00: C:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2026-05-27 23:00:56 +03:00: :: Created by npm, please don't edit manually.
+2026-05-27 23:00:56 +03:00: ^
+2026-05-27 23:00:56 +03:00: 
+2026-05-27 23:00:56 +03:00: SyntaxError: Unexpected token ':'
+2026-05-27 23:00:56 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2026-05-27 23:00:56 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2026-05-27 23:00:56 +03:00:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2026-05-27 23:00:56 +03:00:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2026-05-27 23:00:56 +03:00:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2026-05-27 23:00:56 +03:00:     at Object.<anonymous> (C:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\n8nlocal\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-05-27 23:00:56 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2026-05-27 23:00:56 +03:00:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2026-05-27 23:00:56 +03:00:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2026-05-27 23:00:56 +03:00:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2026-05-28 00:00:42 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-05-28 00:02:49 +03:00: (node:10716) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-05-28 00:02:49 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-05-29 21:16:33 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-05-29 21:18:37 +03:00: (node:6340) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-05-29 21:18:37 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-05-30 10:23:33 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-05-30 10:24:41 +03:00: (node:10680) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-05-30 10:24:41 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-05-30 10:46:23 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-05-30 10:47:04 +03:00: (node:20244) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-05-30 10:47:04 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-02 14:57:33 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 14:58:55 +03:00: (node:32784) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-06-02 14:58:55 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-02 15:08:48 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:19:23 +03:00: (node:1964) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-06-02 15:19:23 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-02 15:43:43 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:44:15 +03:00: (node:29408) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-06-02 15:44:15 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-02 15:54:01 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:54:25 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:54:54 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:55:23 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:55:52 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:56:21 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:56:51 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:57:23 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:58:36 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-02 15:59:59 +03:00: (node:24716) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-06-02 15:59:59 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-02 22:33:11 +03:00: (node:24716) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+2026-06-03 14:24:42 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-03 14:25:49 +03:00: (node:16028) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-06-03 14:25:49 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-03 14:38:22 +03:00: (node:16028) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+2026-06-04 19:25:52 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-04 19:28:17 +03:00: (node:31792) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-06-04 19:28:17 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-04 20:56:33 +03:00: (node:31792) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+2026-06-07 19:41:30 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-07 20:20:16 +03:00: (node:29104) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+2026-06-07 20:20:16 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-18 09:49:46 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-18 09:52:03 +03:00: (node:18648) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-06-18 09:52:03 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-18 16:15:11 +03:00: (node:18648) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+2026-06-21 06:54:21 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-22 13:55:21 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-22 13:56:07 +03:00: (node:11024) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+2026-06-22 13:56:07 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-23 17:28:21 +03:00: Ignoring N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS as it is not supported on Windows.
+2026-06-23 17:30:22 +03:00: (node:29036) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+2026-06-23 17:30:22 +03:00: (Use `node --trace-deprecation ...` to show where the warning was created)

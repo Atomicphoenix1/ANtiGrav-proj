@@ -1,0 +1,18 @@
+/* PixelSmith Animation Lab — Generated CSS */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Fade in from transparent to opaque */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fadeIn var(--duration, 300ms) var(--easing, ease-out) forwards;
+}

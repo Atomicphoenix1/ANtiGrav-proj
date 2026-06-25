@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CachePilot | Prompt Caching Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+    <div class="glow-bg"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="glass-card header">
+            <div class="logo">
+                <i class="fa-solid fa-bolt logo-icon"></i>
+                <h1>Cache<span>Pilot</span></h1>
+            </div>
+            <div class="header-right">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span class="status-text">Proxy Active</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Overview Cards -->
+        <section class="stats-grid">
+            <div class="glass-card stat-card">
+                <div class="stat-icon savings-icon"><i class="fa-solid fa-wallet"></i></div>
+                <div class="stat-info">
+                    <h3>Money Saved</h3>
+                    <p id="stat-money-saved">$0.0000</p>
+                    <span class="stat-subtext">Estimated USD saved</span>
+                </div>
+            </div>
+            <div class="glass-card stat-card">
+                <div class="stat-icon rate-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="stat-info">
+                    <h3>Cache Hit Rate</h3>
+                    <p id="stat-hit-rate">0.0%</p>
+                    <span class="stat-subtext">Tokens from cache</span>
+                </div>
+            </div>
+            <div class="glass-card stat-card">
+                <div class="stat-icon tokens-icon"><i class="fa-solid fa-database"></i></div>
+                <div class="stat-info">
+                    <h3>Cached Tokens</h3>
+                    <p id="stat-cached-tokens">0</p>
+                    <span class="stat-subtext" id="stat-total-tokens">of 0 total input tokens</span>
+                </div>
+            </div>
+            <div class="glass-card stat-card">
+                <div class="stat-icon speed-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                <div class="stat-info">
+                    <h3>Avg Latency</h3>
+                    <p id="stat-latency">0 ms</p>
+                    <span class="stat-subtext">Round trip response</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts -->
+        <section class="analytics-row">
+            <div class="glass-card chart-container">
+                <h2>Cache Efficiency (Daily)</h2>
+                <div class="chart-wrapper">
+                    <canvas id="efficiencyChart"></canvas>
+                </div>
+            </div>
+            <div class="glass-card chart-container">
+                <h2>Accumulated Savings</h2>
+                <div class="chart-wrapper">
+                    <canvas id="savingsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Requests Log -->
+        <section class="glass-card requests-log">
+            <div class="log-header">
+                <h2>Intercepted Requests <span id="req-count" class="req-count-badge">0</span></h2>
+                <div class="log-controls">
+                    <input type="text" id="filter-input" placeholder="Filter by app, model, provider…" class="filter-input">
+                    <button id="refresh-btn" class="btn"><i class="fa-solid fa-rotate"></i> Refresh</button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table class="requests-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Time</th>
+                            <th>App / Agent</th>
+                            <th>Provider</th>
+                            <th>Model</th>
+                            <th>Input</th>
+                            <th>Cached</th>
+                            <th>Output</th>
+                            <th>Savings</th>
+                            <th>Latency</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="requests-tbody">
+                        <tr>
+                            <td colspan="12" class="empty-state">
+                                <i class="fa-solid fa-satellite-dish" style="font-size: 2rem; margin-bottom: 0.75rem; opacity: 0.4;"></i>
+                                <br>No requests intercepted yet.<br>
+                                <small>Point your agent base URL to <code>http://localhost:8000</code></small>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-box glass-card">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <span id="modal-badge" class="badge"></span>
+                    <h3 id="modal-title">Request Details</h3>
+                </div>
+                <button id="modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Meta strip -->
+            <div class="modal-meta-strip">
+                <div class="meta-item"><span class="meta-label">App</span><span id="meta-app">—</span></div>
+                <div class="meta-item"><span class="meta-label">Model</span><span id="meta-model">—</span></div>
+                <div class="meta-item"><span class="meta-label">Endpoint</span><span id="meta-endpoint">—</span></div>
+                <div class="meta-item"><span class="meta-label">Status</span><span id="meta-status">—</span></div>
+                <div class="meta-item"><span class="meta-label">Latency</span><span id="meta-latency">—</span></div>
+                <div class="meta-item"><span class="meta-label">Input Tokens</span><span id="meta-input">—</span></div>
+                <div class="meta-item"><span class="meta-label">Cached Tokens</span><span id="meta-cached">—</span></div>
+                <div class="meta-item"><span class="meta-label">Output Tokens</span><span id="meta-output">—</span></div>
+                <div class="meta-item"><span class="meta-label">Cost Actual</span><span id="meta-actual">—</span></div>
+                <div class="meta-item"><span class="meta-label">Cost Saved</span><span id="meta-saved" class="savings-highlight">—</span></div>
+            </div>
+
+            <!-- Tab switcher -->
+            <div class="modal-tabs">
+                <button class="tab-btn active" data-tab="request">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i> Request Payload
+                </button>
+                <button class="tab-btn" data-tab="response">
+                    <i class="fa-solid fa-arrow-down-to-bracket"></i> Response Payload
+                </button>
+            </div>
+
+            <!-- Tab content -->
+            <div id="tab-request" class="tab-panel active">
+                <div class="code-toolbar">
+                    <span class="code-label">Optimized payload sent to upstream</span>
+                    <button class="copy-btn" data-target="req-code"><i class="fa-solid fa-copy"></i> Copy</button>
+                </div>
+                <pre id="req-code" class="code-block"></pre>
+            </div>
+            <div id="tab-response" class="tab-panel">
+                <div class="code-toolbar">
+                    <span class="code-label">Raw upstream response</span>
+                    <button class="copy-btn" data-target="res-code"><i class="fa-solid fa-copy"></i> Copy</button>
+                </div>
+                <pre id="res-code" class="code-block"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

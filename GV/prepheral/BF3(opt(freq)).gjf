@@ -1,0 +1,16 @@
+%chk=C:\Users\saif_\Desktop\downs\GV\prepheral\BF3(opt(freq)).chk
+# freq hf/6-31++g(d,p) geom=connectivity
+
+Title Card Required
+
+0 1
+ B                  0.00000000    0.00000000    0.00000000
+ F                  0.00000000    1.30224600    0.00000000
+ F                  1.12777800   -0.65112300    0.00000000
+ F                 -1.12777800   -0.65112300    0.00000000
+
+ 1 2 1.0 3 1.0 4 1.0
+ 2
+ 3
+ 4
+

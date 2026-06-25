@@ -1,0 +1,17 @@
+{
+  "name": "n8n-local-host",
+  "version": "1.0.0",
+  "description": "Local self-hosted n8n installation with unblocked command execution",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start ecosystem.config.js",
+    "stop": "pm2 stop ecosystem.config.js",
+    "logs": "pm2 logs n8n-local",
+    "status": "pm2 status",
+    "start-n8n": "n8n start"
+  },
+  "dependencies": {
+    "n8n": "^1.80.0",
+    "pm2": "^5.4.3"
+  }
+}

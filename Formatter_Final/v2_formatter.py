@@ -11,7 +11,7 @@ import win32com.client
 import time
 
 # --- Configuration ---
-N8N_WEBHOOK_URL = "https://atomicphoenix1.app.n8n.cloud/webhook/0b2e5c27-0dc5-4512-8fcb-cbec9ba785fa"
+N8N_WEBHOOK_URL = "https://bareeq.app.n8n.cloud/webhook/0b2e5c27-0dc5-4512-8fcb-cbec9ba785fa"
 
 def apply_formatting(run, font_name, size, bold=False, color=None):
     """
@@ -72,7 +72,36 @@ def apply_rtl_justify(para):
     pPr.append(bidi)
 
 def process_paragraph_text(para, text, base_font, base_size, base_color=None):
-    pattern = r'(<hadith>.*?</hadith>|<quran>.*?</quran>|<strong>.*?</strong>|\[.*?\]|صلى الله عليه وسلم|عز وجل|سبحانه وتعالى|تعالى)'
+    base_phrases = [
+        "صلى الله عليه وسلم",
+        "رحمه الله تعالى",
+        "حفظه الله تعالى",
+        "سبحانه وتعالى",
+        "رضي الله عنها",
+        "رضي الله عنه",
+        "رضي الله عنهم",
+        "رضي الله عنهما",
+        "رحمه الله",
+        "حفظه الله",
+        "عز وجل",
+        "تعالى"
+    ]
+    
+    # Generate diacritics-insensitive regex patterns for each phrase
+    diacritics = r'[\u064B-\u0652]'
+    honorifics = []
+    for phrase in base_phrases:
+        clean = re.sub(diacritics, '', phrase)
+        pattern_parts = []
+        for char in clean:
+            if char.isspace():
+                pattern_parts.append(r'\s+')
+            else:
+                pattern_parts.append(re.escape(char) + r'[\u064B-\u0652]*')
+        honorifics.append(''.join(pattern_parts))
+        
+    honorific_subpattern = '|'.join(honorifics)
+    pattern = rf'(<hadith>.*?</hadith>|<quran>.*?</quran>|<strong>.*?</strong>|\[.*?\]|{honorific_subpattern})'
     
     parts = re.split(pattern, text)
     
@@ -80,6 +109,8 @@ def process_paragraph_text(para, text, base_font, base_size, base_color=None):
         if not part: continue
         
         run = para.add_run()
+        
+        is_honorific = re.match(rf'^({honorific_subpattern})$', part)
         
         if part.startswith('<hadith>') and part.endswith('</hadith>'):
             content = part.replace('<hadith>', '').replace('</hadith>', '')
@@ -122,13 +153,39 @@ def process_paragraph_text(para, text, base_font, base_size, base_color=None):
             run.text = f">{content}<"
             apply_formatting(run, base_font, base_size, bold=False, color=base_color)
             
-        elif part in ['صلى الله عليه وسلم', 'عز وجل', 'سبحانه وتعالى', 'تعالى']:
+        elif is_honorific:
             run.text = part
-            apply_formatting(run, 'DecoType Thuluth II', 30, bold=False, color=RGBColor(0xC0, 0x00, 0x00))
+            if 'DecoType' in base_font:
+                apply_formatting(run, base_font, base_size, bold=False, color=base_color)
+            else:
+                apply_formatting(run, base_font, base_size, bold=False, color=RGBColor(0xFF, 0x00, 0x66))
             
         else:
-            run.text = part
-            apply_formatting(run, base_font, base_size, bold=False, color=base_color)
+            if 'DecoType' in base_font:
+                run.text = part
+                apply_formatting(run, base_font, base_size, bold=False, color=base_color)
+            else:
+                arabic_chars = r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFC]'
+                sub_pattern = rf'(?<!{arabic_chars})(أَيْ|أي)(?!{arabic_chars})|([\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFCa-zA-Z0-9]+:)'
+                sub_parts = re.split(sub_pattern, part)
+                first = True
+                for sub_part in sub_parts:
+                    if sub_part is None: continue
+                    if not sub_part: continue
+                    if first:
+                        current_run = run
+                        first = False
+                    else:
+                        current_run = para.add_run()
+                    current_run.text = sub_part
+                    
+                    is_ay = re.match(rf'^(?:أَيْ|أي|أَي)$', sub_part)
+                    is_word_colon = re.match(r'^[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFCa-zA-Z0-9]+:$', sub_part)
+                    
+                    if is_ay or is_word_colon:
+                        apply_formatting(current_run, base_font, base_size, bold=True, color=base_color)
+                    else:
+                        apply_formatting(current_run, base_font, base_size, bold=False, color=base_color)
 
 def convert_to_pdf(docx_path, pdf_path):
     """Converts a Word document to PDF using win32com."""
@@ -187,6 +244,9 @@ def format_document(markdown_content, template_path, output_docx_path, is_file=T
     for line in lines:
         line = line.strip()
         if not line: continue
+        
+        # Convert double quotes to parentheses
+        line = re.sub(r'["“]([^"“”]*?)["”]', r'(\1)', line)
             
         if line == '<matn>' or line == '</matn>': continue
             
@@ -209,7 +269,7 @@ def format_document(markdown_content, template_path, output_docx_path, is_file=T
             para = doc.add_paragraph(style='List Paragraph')
             apply_rtl_justify(para)
             bullet_run = para.add_run("○ ")
-            apply_formatting(bullet_run, 'AAAGoldenLotus Stg1_Ver1', 18, color=RGBColor(0x00, 0xB0, 0x50))
+            apply_formatting(bullet_run, 'AAAGoldenLotus Stg1_Ver1', 18, bold=True, color=RGBColor(0x00, 0xB0, 0x50))
             process_paragraph_text(para, line, 'AAAGoldenLotus Stg1_Ver1', 18)
             continue
             

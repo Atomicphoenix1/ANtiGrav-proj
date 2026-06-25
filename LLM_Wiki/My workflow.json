@@ -1,0 +1,352 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -432,
+        0
+      ],
+      "id": "23ea3f41-c4d6-4d09-8614-8704ec536fd1",
+      "name": "Telegram Trigger",
+      "webhookId": "034eed7d-ea5a-41cb-917f-c78b3a666e20",
+      "credentials": {
+        "telegramApi": {
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text.replace('❓', '').trim() }}",
+        "options": {
+          "systemMessage": "You are a Mufti AI assistant. Only answer using the provided tools. Always cite your sources in Arabic.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        256,
+        -352
+      ],
+      "id": "cbbd627a-8a59-48dd-a03d-2bf85f6eccf1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "openrouter/owl-alpha",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -144
+      ],
+      "id": "3190f6bb-41f3-4b65-864e-3e1f09523314",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "7s4vlqStpYoW1Xoe",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Use this tool to search the database for previous fatwas, Islamic rulings, and archived answers to accurately answer the user's question. Always use this tool before answering.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "fatwas-index",
+          "mode": "list",
+          "cachedResultName": "fatwas-index"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        416,
+        -128
+      ],
+      "id": "49a63e17-4f4a-428c-92c2-a3d209048b5e",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "woidULB8XKGcD5ve",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        32
+      ],
+      "id": "dd1e27a7-43fb-49dc-9506-4746f207e609",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "HQnsTkpmL7tQceee",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "5612401471",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        608,
+        -352
+      ],
+      "id": "290ed2c6-06dd-4bef-92f1-9791b34846c9",
+      "name": "Send a text message",
+      "webhookId": "c58520db-defa-4d88-b025-174f97ffe172",
+      "credentials": {
+        "telegramApi": {
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "❓",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "9eb81470-07ec-4906-b0df-b436a8bf795a"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "5202c3e4-1aa5-4740-a66b-a38a0a78dead",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "💡",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ee0b743c-43dd-4241-a1ad-5024982b38e9",
+      "name": "Route Telegram Message",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "Atomicphoenix1",
+          "mode": "list",
+          "cachedResultName": "Atomicphoenix1",
+          "cachedResultUrl": "https://github.com/Atomicphoenix1"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "Obsidian-Vault",
+          "mode": "list",
+          "cachedResultName": "Obsidian-Vault",
+          "cachedResultUrl": "https://github.com/Atomicphoenix1/Obsidian-Vault"
+        },
+        "filePath": "=fatwas/fatwa_{{ $json.message.reply_to_message.message_id }}.md",
+        "fileContent": "=--- title: fatwa_{{ $json.message.reply_to_message.message_id }} question: \"{{ $json.message.reply_to_message.text.replace('❓', '').trim() }}\" asker_id: \"{{ $json.message.reply_to_message.from.id }}\" date: \"{{ new Date().toISOString() }}\" --- {{ $json.message.text.replace('💡', '').trim() }}",
+        "commitMessage": "here"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        320
+      ],
+      "id": "a071f569-05ad-4602-abe8-8cfa03453da7",
+      "name": "Create a file",
+      "webhookId": "49ad14ae-0752-4a20-9d47-e8477e96b450",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "xxwyosyQDqhRgXf9",
+          "name": "GitHub OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "5612401471",
+        "text": "✅ تم حفظ الفتوى في الأرشيف",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        272
+      ],
+      "id": "aeac4c9b-9f31-4dc1-b672-e6f89094520d",
+      "name": "Send a text message1",
+      "webhookId": "c58520db-defa-4d88-b025-174f97ffe172",
+      "credentials": {
+        "telegramApi": {
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Route Telegram Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Telegram Message": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a file": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5f1cda80-aeac-40de-a105-a3221572021e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "016484175aa530fcbd1eb7c78e3c1820ef9ed4bbb7d5ddbb8a0328becadc5266"
+  },
+  "id": "pfB07MZ27HEXttWs",
+  "tags": []
+}

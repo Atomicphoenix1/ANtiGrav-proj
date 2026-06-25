@@ -1,0 +1,269 @@
+{
+  "name": "git embed",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "owner": {
+          "__rl": true,
+          "value": "Atomicphoenix1",
+          "mode": "list",
+          "cachedResultName": "Atomicphoenix1",
+          "cachedResultUrl": "https://github.com/Atomicphoenix1"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "Obsidian-Vault",
+          "mode": "list",
+          "cachedResultName": "Obsidian-Vault",
+          "cachedResultUrl": "https://github.com/Atomicphoenix1/Obsidian-Vault"
+        },
+        "events": [
+          "push"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.githubTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c18a1bd7-45a2-4610-a531-4738abc72b02",
+      "name": "Github Trigger",
+      "webhookId": "7ffe1fe0-dfd9-4066-b995-b26bcf57607d",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "xxwyosyQDqhRgXf9",
+          "name": "GitHub OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "operation": "list",
+        "owner": {
+          "__rl": true,
+          "value": "Atomicphoenix1",
+          "mode": "list",
+          "cachedResultName": "Atomicphoenix1",
+          "cachedResultUrl": "https://github.com/Atomicphoenix1"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "Obsidian-Vault",
+          "mode": "list",
+          "cachedResultName": "Obsidian-Vault",
+          "cachedResultUrl": "https://github.com/Atomicphoenix1/Obsidian-Vault"
+        },
+        "filePath": "fatwas"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b5715e3c-970a-4ee2-b0e4-3471868eb660",
+      "name": "List files",
+      "webhookId": "023ec139-7f94-4976-a9d4-599c2b206412",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "xxwyosyQDqhRgXf9",
+          "name": "GitHub OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "Atomicphoenix1",
+          "mode": "list",
+          "cachedResultName": "Atomicphoenix1",
+          "cachedResultUrl": "https://github.com/Atomicphoenix1"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "Obsidian-Vault",
+          "mode": "list",
+          "cachedResultName": "Obsidian-Vault",
+          "cachedResultUrl": "https://github.com/Atomicphoenix1/Obsidian-Vault"
+        },
+        "filePath": "={{ $json.path }}",
+        "additionalParameters": {}
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "b73c25e9-f929-4537-9025-c7ded5f1491f",
+      "name": "Get a file",
+      "webhookId": "83e5459f-bed6-41e2-8e74-21ff10abae23",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "xxwyosyQDqhRgXf9",
+          "name": "GitHub OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "fatawy",
+          "mode": "list",
+          "cachedResultName": "fatawy"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        704,
+        0
+      ],
+      "id": "e23b18fb-4835-4870-bfc7-bbf86a7b387f",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "woidULB8XKGcD5ve",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        256
+      ],
+      "id": "522f901d-0b05-4c07-9f64-82a1cac1c5cb",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        656,
+        256
+      ],
+      "id": "f4a83f34-5382-41b0-bca4-60480276bafc",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "HQnsTkpmL7tQceee",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        240
+      ],
+      "id": "80bb6d0b-fc7c-491b-b1d2-3b65f7ecdba4",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Github Trigger": {
+      "main": [
+        [
+          {
+            "node": "List files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List files": {
+      "main": [
+        [
+          {
+            "node": "Get a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "List files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a077d846-93a8-490e-a8a1-120b4889d112",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "016484175aa530fcbd1eb7c78e3c1820ef9ed4bbb7d5ddbb8a0328becadc5266"
+  },
+  "id": "RmCYGJqjRpktkxbZ",
+  "tags": []
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="auto" dir="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quirky Template</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap');
+    @media screen and (max-width: 600px) {
+      .mobile-padding { padding: 20px !important; }
+      .mobile-full-width { width: 100% !important; }
+    }
+    .no-email { 
+      padding: 10px; 
+      background: #000; 
+      color: #fff; 
+      text-align: center; 
+      font-family: sans-serif; 
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+  </style>
+</head>
+<body id="page-body" style="margin: 0; padding: 0; background-color: /*C1*/#00F5D4/*C1*/; font-family: 'Outfit', sans-serif;">
+  
+  <div class="no-email" onclick="applyRandomPalette()">
+    ⚡ CLICK TO RANDOMIZE QUIRKY COLORS
+  </div>
+
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" id="wrapper-table" style="background-color: /*C1*/#00F5D4/*C1*/; table-layout: fixed;">
+    <tr>
+      <td align="center" valign="top" style="padding: 40px 10px;">
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="width: 600px; max-width: 100%;" class="mobile-full-width">
+          
+          <!-- GREETING BOX -->
+          <tr>
+            <td align="right" style="padding-bottom: 25px;">
+              <table border="0" cellpadding="0" cellspacing="0" style="display: inline-block;">
+                <tr>
+                  <td id="greeting-box" style="background-color: /*C2*/#00BBF9/*C2*/; border: 4px solid #000000; padding: 15px 25px; box-shadow: 6px 6px 0px #000000;" data-marker="C2">
+                    <h1 contenteditable="true" style="margin: 0; color: #000000; font-size: 24px; font-weight: 900; line-height: 1.2; outline: none;">السلام عليكم ورحمة الله وبركاته</h1>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- MAIN BODY -->
+          <tr>
+            <td id="main-body-box" style="background-color: #ffffff; border: 4px solid #000000; padding: 40px; box-shadow: 10px 10px 0px #000000;" class="mobile-padding">
+              <div style="min-height: 150px; text-align: start;" dir="auto">
+                <p contenteditable="true" style="margin: 0; color: #000000; font-size: 18px; line-height: 1.8; font-weight: 400; outline: none;">
+                  I'm writing to you with a quirky spirit today! The project is moving along nicely, and I wanted to share some of the bold results we've achieved so far.
+                </p>
+              </div>
+            </td>
+          </tr>
+
+          <!-- THANKS BOX -->
+          <tr>
+            <td align="left" style="padding-top: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" style="display: inline-block;">
+                <tr>
+                  <td id="thanks-box" style="background-color: /*C3*/#9B5DE5/*C3*/; border: 4px solid #000000; padding: 20px 30px; box-shadow: 6px 6px 0px #000000;" data-marker="C3">
+                    <p contenteditable="true" style="margin: 0; color: #000000; font-size: 18px; font-weight: 900; outline: none;">
+                      Thanks in advance.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- METADATA PILL -->
+          <tr>
+            <td align="center" style="padding-top: 45px;">
+              <table border="0" cellpadding="0" cellspacing="0" style="display: inline-block;">
+                <tr>
+                  <td id="metadata-pill" style="background-color: /*C4*/#F15BB5/*C4*/; border: 2.5px solid #000000; padding: 10px 25px; border-radius: 50px; box-shadow: 4px 4px 0px #000000;" data-marker="C4">
+                    <span style="font-size: 13px; font-weight: 900; color: #000000; text-transform: uppercase; white-space: nowrap;">
+                      QUIRKY_MODE: ACTIVE | NODE_07
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <script>
+    const PALETTES = [
+        ["#FF006E", "#3A86FF", "#FFBE0B", "#FB5607"], 
+        ["#FF595E", "#FFCA3A", "#8AC926", "#1982C4"], 
+        ["#F15BB5", "#FEE440", "#00BBF9", "#00F5D4"], 
+        ["#9B5DE5", "#F15BB5", "#FEE440", "#00BBF9"], 
+        ["#FF70A6", "#FF9770", "#FFD670", "#E9FF70"], 
+        ["#FFBC42", "#D81159", "#218380", "#73D2DE"], 
+        ["#FF99C8", "#FCF6BD", "#D0F4DE", "#A9DEF9"], 
+        ["#00F5D4", "#00BBF9", "#9B5DE5", "#F15BB5"], 
+        ["#FF5F5F", "#FFD15F", "#5FFF9F", "#5F9FFF"], 
+        ["#FF9F1C", "#2EC4B6", "#E71D36", "#011627"], 
+        ["#70D6FF", "#FF70A6", "#FF9770", "#FFD670"], 
+        ["#EF476F", "#FFD166", "#06D6A0", "#118AB2"], 
+    ];
+
+    function applyRandomPalette() {
+        const palette = PALETTES[Math.floor(Math.random() * PALETTES.length)];
+        const colors = palette.sort(() => Math.random() - 0.5);
+
+        // Apply C1 (Background)
+        document.getElementById('page-body').style.backgroundColor = colors[0];
+        document.getElementById('wrapper-table').style.backgroundColor = colors[0];
+
+        // Apply C2 (Greeting)
+        document.getElementById('greeting-box').style.backgroundColor = colors[1];
+
+        // Apply C3 (Thanks)
+        document.getElementById('thanks-box').style.backgroundColor = colors[2];
+
+        // Apply C4 (Metadata)
+        document.getElementById('metadata-pill').style.backgroundColor = colors[3];
+
+        console.log("Applied Quirky Palette:", colors);
+    }
+
+    window.onload = applyRandomPalette;
+  </script>
+</body>
+</html>

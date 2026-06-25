@@ -1,0 +1,95 @@
+{
+  "name": "WhatsApp Bot Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "additionalFields": {}
+      },
+      "id": "b3e0c0df-1d6e-4e45-ab2a-a7ad649842a2",
+      "name": "WhatsApp Trigger",
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        380,
+        240
+      ],
+      "credentials": {
+        "whatsAppBusinessCloudApi": {
+          "id": "whatsapp-cred-placeholder",
+          "name": "WhatsApp Business Cloud API account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "phoneNumberId": "1113480468512553",
+        "recipient": "={{ $json.message.from }}",
+        "text": "=Hi! You sent: \"{{ $json.message.text.body }}\". This is an automated response from my n8n WhatsApp bot! 🤖"
+      },
+      "id": "2d24248a-6b80-4cfd-b778-9e6e44b82d33",
+      "name": "Send Session Auto-Reply",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        600,
+        240
+      ],
+      "credentials": {
+        "whatsAppBusinessCloudApi": {
+          "id": "whatsapp-cred-placeholder",
+          "name": "WhatsApp Business Cloud API account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendTemplate",
+        "phoneNumberId": "1113480468512553",
+        "recipient": "+201212578915",
+        "template": "hello_world",
+        "language": "en_US"
+      },
+      "id": "c005b876-0bf8-466d-9786-90e1f7442345",
+      "name": "Send Test Outbound Template",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        600,
+        420
+      ],
+      "credentials": {
+        "whatsAppBusinessCloudApi": {
+          "id": "whatsapp-cred-placeholder",
+          "name": "WhatsApp Business Cloud API account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Session Auto-Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": {
+    "templateCredentialSetup": {
+      "whatsAppBusinessCloudApi": {
+        "phoneNumberId": "1113480468512553",
+        "whatsappBusinessAccountId": "1698476881148749"
+      }
+    }
+  },
+  "pinData": {}
+}

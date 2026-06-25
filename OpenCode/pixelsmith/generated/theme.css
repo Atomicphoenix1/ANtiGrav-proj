@@ -1,0 +1,61 @@
+@theme {
+
+  /* Colors */
+  --color-6366f1: #6366f1;
+  --color-a855f7: #a855f7;
+  --color-818cf8: #818cf8;
+  --color-ec4899: #ec4899;
+  --color-f8f9fc: #f8f9fc;
+  --color-ffffff: #ffffff;
+  --color-0f172a: #0f172a;
+  --color-e2e8f0: #e2e8f0;
+  --color-64748b: #64748b;
+  --color-94a3b8: #94a3b8;
+  --color-10b981: #10b981;
+  --color-ef4444: #ef4444;
+  --color-f59e0b: #f59e0b;
+  --color-0b0d14: #0b0d14;
+  --color-131620: #131620;
+  --color-1a1e2e: #1a1e2e;
+  --color-f0f2f8: #f0f2f8;
+  --color-1e2338: #1e2338;
+  --color-1e293b: #1e293b;
+  --color-4f46e5: #4f46e5;
+  --color-8b5cf6: #8b5cf6;
+  --color-d946ef: #d946ef;
+  --color-f43f5e: #f43f5e;
+  --color-333: #333;
+
+  /* Spacing */
+  --spacing-8: 8px;
+  --spacing-10: 10px;
+  --spacing-24: 24px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-12: 12px;
+  --spacing-6: 6px;
+  --spacing-14: 14px;
+  --spacing-40: 40px;
+  --spacing-4: 4px;
+  --spacing-1: 1px;
+  --spacing-2: 2px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-18: 18px;
+  --spacing-64: 64px;
+  --spacing-50%: 50%;
+  --spacing-28: 28px;
+
+  /* Font Sizes */
+  --font-size-14: 14px;
+  --font-size-13: 13px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-12: 12px;
+  --font-size-40: 40px;
+  --font-size-36: 36px;
+  --font-size-20: 20px;
+  --font-size-24: 24px;
+  --font-size-17: 17px;
+
+}

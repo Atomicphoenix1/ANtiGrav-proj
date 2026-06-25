@@ -1,0 +1,703 @@
+{
+  "name": "WhatsApp Scheduler with Time Slots",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body;\nconst timeSlots = body.timeSlots;\nconst participants = body.participants;\nconst message = body.message;\n\nif (!timeSlots || timeSlots.length === 0) {\n  throw new Error('No time slots provided');\n}\n\nif (!participants || participants.length === 0) {\n  throw new Error('No participants provided');\n}\n\n// Parse first time slot (e.g., \"12:00 AM - 12:30 AM\")\nconst firstSlotText = timeSlots[0];\nconst startTime = firstSlotText.split(' - ')[0].trim();\n\n// Parse time string to today's date\nconst now = new Date();\nconst timeParts = startTime.match(/(\\d+):(\\d+)\\s+(AM|PM)/);\nif (!timeParts) {\n  throw new Error('Invalid time format in slot: ' + firstSlotText);\n}\n\nlet hours = parseInt(timeParts[1]);\nconst minutes = parseInt(timeParts[2]);\nconst period = timeParts[3];\n\nif (period === 'PM' && hours !== 12) hours += 12;\nif (period === 'AM' && hours === 12) hours = 0;\n\nconst firstSlot = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);\n\n// Subtract 15 minutes\nconst scheduleTime = new Date(firstSlot.getTime() - 15 * 60 * 1000);\n\n// Extract phone numbers from participants\nconst phoneNumbers = participants.map(p => p.phone);\n\nreturn [{\n  json: {\n    scheduleTime: scheduleTime.toISOString(),\n    message: message,\n    phoneNumbers: phoneNumbers,\n    timeSlots: timeSlots\n  }\n}];"
+      },
+      "id": "f7992cc4-c7bb-41de-ad0d-50780fdcea01",
+      "name": "Calculate Schedule Time",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "summary1",
+              "name": "status",
+              "value": "All WhatsApp messages sent successfully",
+              "type": "string"
+            },
+            {
+              "id": "summary2",
+              "name": "completedAt",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7194e684-4c4e-4279-b89e-7c8322d7a14e",
+      "name": "Completion Summary",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        880,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1113480468512553",
+        "recipientPhoneNumber": "={{ $json.phoneNumber }}",
+        "textBody": "={{ $json.message }}",
+        "additionalFields": {}
+      },
+      "id": "54e7f15b-f590-49d9-9d58-e5198344ec6a",
+      "name": "Send WhatsApp Message",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1104,
+        144
+      ],
+      "webhookId": "44e2c547-51f4-4958-8b2b-12e52c8b4580",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "8GVrU3pJUgcCP8G7",
+          "name": "perm2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "a7dc0792-3388-44ee-81ea-b417d8c50d46",
+      "name": "Loop Through Phone Numbers",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        592,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "20bff32f-9f1c-4362-bd05-6a9a216e5bbf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        304
+      ],
+      "id": "edace3fd-0753-4215-a1ca-8be6bf0548dc",
+      "name": "Webhook",
+      "webhookId": "41ebd594-6eb5-4082-8ecc-8bf3c9080341"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst message = data.message;\nconst phoneNumbers = data.phoneNumbers;\n\n// Filter out empty, null, or undefined phone numbers\nconst validPhoneNumbers = phoneNumbers.filter(phone => phone && phone.trim() !== '');\n\n// Create one item per valid phone number\nreturn validPhoneNumbers.map(phone => ({\n  json: {\n    message: message,\n    phoneNumber: phone\n  }\n}));"
+      },
+      "id": "8c3921ac-261a-4d9b-b8ae-c6e309d7fba5",
+      "name": "Prepare Scheduled Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "resume": "specificTime",
+        "dateTime": "2026-05-28T18:51:00"
+      },
+      "id": "76a2fa1e-6c6a-44e1-8cdd-1185b0ed720b",
+      "name": "Wait Until Schedule",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        640
+      ],
+      "webhookId": "709264e5-753c-45a1-b1bf-d4bd5acdc839"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst message = data.message;\nconst phoneNumbers = data.phoneNumbers;\n\n// Filter out empty, null, or undefined phone numbers\nconst validPhoneNumbers = phoneNumbers.filter(phone => phone && phone.trim() !== '');\n\n// Create one item per valid phone number\nreturn validPhoneNumbers.map(phone => ({\n  json: {\n    message: message,\n    phoneNumber: phone\n  }\n}));"
+      },
+      "id": "83ecf074-e249-4cf0-8527-acebae285d54",
+      "name": "Prepare Scheduled Messages",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "summary1",
+              "name": "status",
+              "value": "All scheduled WhatsApp messages sent",
+              "type": "string"
+            },
+            {
+              "id": "summary2",
+              "name": "completedAt",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "70c4c90e-f5fe-48e7-b9bd-ab60f3102665",
+      "name": "Scheduled Completion",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1504,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1113480468512553",
+        "recipientPhoneNumber": "={{ $json.phoneNumber }}",
+        "textBody": "={{ $json.message }}",
+        "additionalFields": {}
+      },
+      "id": "aa38c419-ff02-44cd-9d03-45407d8c64c8",
+      "name": "Send Scheduled WhatsApp",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1632,
+        672
+      ],
+      "webhookId": "130b1df0-414f-4e84-9219-64a3ca8e60f6",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "LQJmmvwD96tD4REf",
+          "name": "bot1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "318b4b41-ff64-4f41-a65d-a9b5087e4a4c",
+      "name": "Loop Scheduled Messages",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        848,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1203491316176713",
+        "recipientPhoneNumber": "+201212578915",
+        "textBody": "jhjhj",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        48,
+        656
+      ],
+      "id": "97261765-bd3f-4159-8739-5a13d85e82b7",
+      "name": "Send message",
+      "webhookId": "dc75713b-8d96-4797-8670-509f3f4075a0",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "8GVrU3pJUgcCP8G7",
+          "name": "perm2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "118877f9-4a77-4802-936f-2b01ef2dd163",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+201212578915",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "e6310f63-4154-4b7c-b708-9899144f53fe",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+20 12 25937966",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "593fe1a9-8280-4150-af2f-bc8fc6d3c520",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+20 11 01915043",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "c584794b-729b-4ff6-89b0-cfe6ed02747c",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+20 11 17255668",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "707d5381-5cf9-4307-8fcf-321872752037",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+20 10 09448553",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1152,
+        704
+      ],
+      "id": "025b46cd-85b9-4c3b-8002-22a9d26ab140",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1203491316176713",
+        "recipientPhoneNumber": "={{ $json.phoneNumber }}",
+        "textBody": "={{ $json.message }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1536,
+        912
+      ],
+      "id": "1c965a6c-5b9b-4222-a30f-7912796c7f88",
+      "name": "Send message1",
+      "webhookId": "c5cd925c-1078-4a2b-b761-361c241db1aa",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "8GVrU3pJUgcCP8G7",
+          "name": "perm2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "118877f9-4a77-4802-936f-2b01ef2dd163",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+201212578915",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "e6310f63-4154-4b7c-b708-9899144f53fe",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+20 12 25937966",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "593fe1a9-8280-4150-af2f-bc8fc6d3c520",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+20 11 01915043",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "c584794b-729b-4ff6-89b0-cfe6ed02747c",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+20 11 17255668",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "707d5381-5cf9-4307-8fcf-321872752037",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "+20 10 09448553",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        832,
+        192
+      ],
+      "id": "dd0bab89-1ff9-4804-bc6c-eac80daa8964",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1203491316176713",
+        "recipientPhoneNumber": "={{ $json.phoneNumber }}",
+        "textBody": "={{ $json.message }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        368
+      ],
+      "id": "9ed84055-d923-4534-9e1b-6a73d8d14fa3",
+      "name": "Send message2",
+      "webhookId": "c5cd925c-1078-4a2b-b761-361c241db1aa",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "8GVrU3pJUgcCP8G7",
+          "name": "perm2"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "bareeq.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+            "content-length": "436",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "156.211.192.223",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "EG",
+            "cf-ray": "a02e57f6cbbbe165-MRS",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "origin": "null",
+            "priority": "u=1, i",
+            "sec-ch-ua": "\"Chromium\";v=\"148\", \"Brave\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "sec-gpc": "1",
+            "x-forwarded-for": "156.211.192.223, 172.68.234.180",
+            "x-forwarded-host": "bareeq.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-67-6d5f54696-jj8gr",
+            "x-is-trusted": "yes",
+            "x-real-ip": "156.211.192.223"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "action": "send_messages",
+            "timeSlots": [
+              "12:00 AM - 12:30 AM"
+            ],
+            "message": "gfhgfhgf",
+            "participants": [
+              {
+                "name": "يحيى الخميس",
+                "phone": "+201212578915"
+              },
+              {
+                "name": "إياد ",
+                "phone": "+201212578915"
+              },
+              {
+                "name": "عصام",
+                "phone": ""
+              },
+              {
+                "name": "ياسر",
+                "phone": ""
+              },
+              {
+                "name": "محمد أشرف 28",
+                "phone": ""
+              },
+              {
+                "name": "سيد،  الأربعاء ",
+                "phone": ""
+              },
+              {
+                "name": "الأمين",
+                "phone": ""
+              },
+              {
+                "name": "عمرو - السبت",
+                "phone": ""
+              }
+            ]
+          },
+          "webhookUrl": "https://bareeq.app.n8n.cloud/webhook-test/20bff32f-9f1c-4362-bd05-6a9a216e5bbf",
+          "executionMode": "test"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Send WhatsApp Message": {
+      "main": [
+        [
+          {
+            "node": "Loop Through Phone Numbers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Through Phone Numbers": {
+      "main": [
+        [
+          {
+            "node": "Completion Summary",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Calculate Schedule Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Schedule Time": {
+      "main": [
+        [
+          {
+            "node": "Prepare Scheduled Data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wait Until Schedule",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Scheduled Data": {
+      "main": [
+        [
+          {
+            "node": "Loop Through Phone Numbers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Until Schedule": {
+      "main": [
+        [
+          {
+            "node": "Prepare Scheduled Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Scheduled Messages": {
+      "main": [
+        [
+          {
+            "node": "Loop Scheduled Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Scheduled WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Loop Scheduled Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Scheduled Messages": {
+      "main": [
+        [
+          {
+            "node": "Scheduled Completion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send Scheduled WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send message1": {
+      "main": [
+        [
+          {
+            "node": "Loop Scheduled Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Send WhatsApp Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send message2": {
+      "main": [
+        [
+          {
+            "node": "Loop Through Phone Numbers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "12cbfade-76a4-4bf1-850c-87db99478c8b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "016484175aa530fcbd1eb7c78e3c1820ef9ed4bbb7d5ddbb8a0328becadc5266"
+  },
+  "id": "ecunvr44POYsnZi1",
+  "tags": []
+}

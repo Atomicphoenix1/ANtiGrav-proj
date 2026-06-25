@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenCode Benchmark</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="header-top">
+      <h1>OpenCode <span class="dim">//</span> Benchmark</h1>
+      <div class="header-info">
+        <span class="port-badge">127.0.0.1:9876</span>
+        <span class="context-badge">128k ceiling</span>
+      </div>
+    </div>
+    <div class="comparison-chart">
+      <div class="compare-bar-wrapper" id="compare-a-wrapper">
+        <div class="compare-label">Session A</div>
+        <div class="compare-track">
+          <div class="compare-fill compare-fill-a" id="compare-fill-a" style="width:0%"></div>
+        </div>
+        <div class="compare-value" id="compare-value-a">0</div>
+      </div>
+      <div class="compare-bar-wrapper" id="compare-b-wrapper">
+        <div class="compare-label">Session B</div>
+        <div class="compare-track">
+          <div class="compare-fill compare-fill-b" id="compare-fill-b" style="width:0%"></div>
+        </div>
+        <div class="compare-value" id="compare-value-b">0</div>
+      </div>
+      <div class="compare-diff" id="compare-diff"></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="session-panel" id="panel-a" data-session="a">
+      <div class="panel-header">
+        <span class="session-dot dot-a"></span>
+        Session A
+        <span class="model-name" id="model-a"></span>
+      </div>
+      <div class="panel-body">
+        <div class="fluid-bar-container">
+          <div class="fluid-bar">
+            <div class="fluid-bar-fill fluid-a" id="fluid-a" style="height:0%">
+              <div class="fluid-wave"></div>
+            </div>
+            <div class="fluid-pct" id="pct-a">0%</div>
+          </div>
+        </div>
+        <div class="chat-area">
+          <div class="chat-messages" id="chat-a">
+            <div class="chat-empty">Messages appear here</div>
+          </div>
+          <div class="chat-input-row">
+            <textarea id="input-a" placeholder="Type a message for Session A..." rows="2"></textarea>
+            <button class="send-btn send-a" id="send-a" data-session="a">Send</button>
+          </div>
+        </div>
+      </div>
+      <div class="metrics-row">
+        <div class="metric">
+          <span class="metric-label">Input</span>
+          <span class="metric-value" id="input-val-a">0</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Output</span>
+          <span class="metric-value" id="output-val-a">0</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Avg &#8595;</span>
+          <span class="metric-value" id="avg-val-a">0</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Total</span>
+          <span class="metric-value" id="total-val-a">0</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Actions</span>
+          <span class="metric-value" id="actions-val-a">0</span>
+        </div>
+      </div>
+      <button class="reset-btn" data-session="a">Reset</button>
+    </div>
+
+    <div class="session-panel" id="panel-b" data-session="b">
+      <div class="panel-header">
+        <span class="session-dot dot-b"></span>
+        Session B
+        <span class="model-name" id="model-b"></span>
+      </div>
+      <div class="panel-body">
+        <div class="fluid-bar-container">
+          <div class="fluid-bar">
+            <div class="fluid-bar-fill fluid-b" id="fluid-b" style="height:0%">
+              <div class="fluid-wave"></div>
+            </div>
+            <div class="fluid-pct" id="pct-b">0%</div>
+          </div>
+        </div>
+        <div class="chat-area">
+          <div class="chat-messages" id="chat-b">
+            <div class="chat-empty">Messages appear here</div>
+          </div>
+          <div class="chat-input-row">
+            <textarea id="input-b" placeholder="Type a message for Session B..." rows="2"></textarea>
+            <button class="send-btn send-b" id="send-b" data-session="b">Send</button>
+          </div>
+        </div>
+      </div>
+      <div class="metrics-row">
+        <div class="metric">
+          <span class="metric-label">Input</span>
+          <span class="metric-value" id="input-val-b">0</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Output</span>
+          <span class="metric-value" id="output-val-b">0</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Avg &#8595;</span>
+          <span class="metric-value" id="avg-val-b">0</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Total</span>
+          <span class="metric-value" id="total-val-b">0</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Actions</span>
+          <span class="metric-value" id="actions-val-b">0</span>
+        </div>
+      </div>
+      <button class="reset-btn" data-session="b">Reset</button>
+    </div>
+  </main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+gradio
+python-docx
+pywin32
+requests

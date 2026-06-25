@@ -1,0 +1,34 @@
+🚀 PIPELINE STARTED
+Operation: Whisper + Gemini
+Mode: Singular
+========================================
+🤖 Loading Whisper Model into VRAM...
+🎬 Splitting single audio file: C:\Users\saif_\AppData\Local\Temp\gradio\d9eaf40cb09a5b7f0e2e4a653f709424a5f1fc2ca58c18dc2734f7fd64770fcf\amr21.mp3...
+📁 Preparing master folder for: amr21.mp3
+   ➡️ Copied temp file to workspace: c:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\amr21\amr21.mp3
+   ✅ Full mode selected (No Split). Created part001/part001_seg001.mp3.
+
+========================================
+📁 Processing Lesson: amr21
+========================================
+
+📂 Processing part001...
+🎙️ Transcribing segment: part001_seg001.mp3 (offset: 00:00:00,000)...
+✅ Transcribed in 86.92 seconds.
+💾 Saved file: c:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\amr21\part001\part001_seg001.txt | Character count: 966 chars.
+💾 Saved file: c:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\amr21\part001\part001_Merged_Raw.txt | Character count: 966 chars.
+⚙️ Chunked raw text into 1 part(s) (~15k chars each) for Gemini formatting.
+💾 Saved file: c:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\amr21\part001\part001_Raw_Chunk_001.txt | Character count: 966 chars.
+🔄 Formatting chunk 1/1 (966 chars)...
+🔄 Engaging Model: gemini-3-flash-preview...
+   ⏳ [Attempt 1/2] Strict Time-Bomb Active (3.5 Mins)...
+   ✅ SUCCESS! Character count check PASSED: output (1847) > 1.65x input (966).
+💾 Saved file: c:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\amr21\part001\part001_Formatted_Chunk_001.txt | Character count: 1847 chars.
+💾 Saved file: c:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\amr21\part001\part001_Formatted.txt | Character count: 1847 chars.
+💾 Saved file: c:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\amr21\amr21_Final_Merged_Formatted.txt | Character count: 1847 chars.
+📝 Aligning Gemini formatted text with Whisper timestamps to generate final SRT...
+💾 Saved file: c:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\amr21\amr21_Timestamps.json | Character count: 8798 chars.
+💾 Saved file: c:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\AutoUpload\amr21\amr21_Total.srt | Character count: 3039 chars.
+✅ Total SRT file generated successfully!
+📄 Formatting Word Document & PDF...
+❌ Formatter failed: [Errno 13] Permission denied: 'c:\\Users\\saif_\\Desktop\\downs\\Currently\\Daily\\Lectures\\ANtiGrav\\AutoUpload\\amr21\\amr21_Final.docx'

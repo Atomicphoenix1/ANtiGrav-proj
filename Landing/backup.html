@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Styled Spheres</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kablammo:MORF@0..60&display=swap');
+         /* Portal Teleportation Effect */
+         @keyframes portalExpand {
+            0% { transform: scale(1); opacity: 1; filter: hue-rotate(0deg); }
+            50% { transform: scale(1.5); opacity: 0.8; filter: hue-rotate(180deg); }
+            100% { transform: scale(3); opacity: 0; filter: hue-rotate(360deg); }
+        }
+
+        .portal-effect {
+            animation: portalExpand 1s ease-out forwards;
+        }
+        /* @keyframes colorShift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.shape {
+    animation: colorShift 20s infinite linear;
+} */
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #e0e0e0;
+            flex-wrap: wrap;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        .spiky-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: "Kablammo", system-ui;
+            color: white;
+            text-align: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, background-color 0.5s ease-in-out;
+            border: 3px solid #333;
+            box-shadow: 0px 0px 20px #333;
+            text-shadow: 2px 2px 5px black;
+            z-index: 1;
+        
+        }
+
+        .spiky-button::before,
+        .spiky-button::after {
+            content: "";
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: inherit;
+            top: -25%;
+            left: -25%;
+            border-radius: 50%;
+            clip-path: polygon(
+                50% 0%, 60% 30%, 100% 50%, 60% 70%, 50% 100%,
+                40% 70%, 0% 50%, 40% 30%
+            );
+        }
+
+        .spiky-button:hover {
+            transform: rotate(180deg);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 170px);
+            gap: 15px;
+            padding: 20px;
+            max-width: 90%;
+        }
+
+        .shape {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            font-size: 75px;
+            font-family: "Kablammo", system-ui;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            cursor: cell;
+            transition: transform 0.3s ease-in-out, border-radius 0.3s, width 0.3s, height 0.3s, background-color 0.2s, box-shadow .5s, border 0.5s;
+        }
+
+
+
+        
+
+
+        .shape:hover {
+            transform: scale(1.5) rotate(10deg);
+        }
+
+        
+
+
+
+
+
+        .textbox {
+            border-radius: 20px !important;
+            width: auto !important;
+            max-height: 150px !important;
+        
+            font-size: 35px !important;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* .portal-button {
+    position: fixed;
+    bottom: 140px; 
+    right: 20px;
+    width: 120px;
+    height: 50px;
+    background: linear-gradient(135deg, #240046, #5a189a);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 2px 2px 15px rgba(173, 0, 255, 0.6);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+
+.portal-button.active {
+    background: linear-gradient(135deg, #0d6efd, #90e0ef);
+    color: black;
+    box-shadow: 2px 2px 20px rgba(173, 216, 230, 1);
+    transform: scale(1.1);
+}
+
+
+.portal-button:hover {
+    background: linear-gradient(135deg, #5a189a, #9d4edd);
+    box-shadow: 2px 2px 20px rgba(255, 0, 255, 0.8);
+} */
+
+
+
+
+.portal-button {
+    --color1: #00ff99; /* Neon Green */
+    --color2: #00bfff; /* Sky Blue */
+    --color3: #003366; 
+    width: 120px;
+    height: 120px;
+    position: fixed;
+    bottom: 150px; /* Position it above the Rev Color button */
+    right: 20px;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Kablammo", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 4000;
+    font-size: 25px;
+    font-style: normal;
+    color: black;
+    text-align: center;
+    z-index: 1000;
+    animation: glow 2s infinite alternate;
+}
+
+/* Outer glow animation */
+@keyframes glow {
+    0% {
+        filter: drop-shadow(0 0 15px rgba(0, 0, 255, 0.8));
+    }
+    100% {
+        filter: drop-shadow(0 0 30px rgba(173, 0, 255, 0.9));
+    }
+}
+
+/* Creating the swirling galaxy shape */
+.portal-button::before {
+    content: "";
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 5%, var(--color1) 30%, var(--color2) 60%, var(--color3) 90%);
+    clip-path: polygon(50% 0%, 65% 20%, 85% 30%, 100% 50%, 85% 70%, 65% 80%, 50% 100%, 35% 80%, 15% 70%, 0% 50%, 15% 30%, 35% 20%);
+    filter: blur(5px);
+    opacity: 0.9;
+    animation: galaxySwirl 5s linear infinite;
+}
+
+/* Galaxy swirl animation */
+@keyframes galaxySwirl {
+    0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: rotate(180deg) scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 0.8;
+    }
+}
+.portal-button::after {
+    content: "Portal";
+    position: absolute;
+    z-index: 10;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);}
+
+/* Pulsing hover effect */
+.portal-button:hover {
+    animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+
+
+
+.portal-button.copied::after {
+    content: "Syphoned!";
+    color: #00ff99;
+    text-shadow: 0 0 15px rgba(0, 255, 150, 0.9);}
+
+
+
+
+    @keyframes swirl {
+        0% { transform: rotate(0deg) scale(1); filter: brightness(1); }
+        50% { transform: rotate(5deg) scale(1.1); filter: brightness(1.3); }
+        100% { transform: rotate(0deg) scale(1); filter: brightness(1); }
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    #recreateBtn {
+        position: fixed;
+        bottom: 320px; /* Adjusted position */
+        right: 30px;
+        width: 160px;
+        height: 160px;
+        border: none;
+        background: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+    #recreateBtn:hover {
+        transform: scale(1.1);
+    }
+
+    #recreateBtn span {
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 0 10px rgba(0, 255, 100, 0.8);
+        margin-bottom: -10px;
+        z-index: 2;
+    }
+
+    .galaxy {
+        width: 200px;
+        height: 100px;
+        background: radial-gradient(circle, hsl(100, 80%, 40%) 10%, hsl(100, 65%, 20%) 70%);
+        position: absolute;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(0, 255, 100, 0.7);
+        animation: swirl 5s infinite linear, pulse 3s infinite ease-in-out;
+        clip-path: ppolygon(
+            50% 0%,  60% 20%,  80% 20%,  65% 40%,  75% 60%,  50% 50%, 
+            25% 60%, 35% 40%, 20% 20%, 40% 20%)
+    }
+
+
+
+    </style>
+</head>
+<body>
+    
+    <div class="spiky-button" onclick="changePalette()">Rev<br>Chrome</div>
+    <div class="container" id="shapeContainer"></div>
+    <div class="portal-button" onclick="togglePortal()"></div>
+    <button id="recreateBtn" onclick="goToRecreation()"> <span>Recreation</span>
+        <div class="galaxy"></div></button>
+    <script>
+let portalEnabled = true; // Default state: portal is OFF
+
+
+function togglePortal() {
+    portalEnabled = !portalEnabled; // Toggle state
+    const portalButton = document.querySelector(".portal-button");
+    portalButton.innerText = portalEnabled ? " " : " ";
+    portalButton.classList.toggle("active", portalEnabled);
+    portalTrigger = portalEnabled ? "portal" : "fullText";
+};
+
+
+let portalTrigger = "portal"; // Default mode
+
+
+function goToRecreation() {
+        window.open("sph.html", "_blank"); // Opens in a new tab
+    }
+
+
+function getRandomLorem() {
+    const loremWords = [
+        "LoreФm", "ipsum", "doҨlor", "s$it", "amѪet", "ЖЎФЅЄЭѪҨ$",
+        "Дdipiscing", "elit", "sedЎ", "doЖ", "eiusmod", "tempor",
+        "incididunt", "utЄ", "labore", "et",  "magna", "aliqua"
+    ];
+    let wordcount = getRandomInt(1, 7); // Random number of words (1-10)
+    let shuffledWords = loremWords.sort(() => 0.5 - Math.random()); // Shuffle words
+    return shuffledWords.slice(0, wordcount).join(" "); // Pick first `wordcount` words
+}
+                let isDarkMode = false; // Track background mode (light/dark)
+
+        let morfValue = 0;
+        let speed = 0.3;
+        let direction = 1;
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function getRandomColor() {
+            let h = getRandomInt(0, 360);
+            let s = getRandomInt(60, 100);
+            let l = getRandomInt(40, 90);
+            return `hsl(${h}, ${s}%, ${l}%)`;
+        }
+
+        function getRandomLetter() {
+            const letters = "ДBCDE§FGHIJKLMNOPQ¶RSTUVWXYZЖЎФЅЄЭѪҨ$";
+            return letters[getRandomInt(0, letters.length - 1)];
+        }
+
+        function createShapes(count) {
+            const container = document.getElementById("shapeContainer");
+
+    //         const centralSphere = document.createElement("div");
+    // centralSphere.className = "shape central";
+    // centralSphere.dataset.mode = "circle";
+    // centralSphere.style.transform = "scale(3)"; // 3x larger
+    // centralSphere.style.position = "absolute";
+    // centralSphere.style.left = "50%";
+    // centralSphere.style.top = "10%"; // Move it to the top center
+    // centralSphere.style.transform = "translateX(-50%)"; // Center it horizontally
+    // centralSphere.style.backgroundColor = getRandomColor();
+    // centralSphere.style.border = `3px solid ${getRandomColor()}`;
+    // centralSphere.innerText = "★"; // Special marker
+
+    // container.appendChild(centralSphere); // Re
+
+            for (let i = 0; i < count; i++) {
+
+
+
+                const shape = document.createElement("div");
+                shape.className = "shape";
+                shape.dataset.mode = "circle";
+
+                let bg = getRandomColor();
+                let border = getRandomColor();
+                let text = getRandomColor();
+                let shadow1 = getRandomColor();
+                let shadow2 = getRandomColor();
+                let randomBgDuration = (Math.random() * 2.5+ 0.2).toFixed(2); // Random duration between 0.2s and 3s
+
+                shape.style.backgroundColor = bg;
+                shape.style.color = text;
+                shape.style.border = `3px solid ${border}`;
+                shape.style.boxShadow = `-10px 10px 20px inset ${shadow1}, 5px -5px 20px ${shadow2}`;
+
+                let uniqueCode = getRandomLetter() + getRandomLetter() + getRandomLetter();
+                shape.innerText = uniqueCode;
+                shape.style.textShadow = `4px 4px 10px ${shadow1}, -4px -4px 10px ${shadow2}`;
+                shape.style.fontVariationSettings = `"MORF" 0`;
+                
+                shape.style.transition = `transform 0.3s ease-in-out, 
+                                  border-radius 0.3s, 
+                                  width 0.3s, 
+                                  height 0.3s, 
+                                  background-color ${randomBgDuration}s, 
+                                  box-shadow 0.5s, 
+                                  border 0.5s`;
+               
+ 
+
+
+
+                shape.addEventListener("click", function() {
+                    if (shape.dataset.mode === "circle") {
+                        shape.dataset.mode = "text";
+                        shape.classList.add("textbox");
+                        shape.fullText = getRandomLorem();
+                        let textArray = shape.fullText.split("");
+                        copySphereStyles(this);
+
+
+
+                       
+
+                        let i =0 // Get letters
+                        let interval = setInterval(() => {
+                    if (i < textArray.length) {
+                        shape.innerText = textArray.slice(0, i ).join("") + "_"; // Typing effect
+                        playKndBeep(); // Play beep for each letter
+                        i++;
+                    } else {
+                        shape.innerText = shape.fullText; // Remove "_"
+                        clearInterval(interval);
+                        if (portalTrigger === "portal") {
+    setTimeout(() => teleportToNewPage(shape), 500); 
+}
+                            
+                    }
+                }, 100); // Adjust speed here (100ms per letter)
+
+            
+    
+                    } else {
+                        shape.dataset.mode = "circle";
+                        shape.classList.remove("textbox");
+                        shape.innerText = uniqueCode;
+                    }
+                });
+
+                container.appendChild(shape);
+            }
+        }
+
+
+
+        function copySphereStyles(element) {
+    let computedStyle = window.getComputedStyle(element);
+    
+    // Extracting HSL values
+    let bgColor = rgbToHsl(computedStyle.backgroundColor);
+    let borderColor = rgbToHsl(computedStyle.borderColor);
+    
+    // Extract box-shadow colors (assuming two shadows)
+    let shadowColors = extractShadowColors(computedStyle.boxShadow);
+
+    let shadowColor1 = shadowColors[0] || "N/A";
+    let shadowColor2 = shadowColors[1] || "N/A";
+
+    // Extract inner text
+    let textContent = element.innerText || "N/A";
+    let textcolors = rgbToHsl(computedStyle.color);
+    // Format the copied text
+    let copiedText = `${textContent}\n${textcolors}\n${bgColor}\n${shadowColor1}\n${shadowColor2}\n${borderColor}\n${computedStyle.boxShadow}`;
+
+    
+     navigator.clipboard.writeText(copiedText)//.then(() => {
+    //     let originalText = element.innerText;
+    //     element.innerText = "Syphoned!";
+    //     setTimeout(() => {
+    //         element.innerText = originalText; // Restore original text after 0.5 seconds
+    //     }, 1000);
+    // });
+}
+
+// Converts RGB to HSL
+function rgbToHsl(rgbString) {
+    if (!rgbString.includes("rgb")) return rgbString; // If already HSL or invalid, return as is
+
+    let rgbValues = rgbString.match(/\d+/g).map(Number);
+    let [r, g, b] = rgbValues.map(v => v / 255);
+
+    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+
+    if (max === min) {
+        h = s = 0; // achromatic
+    } else {
+        let d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h = Math.round(h * 60);
+    }
+
+    s = Math.round(s * 100);
+    l = Math.round(l * 100);
+
+    return `hsl(${h}, ${s}%, ${l}%)`;
+}
+
+// Extracts shadow colors from box-shadow
+function extractShadowColors(boxShadow) {
+    let colorMatches = boxShadow.match(/rgb\(\d+, \d+, \d+\)/g);
+    if (!colorMatches) return ["N/A", "N/A"]; // Default if no shadows found
+
+    return colorMatches.map(rgbToHsl);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function teleportToNewPage(shape) {
+            shape.classList.add("portal-effect");
+
+            setTimeout(() => {
+                shape.remove();
+                let worlds = [
+                    // "fire.html",
+                    "retro.html",
+                    // "stormwatch_skies.html",
+                    // "ethereal_horizon.html",
+                    // "everlight_archipelago.html"
+                ];
+                let randomWorld = worlds[Math.floor(Math.random() * worlds.length)];
+                window.open(randomWorld, "_blank");
+            }, 1000);
+        }
+
+
+
+
+
+
+        function playKndBeep() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // First sound: Low-frequency "command pulse"
+    const osc1 = ctx.createOscillator();
+    const gain1 = ctx.createGain();
+    osc1.type = "square"; // Cold, electronic pulse
+    osc1.frequency.setValueAtTime(180, ctx.currentTime); // Deep tactical tone
+    gain1.gain.setValueAtTime(0.2, ctx.currentTime);
+    gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05); // Quick decay
+    osc1.connect(gain1);
+    gain1.connect(ctx.destination);
+
+    // Second sound: High-frequency "data blip"
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+    osc2.type = "sawtooth"; // Sharp and precise
+    osc2.frequency.setValueAtTime(5000 + Math.random() * 30, ctx.currentTime); // Slight variation
+    gain2.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain2.gain.exponentialRampToValueAtTime(0.002, ctx.currentTime + 0.05);
+    osc2.connect(gain2);
+    gain2.connect(ctx.destination);
+
+    // Introduce a very slight delay for a subtle echo effect
+    const delay = ctx.createDelay();
+    delay.delayTime.setValueAtTime(0.02, ctx.currentTime);
+    gain2.connect(delay);
+    delay.connect(ctx.destination);
+
+    // Start and stop
+    osc1.start();
+    osc2.start();
+    osc1.stop(ctx.currentTime + 0.06);
+    osc2.stop(ctx.currentTime + 0.06);
+}
+
+
+        
+
+        function animateMorph() {
+            morfValue += direction * speed;
+
+            if (morfValue >= 60 || morfValue <= 0) {
+                direction *= -1;
+            }
+
+            document.querySelectorAll(".shape").forEach((shape) => {
+                shape.style.fontVariationSettings = `"MORF" ${morfValue}`;
+            });
+
+            requestAnimationFrame(animateMorph);
+        }
+
+        function changePalette() {
+            isDarkMode = !isDarkMode;
+            document.body.style.backgroundColor = isDarkMode ? "#111" : "aliceblue";
+            document.querySelectorAll(".shape").forEach(shape => {
+                let bg = getRandomColor();
+                let border = getRandomColor();
+                let shadow1 = getRandomColor();
+                let shadow2 = getRandomColor();
+
+                shape.style.backgroundColor = bg;
+                shape.style.border = `3px solid ${border}`;
+                shape.style.boxShadow = `-10px 10px 20px inset ${shadow1}, 5px -5px 20px ${shadow2}`;
+            });
+
+            let button = document.querySelector(".spiky-button");
+            button.style.backgroundColor = getRandomColor();
+            button.style.border = `3px solid ${getRandomColor()}`;
+            button.style.boxShadow = `-10px 10px 20px ${getRandomColor()}, 5px -5px 20px ${getRandomColor()}`;
+            button.style.textShadow = `2px 2px 10px ${getRandomColor()}`;
+        }
+
+
+        // let hue = 0;
+        // let drection = 1;
+
+// function waveColorPulse() {
+//     hue += drection * 0.5; // Adjust speed by changing step size
+//     if (hue >= 200 || hue <= 50) drection *= -1; // Reverse at limits
+
+//     document.querySelectorAll(".shape").forEach((shape, index) => {
+//         let offset = Math.sin((hue + index * 20) * Math.PI / 180) * 180; // Apply sine wave ripple
+//         shape.style.filter = `saturate(${offset})`;
+//     });
+
+//     requestAnimationFrame(waveColorPulse);
+// }
+
+// waveColorPulse();
+
+
+function animateTextBoxLetters(textBox) {
+    let text = textBox.innerText;
+    textBox.innerHTML = ""; // Clear text box to insert spans
+
+    let spans = text.split("").map((char) => {
+        let span = document.createElement("span");
+        span.innerText = char;
+        span.style.display = "inline-block";
+        span.style.transition = "transform 0.3s ease-in-out"; // Smooth transition
+        textBox.appendChild(span);
+        return span;
+    });
+
+    let i = 0;
+
+    function animateLetters() {
+        spans.forEach((span) => (span.style.transform = "scale(1)")); // Reset all
+        function step() {
+            if (i > 0) spans[i - 1].style.transform = "scale(1)"; // Reset previous
+            spans[i].style.transform = "scale(3)"; // Enlarge current
+
+            i = (i + 1) % spans.length; // Loop back to 0 after last letter
+            setTimeout(step, 400); // Delay before next letter animates
+        }
+        step(); // Start animation loop
+    }
+
+    animateLetters();
+}
+
+// Modify shape click event to trigger letter animation
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("textbox")) {
+        animateTextBoxLetters(event.target);
+    }
+});
+
+
+
+
+
+
+
+
+
+        createShapes(40);
+
+
+
+
+
+
+        
+        animateMorph();
+    </script>
+</body>
+</html>

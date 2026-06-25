@@ -1,0 +1,300 @@
+{
+  "name": "Antigravity Telegram LLM Wiki Integrator",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "213cc51a-b57f-4f19-8289-cbca4477eb62",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        96,
+        464
+      ],
+      "webhookId": "6424999f-31cd-48d8-b2ab-61041609d4ca",
+      "credentials": {
+        "telegramApi": {
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "❓",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "9eb81470-07ec-4906-b0df-b436a8bf795a"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "5202c3e4-1aa5-4740-a66b-a38a0a78dead",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "💡",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "db3c37dd-014f-46d9-8872-09d341ad74ac",
+      "name": "Route Telegram Message",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        320,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://public-buckets-fly.loca.lt/add-qa",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "Galaxyno~2142005"
+            },
+            {
+              "name": "Bypass-Tunnel-Reminder",
+              "value": "true"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"question\": \"{{ $('Telegram Trigger').item.json.message.reply_to_message.text.replace('❓', '').trim() }}\",\n  \"answer\": \"{{ $('Telegram Trigger').item.json.message.text.replace('💡', '').trim() }}\",\n  \"asker_id\": \"{{ $('Telegram Trigger').item.json.message.reply_to_message.from.id }}\",\n  \"message_id\": \"{{ $('Telegram Trigger').item.json.message.reply_to_message.message_id }}\"\n}",
+        "options": {}
+      },
+      "id": "6a66bf58-50c8-47a6-bea4-0d4b47102512",
+      "name": "Add QA to Wiki API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        576,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://public-buckets-fly.loca.lt/search?q={{ encodeURIComponent($json.message.text.replace('❓', '').trim()) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "Galaxyno~2142005"
+            },
+            {
+              "name": "Bypass-Tunnel-Reminder",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e2f661f2-b504-467c-a4c9-ea638b28340a",
+      "name": "Search Wiki RAG API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        576,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.answer }}",
+        "additionalFields": {
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        }
+      },
+      "id": "c82fe940-4232-40da-b034-a5c778025639",
+      "name": "Reply with Search Result",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        352
+      ],
+      "webhookId": "70d2ca6a-dc1b-445d-82e7-f4f9a1ffc2a5",
+      "credentials": {
+        "telegramApi": {
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "تمت أرشفة هذه الفتوى بنجاح في الويكي الخاص بك! ✅",
+        "additionalFields": {
+          "reply_to_message_id": "={{ $('Telegram Trigger').item.json.message.message_id }}"
+        }
+      },
+      "id": "1784a0a2-8606-4f06-a2eb-38af2ee21ecb",
+      "name": "Confirm Wiki Archive",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        816,
+        560
+      ],
+      "webhookId": "d804bd53-c861-4f0d-b1d4-82064e18ca96",
+      "credentials": {
+        "telegramApi": {
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.found_match }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "0b4d0906-8bc8-414f-b1d4-8ffac7b0902e",
+      "name": "If Match Found",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        768,
+        352
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Route Telegram Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Telegram Message": {
+      "main": [
+        [
+          {
+            "node": "Search Wiki RAG API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Add QA to Wiki API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Add QA to Wiki API": {
+      "main": [
+        [
+          {
+            "node": "Confirm Wiki Archive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Match Found": {
+      "main": [
+        [
+          {
+            "node": "Reply with Search Result",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply with Search Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Wiki RAG API": {
+      "main": [
+        [
+          {
+            "node": "If Match Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "34fd866a-8cbc-4c39-929b-4e8efbedcc1c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "016484175aa530fcbd1eb7c78e3c1820ef9ed4bbb7d5ddbb8a0328becadc5266"
+  },
+  "id": "gUqQ73PBK0QWFSwd",
+  "tags": []
+}

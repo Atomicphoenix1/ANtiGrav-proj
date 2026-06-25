@@ -1,0 +1,33 @@
+{
+  "default_pagination": {
+    "total_results": 15,
+    "page": 1,
+    "page_size": 50,
+    "returned": 15
+  },
+  "page1_size2": {
+    "total_results": 15,
+    "page": 1,
+    "page_size": 2,
+    "returned": 2,
+    "ids": [
+      45,
+      4
+    ]
+  },
+  "page2_size2": {
+    "total_results": 15,
+    "page": 2,
+    "page_size": 2,
+    "returned": 2,
+    "ids": [
+      6,
+      11
+    ]
+  },
+  "audio_fields": {
+    "has_audio_url": true,
+    "has_start_time": true,
+    "has_end_time": true
+  }
+}

@@ -10,10 +10,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        720,
-        960
+        -240,
+        160
       ],
-      "id": "d06f43d0-3ef8-481d-a105-713031af49a6",
+      "id": "04bbf26d-acb2-421d-a168-ee2908f3770a",
       "name": "Webhook",
       "webhookId": "eb27a85d-b575-42ec-bc2b-0bae35fe0fca"
     },
@@ -28,16 +28,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        960,
-        800
+        0,
+        0
       ],
-      "id": "79e25cbb-3e5f-43ec-ab82-395a957459ac",
+      "id": "58949684-f016-4b2a-9261-c850a86e7823",
       "name": "Send DOCX",
       "webhookId": "7544a85d-39cc-4ce4-aefb-8dccc95bb326",
       "credentials": {
         "telegramApi": {
-          "id": "jFH4UglkbhsurCN7",
-          "name": "Telegram account 2"
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
         }
       }
     },
@@ -52,16 +52,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        960,
-        1104
+        0,
+        304
       ],
-      "id": "ef9e3177-352f-4d3d-9e66-2ba0d59e9bd7",
+      "id": "f45b3c47-a006-4bbb-88d7-6355d97a126c",
       "name": "Send PDF (Private)",
       "webhookId": "54e164e0-90dc-4ee8-8b13-782e4f3c9d89",
       "credentials": {
         "telegramApi": {
-          "id": "jFH4UglkbhsurCN7",
-          "name": "Telegram account 2"
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
         }
       }
     },
@@ -74,16 +74,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1472,
-        1104
+        656,
+        304
       ],
-      "id": "198ef3ed-fcea-460b-b667-c5c25c84f6d1",
+      "id": "e02f0ea9-072f-438d-a5d2-2caf629cb475",
       "name": "Get a file",
       "webhookId": "015c8545-6cde-4cfa-a8b7-662343ca2f55",
       "credentials": {
         "telegramApi": {
-          "id": "jFH4UglkbhsurCN7",
-          "name": "Telegram account 2"
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
         }
       }
     },
@@ -99,16 +99,16 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1760,
-        1104
+        800,
+        304
       ],
-      "id": "cc47452b-47f9-4d68-89cd-dd9f6f9d5c32",
+      "id": "1194ff1a-e5d2-4bda-968d-4e51053df982",
       "name": "Send a document",
       "webhookId": "ca12623a-6001-4d8a-b4af-d897c699df78",
       "credentials": {
         "telegramApi": {
-          "id": "jFH4UglkbhsurCN7",
-          "name": "Telegram account 2"
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
         }
       }
     },
@@ -127,79 +127,54 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1248,
-        1104
+        288,
+        304
       ],
-      "id": "aa5d0ddc-1a25-4814-927c-746fa1e16674",
+      "id": "a0d6a76e-1c71-40b3-9b93-214d05de50a3",
       "name": "Send a text message",
       "webhookId": "40004859-7f4d-45d4-a2f6-c434977bc769",
       "credentials": {
         "telegramApi": {
-          "id": "jFH4UglkbhsurCN7",
-          "name": "Telegram account 2"
+          "id": "DHg8gVw79pCkctsO",
+          "name": "Telegram account"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "94a49f41-d36c-4988-89d3-d92d7afc4b18",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        464,
+        320
+      ],
+      "id": "e8439bee-f90c-4294-9c86-b2d62cd6c57b",
+      "name": "If"
     }
   ],
-  "pinData": {
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "atomicphoenix1.app.n8n.cloud",
-            "user-agent": "python-requests/2.32.3",
-            "content-length": "280971",
-            "accept": "*/*",
-            "accept-encoding": "gzip, br",
-            "cdn-loop": "cloudflare; loops=1; subreqs=1",
-            "cf-connecting-ip": "82.129.198.66",
-            "cf-ew-via": "15",
-            "cf-ipcountry": "EG",
-            "cf-ray": "9fa94613a8feac32-MRS",
-            "cf-visitor": "{\"scheme\":\"https\"}",
-            "cf-worker": "n8n.cloud",
-            "content-type": "multipart/form-data; boundary=23db5ca37944ff0415fe5de8596364ee",
-            "x-forwarded-for": "82.129.198.66, 162.159.122.198",
-            "x-forwarded-host": "atomicphoenix1.app.n8n.cloud",
-            "x-forwarded-port": "443",
-            "x-forwarded-proto": "https",
-            "x-forwarded-server": "traefik-prod-users-gwc-104-78d5558646-dvb4n",
-            "x-is-trusted": "yes",
-            "x-real-ip": "82.129.198.66"
-          },
-          "params": {},
-          "query": {},
-          "body": {},
-          "webhookUrl": "https://atomicphoenix1.app.n8n.cloud/webhook/0b2e5c27-0dc5-4512-8fcb-cbec9ba785fa",
-          "executionMode": "production"
-        },
-        "binary": {
-          "docx": {
-            "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "fileExtension": "docx",
-            "data": "filesystem-v2",
-            "fileName": "6فضل الصلاة علي النبي (صلي الله (عليه وسلم.docx",
-            "id": "filesystem-v2:workflows/MbNmQ5c4uA5DueMH/executions/174/binary_data/5155d13d-a69e-4969-a465-f6427739abc8",
-            "fileSize": "70.4 kB",
-            "bytes": 70439
-          },
-          "pdf": {
-            "mimeType": "application/pdf",
-            "fileType": "pdf",
-            "fileExtension": "pdf",
-            "data": "filesystem-v2",
-            "fileName": "6فضل الصلاة علي النبي (صلي الله (عليه وسلم.pdf",
-            "id": "filesystem-v2:workflows/MbNmQ5c4uA5DueMH/executions/temp/binary_data/46b50c84-c7ba-4e50-9d89-630886e7a456",
-            "fileSize": "210 kB",
-            "bytes": 210024
-          }
-        },
-        "pairedItem": {
-          "item": 0
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "connections": {
     "Webhook": {
       "main": [
@@ -215,11 +190,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Send DOCX": {
-      "main": [
-        []
       ]
     },
     "Send PDF (Private)": {
@@ -248,6 +218,17 @@
       "main": [
         [
           {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
             "node": "Get a file",
             "type": "main",
             "index": 0
@@ -259,17 +240,13 @@
   "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate",
-    "timeSavedMode": "fixed",
-    "errorWorkflow": "arhG4q9xBUKGmRUr",
-    "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false
+    "binaryMode": "separate"
   },
-  "versionId": "5cc13149-fbce-4473-8781-79cd19cab699",
+  "versionId": "14efd2a5-7952-468f-aee4-0bfdceb150c9",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "c76f59e425d7f4af4e3b3a4d44c6b80afa1d7eb0696ee9d59a98986a78c78284"
+    "instanceId": "016484175aa530fcbd1eb7c78e3c1820ef9ed4bbb7d5ddbb8a0328becadc5266"
   },
-  "id": "MbNmQ5c4uA5DueMH",
+  "id": "K3KfEzkZlc7gW4SG",
   "tags": []
 }

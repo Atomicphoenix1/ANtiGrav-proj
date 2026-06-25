@@ -51,13 +51,21 @@ ENV/
 .vscode/
 .idea/
 
+# Build artifacts / dependencies
+.next/
+node_modules/
+.tmp.driveupload/
+
 # Media and Large Binaries
 *.mp3
 *.mp4
+*.mkv
 *.ogg
 *.exe
 *.zip
 *.7z
+*.cab
+*.webm
 *.pdf
 *.docx
 *.pptx

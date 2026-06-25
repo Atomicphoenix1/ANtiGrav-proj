@@ -1,0 +1,12 @@
+{
+  "gemini_api_key": "AQ.Ab8RN6IJxxix6hZDrf9dQ1iLyCtpzsrM5Oqu-3jJh9rBphDmGw",
+  "n8n_webhook_url": "",
+  "n8n_log_bridge_enabled": false,
+  "last_model": "gemini-3-flash-preview",
+  "last_device": "cuda",
+  "last_split_mode": "Full (No Split)",
+  "last_custom_seconds": 600,
+  "last_scope": "Bulk",
+  "last_operation": "Whisper + Gemini",
+  "theme": "retroluxe"
+}

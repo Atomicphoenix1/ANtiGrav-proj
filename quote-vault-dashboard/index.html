@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Cosmic Vault - Personal Quote & Reflection Dashboard</title>
+  <!-- Google Fonts for Cosmic Alchemist Aesthetics (EN and Arabic Serif/Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Aref+Ruqaa+Ink:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Kufi+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons for premium UI widgets -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- Twinkling Canvas Starfield Background -->
+  <canvas id="starfield"></canvas>
+
+  <!-- Ambient Audio Source (Calm space drone) -->
+  <audio id="ambient-audio" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+  <!-- Ambient Sound Player Overlay (Hidden audio controls, fully styled in UI) -->
+  <div class="sound-control-bubble" id="sound-toggle" title="Toggle Ambient Audio">
+    <i data-lucide="music"></i>
+    <span class="bubble-text" data-i18n="audioLabel">Ambient Pad</span>
+  </div>
+
+  <!-- Main Container -->
+  <div class="app-container">
+    
+    <!-- Header Area -->
+    <header class="main-header">
+      <div class="logo-area">
+        <h1 class="logo-title" data-i18n="logoTitle">THE COSMIC VAULT</h1>
+        <p class="logo-subtitle" data-i18n="logoSubtitle">Where wisdom drifts through time</p>
+      </div>
+
+      <!-- Action Panel & Streak Widget -->
+      <div class="header-actions">
+        <!-- Streak Widget -->
+        <div class="streak-ember" id="streak-ember-btn" title="View Reflection Streak">
+          <i data-lucide="flame" class="flame-icon"></i>
+          <span class="streak-count" id="streak-count-display">0</span>
+          <span class="streak-label" data-i18n="streakLabel">DAYS</span>
+        </div>
+
+        <!-- Add Quote Button -->
+        <button class="btn btn-primary" id="open-add-drawer-btn">
+          <i data-lucide="plus"></i>
+          <span data-i18n="addQuoteBtn">Add Quote</span>
+        </button>
+
+        <!-- Manage Vault Button -->
+        <button class="btn btn-secondary" id="open-vault-btn">
+          <i data-lucide="library"></i>
+          <span data-i18n="vaultManagerBtn">Vault Manager</span>
+        </button>
+
+        <!-- Language Toggle Button -->
+        <button class="btn btn-icon" id="language-toggle-btn" title="Toggle Language / تغيير اللغة">
+          <span class="lang-toggle-text" id="lang-toggle-text">AR</span>
+        </button>
+
+        <!-- Settings Button (Webhook) -->
+        <button class="btn btn-icon" id="open-settings-btn" title="n8n Integration">
+          <i data-lucide="settings"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dashboard Content Layout -->
+    <main class="dashboard-grid">
+      
+      <!-- Central Focus Quote Card -->
+      <section class="focus-section">
+        <div class="section-label">
+          <i data-lucide="orbit" class="spin-slow"></i>
+          <span data-i18n="sectionLabel">CURRENT ORBIT FOCUS</span>
+        </div>
+
+        <div class="focus-quote-card" id="focus-quote-card">
+          <!-- Card Glowing Border and Accents -->
+          <div class="card-accent top-left"></div>
+          <div class="card-accent top-right"></div>
+          <div class="card-accent bottom-left"></div>
+          <div class="card-accent bottom-right"></div>
+
+          <!-- Empty State (Shown when no quotes exist) -->
+          <div class="empty-focus-state" id="empty-focus-state">
+            <i data-lucide="sparkles" class="empty-sparkle"></i>
+            <h3 data-i18n="emptyTitle">The Vault is Quiet</h3>
+            <p data-i18n="emptyDesc">Write your first memory into the scroll to begin your reflections.</p>
+            <button class="btn btn-primary" id="empty-add-btn">
+              <i data-lucide="plus"></i> <span data-i18n="addFirstQuoteBtn">Add First Quote</span>
+            </button>
+          </div>
+
+          <!-- Quote View State -->
+          <div class="focus-quote-content hidden" id="focus-quote-content">
+            <div class="quote-text-container">
+              <span class="quote-mark open">“</span>
+              <p class="quote-body" id="display-quote-text">Loading the wisdom of the cosmos...</p>
+              <span class="quote-mark close">”</span>
+            </div>
+
+            <div class="quote-author-line">
+              <span class="dash">—</span>
+              <span class="quote-author" id="display-quote-author">The Universe</span>
+            </div>
+
+            <!-- Category tags on the current quote -->
+            <div class="quote-tags-wrapper" id="display-quote-tags">
+              <!-- Dynamically populated tags -->
+            </div>
+
+            <!-- Quote Controls (Cycle, Edit, n8n) -->
+            <div class="quote-actions">
+              <button class="btn btn-secondary btn-glow" id="cycle-quote-btn" title="Cycle to Another Quote">
+                <i data-lucide="rotate-cw"></i>
+                <span data-i18n="cycleQuoteBtn">Next Cycle</span>
+              </button>
+
+              <button class="btn btn-outline" id="edit-focus-btn" title="Edit this Quote">
+                <i data-lucide="edit-3"></i>
+                <span data-i18n="editQuoteBtn">Edit</span>
+              </button>
+
+              <button class="btn btn-n8n" id="sync-n8n-btn" title="Sync to n8n Webhook">
+                <i data-lucide="send"></i>
+                <span data-i18n="syncN8nBtn">Sync to n8n</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Reflection Logs & Stats -->
+      <section class="reflection-section">
+        
+        <!-- Insight panel (Views, date added) -->
+        <div class="insight-bar card-glass hidden" id="focus-insights">
+          <div class="insight-stat">
+            <span class="insight-title"><i data-lucide="eye"></i> <span data-i18n="impressionsLabel">Impressions</span></span>
+            <span class="insight-val" id="stat-impressions">0</span>
+          </div>
+          <div class="insight-stat">
+            <span class="insight-title"><i data-lucide="calendar"></i> <span data-i18n="createdLabel">First Opened</span></span>
+            <span class="insight-val" id="stat-created">Never</span>
+          </div>
+          <div class="insight-stat">
+            <span class="insight-title"><i data-lucide="history"></i> <span data-i18n="lastSeenLabel">Last Seen</span></span>
+            <span class="insight-val" id="stat-last-seen">Never</span>
+          </div>
+        </div>
+
+        <!-- Reflection log timeline -->
+        <div class="reflection-log-container card-glass">
+          <div class="reflection-header">
+            <h3><i data-lucide="scroll"></i> <span data-i18n="timelineTitle">Reflection Chronicles</span></h3>
+            <span class="reflection-counter" id="reflection-count">0 Reflections</span>
+          </div>
+
+          <div class="reflection-timeline" id="reflection-timeline">
+            <!-- Empty reflection note -->
+            <div class="empty-timeline-state" id="empty-timeline-state">
+              <p data-i18n="emptyTimeline">No reflections recorded for this wisdom yet. Write down your first thought or realization below.</p>
+            </div>
+            <!-- Reflections dynamic list -->
+          </div>
+
+          <!-- Add new reflection editor -->
+          <div class="reflection-composer hidden" id="reflection-composer">
+            <textarea id="reflection-input" placeholder="Type a reflection, realization, or update on how you have applied this quote..." rows="3"></textarea>
+            <div class="composer-actions">
+              <span class="timestamp-preview"><i data-lucide="clock"></i> <span data-i18n="timestampLabel">Auto-timestamped</span></span>
+              <button class="btn btn-primary btn-sm" id="save-reflection-btn">
+                <i data-lucide="feather"></i> <span data-i18n="recordBtn">Record Thought</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- DRAWERS & MODALS -->
+
+  <!-- Drawer: Add/Edit Quote -->
+  <div class="drawer-overlay" id="add-drawer-overlay">
+    <div class="drawer" id="add-drawer">
+      <div class="drawer-header">
+        <h2 id="drawer-title"><i data-lucide="sparkles"></i> Transcribe New Quote</h2>
+        <button class="btn-close" id="close-add-drawer-btn">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <form class="drawer-body" id="quote-form">
+        <input type="hidden" id="form-quote-id">
+
+        <div class="form-group">
+          <label for="form-quote-text" data-i18n="formLabelText">The Wisdom (Quote Text)</label>
+          <textarea id="form-quote-text" placeholder="Type the quote or thought that inspired you..." required rows="5"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="form-quote-author" data-i18n="formLabelAuthor">Author / Source</label>
+          <div class="input-with-icon">
+            <i data-lucide="user"></i>
+            <input type="text" id="form-quote-author" placeholder="e.g. Marcus Aurelius, Unknown, The Matrix" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="form-quote-tags" data-i18n="formLabelTags">Category Tags (Comma Separated)</label>
+          <div class="input-with-icon">
+            <i data-lucide="tag"></i>
+            <input type="text" id="form-quote-tags" placeholder="e.g. Philosophy, Coding, Life, Growth">
+          </div>
+          <small class="form-help" data-i18n="formHelpTags">Separate categories with commas. They will turn into glowing interactive pills.</small>
+        </div>
+
+        <div class="drawer-actions">
+          <button type="button" class="btn btn-outline" id="cancel-add-drawer-btn" data-i18n="cancelBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="save-quote-submit-btn">
+            <i data-lucide="save"></i> <span data-i18n="saveIntoVaultBtn">Save into Vault</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Drawer: Vault Manager -->
+  <div class="drawer-overlay" id="vault-drawer-overlay">
+    <div class="drawer drawer-right" id="vault-drawer">
+      <div class="drawer-header">
+        <h2><i data-lucide="library"></i> <span data-i18n="vaultTitle">The Archive Vault</span></h2>
+        <button class="btn-close" id="close-vault-btn">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="drawer-body">
+        <!-- Search and Filter Panel -->
+        <div class="search-panel">
+          <div class="search-box">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" id="vault-search-input" placeholder="Fuzzy search text, authors, reflections...">
+          </div>
+
+          <div class="tag-filters" id="vault-tag-filters">
+            <!-- Dynamically populated tag filters -->
+          </div>
+        </div>
+
+        <!-- Archive List -->
+        <div class="archive-list-container">
+          <div class="archive-count" id="archive-count-text">0 quotes saved in the cosmos</div>
+          
+          <div class="archive-list" id="archive-list">
+            <!-- Dynamic archive entries -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: settings/n8n -->
+  <div class="modal-overlay" id="settings-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2><i data-lucide="settings"></i> <span data-i18n="settingsTitle">Cosmic Integrations (n8n)</span></h2>
+        <button class="btn-close" id="close-settings-btn">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-description" data-i18n="settingsDesc">Connect your cosmic vault to an external **n8n workflow**. Once connected, you can click "Sync to n8n" on any quote to instantly trigger your automated pipelines (e.g. sending daily Telegram alerts, email reminders, or saving to Notion databases).</p>
+
+        <div class="form-group">
+          <label for="settings-webhook-url" data-i18n="settingsLabelUrl">n8n Webhook URL</label>
+          <input type="url" id="settings-webhook-url" placeholder="https://primary-production.n8n.cloud/webhook/..." class="form-control">
+        </div>
+
+        <div class="sync-info-box">
+          <h4><i data-lucide="info"></i> <span data-i18n="settingsPayloadLabel">JSON Payload Schema sent to n8n:</span></h4>
+          <pre><code>{
+  "event": "manual_sync",
+  "language": "en",
+  "timestamp": "2026-05-23T13:45:00.000Z",
+  "quote": {
+    "id": "q_1716492345",
+    "text": "The only way to do great work is...",
+    "author": "Steve Jobs",
+    "tags": ["Coding", "Growth"],
+    "impressions": 12,
+    "streak": 5,
+    "reflections": [
+      {
+        "timestamp": "2026-05-23T13:45:00Z",
+        "text": "Applying this today in my coding sessions!"
+      }
+    ]
+  }
+}</code></pre>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-outline" id="test-webhook-btn" data-i18n="settingsTestBtn">
+            <i data-lucide="zap"></i> Test Connection
+          </button>
+          <button class="btn btn-primary" id="save-settings-btn" data-i18n="settingsSaveBtn">
+            <i data-lucide="check"></i> Save Integration
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Scripts loaded sequentially to work offline / double-clickable -->
+  <script src="./starfield.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+---------- 
+ROUTE CARDS 
+Displays basis set and methods 
+
+---------- SEVEN.LOG
+ # opt freq hf/6-311++g(d,p) geom=connectivity
+ 025|0||# opt freq hf/6-311++g(d,p) geom=connectivity||Title Card Requi
+---------- 
+JOB CPU TIME 
+
+---------- SEVEN.LOG
+ Job cpu time:  0 days  0 hours 36 minutes  2.0 seconds.
+ Job cpu time:  0 days  0 hours 14 minutes 43.0 seconds.
+---------- 
+SCF Done 
+
+---------- SEVEN.LOG
+ SCF Done:  E(UHF) =  -269.125244197     A.U. after   37 cycles
+ SCF Done:  E(UHF) =  -269.138650181     A.U. after   32 cycles
+ SCF Done:  E(UHF) =  -269.149827053     A.U. after   29 cycles
+ SCF Done:  E(UHF) =  -269.157710699     A.U. after   29 cycles
+ SCF Done:  E(UHF) =  -269.161111876     A.U. after   35 cycles
+ SCF Done:  E(UHF) =  -269.162105942     A.U. after   32 cycles
+ SCF Done:  E(UHF) =  -269.163105855     A.U. after   31 cycles
+ SCF Done:  E(UHF) =  -269.163326494     A.U. after   23 cycles
+ SCF Done:  E(UHF) =  -269.163371805     A.U. after   19 cycles
+ SCF Done:  E(UHF) =  -269.163373782     A.U. after   14 cycles
+ SCF Done:  E(UHF) =  -269.163373782     A.U. after    1 cycles
+---------- 
+
+---------- SEVEN.LOG
+ Frequencies --   145.6437               295.7494               435.6464
+ Frequencies --   461.7621               535.2908               553.6964
+ Frequencies --   667.4076               789.2052               796.4161
+ Frequencies --   834.3639               862.8889               940.0987
+ Frequencies --   947.5129               969.7042               994.9005
+ Frequencies --   996.0037              1013.9378              1047.8051
+ Frequencies --  1062.6511              1220.7530              1287.8928
+ Frequencies --  1363.2606              1417.9887              1516.5736
+ Frequencies --  1568.7328              1583.6701              1603.1034
+ Frequencies --  1662.2300              1720.7684              3287.5474
+ Frequencies --  3289.4433              3297.9214              3308.3256
+ Frequencies --  3321.3439              3322.9083              3333.0539
+
+---------- SEVEN.LOG
+ Raman Activ --     0.1574                 0.6888                 2.2332
+ Raman Activ --     5.5461                 0.7096                 0.7168
+ Raman Activ --     0.0003                 0.2450                 0.0104
+ Raman Activ --     7.4789                 1.3304                12.8625
+ Raman Activ --    12.4350                 3.0894                 0.0942
+ Raman Activ --     1.7997                44.0148                 1.3524
+ Raman Activ --     2.8838                 8.8570                 0.4315
+ Raman Activ --     6.4614                 7.1011                 0.0041
+ Raman Activ --    13.0173                 2.8730                37.4280
+ Raman Activ --    52.3298                42.3336                13.6636
+ Raman Activ --     3.6730               143.0184                98.8759
+ Raman Activ --     2.4502                14.8134               484.3230
+
+---------- SEVEN.LOG
+ IR Inten    --     0.0000                 0.0614                 0.1919
+ IR Inten    --     0.4434                19.3063                 0.0018
+ IR Inten    --   120.2779                 0.0005                 2.6615
+ IR Inten    --     0.4474                 0.0013                 0.0002
+ IR Inten    --     0.0535                 2.0157                 0.0713
+ IR Inten    --     1.0723                11.8128                 0.0021
+ IR Inten    --     0.3373                 0.0071                 0.0702
+ IR Inten    --     0.1834                 1.5474                 0.1333
+ IR Inten    --     5.7948                 2.5945                 0.7885
+ IR Inten    --     0.8245                 0.0046                 0.3831
+ IR Inten    --     1.9457                 3.8401                 1.5857
+ IR Inten    --    74.2585                68.9845                 1.8179

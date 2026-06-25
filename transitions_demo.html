@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Funky, Quirky & Weird Neo-Brutalist Transitions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffe5ec;
+            --accent-pink: #ff007f;
+            --accent-yellow: #ffde59;
+            --accent-blue: #00f0ff;
+            --accent-lime: #ccff00;
+            --accent-purple: #9d00ff;
+            --text-color: #0c0c0c;
+            --border-width: 5px;
+            --shadow: 8px 8px 0px var(--text-color);
+            --shadow-sm: 4px 4px 0px var(--text-color);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            overflow-x: hidden;
+            background-image: radial-gradient(var(--text-color) 1.5px, transparent 1.5px);
+            background-size: 25px 25px;
+        }
+
+        header {
+            margin-bottom: 2rem;
+            background: var(--accent-lime);
+            border: var(--border-width) solid var(--text-color);
+            box-shadow: var(--shadow);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            transform: rotate(-0.5deg);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            text-shadow: 3px 3px 0px white;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--accent-pink);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: 3px solid var(--text-color);
+            box-shadow: 3px 3px 0px var(--text-color);
+            transform: rotate(1.5deg);
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+            flex: 1;
+        }
+
+        @media (max-width: 960px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Navigation / Selector list */
+        .selector-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            background: white;
+            border: var(--border-width) solid var(--text-color);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            background: #fffbfa;
+        }
+
+        .selector-list h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border-bottom: 4px solid var(--text-color);
+            padding-bottom: 0.5rem;
+            text-transform: uppercase;
+            color: var(--accent-pink);
+            text-shadow: 1px 1px 0px var(--text-color);
+        }
+
+        .transition-btn {
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-align: left;
+            padding: 0.85rem 1rem;
+            background: #ffffff;
+            border: 4px solid var(--text-color);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .transition-btn:hover {
+            transform: translate(-3px, -3px) rotate(-0.5deg);
+            box-shadow: 7px 7px 0px var(--text-color);
+            background: var(--accent-yellow);
+        }
+
+        .transition-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--text-color);
+        }
+
+        .transition-btn.active {
+            background: var(--accent-pink);
+            color: white;
+            transform: translate(2px, 2px) rotate(0.5deg);
+            box-shadow: 2px 2px 0px var(--text-color);
+        }
+
+        .transition-btn.active .rank-badge {
+            background: var(--accent-lime);
+            color: var(--text-color);
+            border: 2px solid var(--text-color);
+        }
+
+        .rank-badge {
+            background: var(--text-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.6rem;
+            font-weight: 900;
+            border: 2px solid transparent;
+        }
+
+        /* Demo Preview Area */
+        .preview-container {
+            background: white;
+            border: var(--border-width) solid var(--text-color);
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            background: #faf8f5;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 5px solid var(--text-color);
+            padding-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .preview-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .action-btn {
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 900;
+            background: var(--accent-blue);
+            color: var(--text-color);
+            border: 4px solid var(--text-color);
+            padding: 0.7rem 1.4rem;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.1s;
+            transform: rotate(-1deg);
+        }
+
+        .action-btn:hover {
+            background: var(--accent-yellow);
+            transform: translate(-2px, -2px) rotate(1deg);
+            box-shadow: 6px 6px 0px var(--text-color);
+        }
+
+        .action-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px var(--text-color);
+        }
+
+        .transition-desc {
+            background: var(--accent-yellow);
+            border: 4px solid var(--text-color);
+            padding: 1.25rem;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            box-shadow: 4px 4px 0px var(--text-color);
+            transform: rotate(0.5deg);
+        }
+
+        /* Tab Content Box */
+        .tab-content-wrapper {
+            position: relative;
+            flex: 1;
+            perspective: 1000px;
+        }
+
+        .tab-pane {
+            display: none;
+            width: 100%;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Sample Content Inside Tab */
+        .demo-heading {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            background: var(--accent-pink);
+            color: white;
+            padding: 0.4rem 1rem;
+            border: 4px solid var(--text-color);
+            box-shadow: 5px 5px 0px var(--text-color);
+            transform: rotate(-1.5deg);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-card {
+            background: #fff;
+            border: 4px solid var(--text-color);
+            padding: 1.8rem;
+            box-shadow: 6px 6px 0px var(--text-color);
+            position: relative;
+        }
+
+        .demo-card:nth-child(1) { background-color: #edffec; border-color: #000; }
+        .demo-card:nth-child(2) { background-color: #fff0f5; border-color: #000; }
+        .demo-card:nth-child(3) { background-color: #f0f8ff; border-color: #000; }
+
+        .demo-card h4 {
+            font-size: 1.35rem;
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+            background: var(--accent-lime);
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border: 3px solid var(--text-color);
+            box-shadow: 3px 3px 0px var(--text-color);
+            transform: rotate(2deg);
+        }
+
+        .demo-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           10 FUNKY, QUIRKY & WEIRD TRANSITIONS (CSS CLASSES)
+           ========================================================================== */
+
+        /* 1. Windows 95 Glitch Stutter */
+        .anim-glitch-stutter {
+            animation: glitchStutter 400ms steps(5, end) forwards;
+        }
+        @keyframes glitchStutter {
+            0% { transform: translate(-30px, 30px) skew(20deg); opacity: 0.3; filter: drop-shadow(10px 10px 0px var(--accent-pink)); }
+            25% { transform: translate(20px, -20px) skew(-15deg); opacity: 0.8; filter: drop-shadow(-10px -10px 0px var(--accent-blue)); }
+            50% { transform: translate(-10px, 10px) skew(10deg); opacity: 0.5; filter: drop-shadow(10px -10px 0px var(--accent-yellow)); }
+            75% { transform: translate(5px, -5px) skew(-5deg); opacity: 0.9; filter: drop-shadow(-5px 5px 0px var(--accent-lime)); }
+            100% { transform: translate(0, 0) skew(0deg); opacity: 1; filter: none; }
+        }
+
+        /* 2. Venetian Blinds / Strip Slicer */
+        .anim-blinds .demo-heading { animation: blindFlip 450ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .anim-blinds .demo-card:nth-child(1) { animation: blindFlip 450ms 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .anim-blinds .demo-card:nth-child(2) { animation: blindFlip 450ms 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .anim-blinds .demo-card:nth-child(3) { animation: blindFlip 450ms 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .anim-blinds .demo-heading, .anim-blinds .demo-card { opacity: 0; transform: rotateX(90deg); transform-origin: center; }
+        @keyframes blindFlip {
+            0% { transform: rotateX(90deg); opacity: 0; }
+            100% { transform: rotateX(0deg); opacity: 1; }
+        }
+
+        /* 3. Rubber Band Slam & Squish */
+        .anim-rubber-slam {
+            animation: rubberSlam 600ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            transform-origin: bottom center;
+        }
+        @keyframes rubberSlam {
+            0% { transform: translateY(-150%) scaleY(1.6) scaleX(0.7); opacity: 0; }
+            40% { transform: translateY(0%) scaleY(0.5) scaleX(1.4); opacity: 1; }
+            60% { transform: translateY(-25%) scaleY(1.2) scaleX(0.9); }
+            80% { transform: translateY(0%) scaleY(0.9) scaleX(1.1); }
+            100% { transform: translateY(0) scaleY(1) scaleX(1); }
+        }
+
+        /* 4. Comic Book Starburst Zoom */
+        .anim-starburst {
+            animation: starburstZoom 500ms cubic-bezier(0.175, 0.885, 0.32, 1.4) forwards;
+        }
+        @keyframes starburstZoom {
+            0% { 
+                clip-path: polygon(50% 50%, 55% 45%, 60% 50%, 55% 55%, 50% 60%, 45% 55%, 40% 50%, 45% 45%);
+                transform: scale(0.2) rotate(-90deg);
+                opacity: 0;
+            }
+            100% { 
+                clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* 5. Drunk Pendulum Wobble */
+        .anim-drunk-wobble {
+            animation: drunkWobble 650ms ease-in-out forwards;
+            transform-origin: top center;
+        }
+        @keyframes drunkWobble {
+            0% { transform: rotate(-35deg) scale(0.6); opacity: 0; }
+            30% { transform: rotate(25deg) scale(1.1); opacity: 1; }
+            55% { transform: rotate(-15deg) scale(0.95); }
+            75% { transform: rotate(7deg) scale(1.02); }
+            90% { transform: rotate(-2deg) scale(0.99); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        /* 6. Aggressive Marquee Overshoot */
+        .anim-marquee-slam {
+            animation: marqueeSlam 500ms cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+        }
+        @keyframes marqueeSlam {
+            0% { transform: translateX(150vw) skewX(-30deg); opacity: 0; }
+            60% { transform: translateX(-40px) skewX(20deg); opacity: 1; }
+            80% { transform: translateX(15px) skewX(-10deg); }
+            100% { transform: translateX(0) skewX(0deg); }
+        }
+
+        /* 7. Ransom Note Sticker Slap */
+        .anim-ransom-slap .demo-heading { animation: ransomSlap 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .anim-ransom-slap .demo-card:nth-child(1) { animation: ransomSlap 400ms 150ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .anim-ransom-slap .demo-card:nth-child(2) { animation: ransomSlap 400ms 300ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .anim-ransom-slap .demo-card:nth-child(3) { animation: ransomSlap 400ms 450ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .anim-ransom-slap .demo-heading, .anim-ransom-slap .demo-card { opacity: 0; transform: scale(3) rotate(30deg); }
+        @keyframes ransomSlap {
+            0% { transform: scale(3) rotate(45deg); opacity: 0; filter: blur(5px); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; filter: blur(0); }
+        }
+
+        /* 8. CRT TV Static & Flash */
+        .anim-crt-flash {
+            animation: crtFlash 500ms ease-out forwards;
+        }
+        @keyframes crtFlash {
+            0% { opacity: 0; transform: scaleY(0.01) scaleX(2); filter: invert(1); background: #00f0ff; }
+            30% { opacity: 1; transform: scaleY(0.01) scaleX(2); filter: invert(1); background: #ff007f; }
+            60% { transform: scaleY(1.2) scaleX(0.8); filter: hue-rotate(180deg); background: #ffde59; }
+            100% { transform: scale(1); filter: none; background: transparent; }
+        }
+
+        /* 9. Pudding Squish & Jiggle */
+        .anim-pudding-squish {
+            animation: puddingSquish 700ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        @keyframes puddingSquish {
+            0% { transform: scale(0.3) skewX(40deg) skewY(30deg); opacity: 0; }
+            30% { transform: scale(1.2) skewX(-25deg) skewY(-20deg); opacity: 1; }
+            50% { transform: scale(0.9) skewX(15deg) skewY(10deg); }
+            70% { transform: scale(1.05) skewX(-5deg) skewY(-5deg); }
+            100% { transform: scale(1) skewX(0deg) skewY(0deg); }
+        }
+
+        /* 10. Tornado Swirl / Spiral In */
+        .anim-tornado-swirl {
+            animation: tornadoSwirl 600ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        @keyframes tornadoSwirl {
+            0% { transform: rotate(-720deg) scale(0); opacity: 0; filter: blur(10px); }
+            60% { transform: rotate(25deg) scale(1.1); opacity: 1; filter: blur(2px); }
+            85% { transform: rotate(-10deg) scale(0.95); filter: blur(0px); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Funky & Weird Transitions Playground</h1>
+        <div class="subtitle">10 Unapologetically Quirky, Glitchy & Bizarre Alternatives</div>
+    </header>
+
+    <main>
+        <!-- Transitions Navigation List -->
+        <aside class="selector-list">
+            <h3>Select Quirky Transition</h3>
+            <button class="transition-btn active" onclick="selectTransition(1)">
+                <span>1. Win 95 Glitch Stutter</span>
+                <span class="rank-badge">#1</span>
+            </button>
+            <button class="transition-btn" onclick="selectTransition(2)">
+                <span>2. Venetian Blind Slicer</span>
+                <span class="rank-badge">#2</span>
+            </button>
+            <button class="transition-btn" onclick="selectTransition(3)">
+                <span>3. Rubber Band Slam</span>
+                <span class="rank-badge">#3</span>
+            </button>
+            <button class="transition-btn" onclick="selectTransition(4)">
+                <span>4. Comic Starburst Zoom</span>
+                <span class="rank-badge">#4</span>
+            </button>
+            <button class="transition-btn" onclick="selectTransition(5)">
+                <span>5. Drunk Pendulum Wobble</span>
+                <span class="rank-badge">#5</span>
+            </button>
+            <button class="transition-btn" onclick="selectTransition(6)">
+                <span>6. Aggressive Marquee</span>
+                <span class="rank-badge">#6</span>
+            </button>
+            <button class="transition-btn" onclick="selectTransition(7)">
+                <span>7. Ransom Note Sticker Slap</span>
+                <span class="rank-badge">#7</span>
+            </button>
+            <button class="transition-btn" onclick="selectTransition(8)">
+                <span>8. CRT TV Static & Flash</span>
+                <span class="rank-badge">#8</span>
+            </button>
+            <button class="transition-btn" onclick="selectTransition(9)">
+                <span>9. Pudding Squish & Jiggle</span>
+                <span.rank-badge>#9</span>
+            </button>
+            <button class="transition-btn" onclick="selectTransition(10)">
+                <span>10. Tornado Spiral Swirl</span>
+                <span class="rank-badge">#10</span>
+            </button>
+        </aside>
+
+        <!-- Preview Section -->
+        <section class="preview-container">
+            <div class="preview-header">
+                <div class="preview-title" id="current-title">
+                    <span style="background: var(--accent-lime); padding: 0.2rem 0.6rem; border: 3px solid var(--text-color);">#1</span>
+                    Win 95 Glitch Stutter
+                </div>
+                <button class="action-btn" onclick="replayTransition()">💥 Replay Madness</button>
+            </div>
+
+            <div class="transition-desc" id="current-desc">
+                <strong>transform: translate() skew() with steps() keyframes and wild drop-shadows.</strong><br>
+                Simulates an old-school Windows 95 frozen window dragging error trail before snapping into place. Maximum quirky energy.
+            </div>
+
+            <div class="tab-content-wrapper" id="anim-target">
+                <div class="tab-pane active">
+                    <h2 class="demo-heading">UNLEASH THE WEIRD</h2>
+                    <div class="demo-grid">
+                        <div class="demo-card">
+                            <h4>GLITCH PHYSICS</h4>
+                            <p>Rejecting smooth easing curves for aggressive stepping, heavy skewing, and exaggerated elastic slams.</p>
+                        </div>
+                        <div class="demo-card">
+                            <h4>STICKER SLAP</h4>
+                            <p>Elements flying in from chaotic angles and stamping onto the screen like ransom note cutouts.</p>
+                        </div>
+                        <div class="demo-card">
+                            <h4>RETRO BIZARRE</h4>
+                            <p>Channeling CRT static flashes, Venetian blind slices, and wobbly jello distortions to make every click unforgettable.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const transitionsData = {
+            1: {
+                title: "Win 95 Glitch Stutter",
+                badge: "#1",
+                class: "anim-glitch-stutter",
+                desc: "<strong>transform: translate() skew() with steps() keyframes and wild drop-shadows.</strong><br>Simulates an old-school Windows 95 frozen window dragging error trail before snapping into place. Maximum quirky energy."
+            },
+            2: {
+                title: "Venetian Blind Slicer",
+                badge: "#2",
+                class: "anim-blinds",
+                desc: "<strong>Individual cards and headings undergo 3D rotateX(90deg) flips staggered sequentially.</strong><br>Like opening a set of heavy physical window blinds. Extremely tactile and satisfying."
+            },
+            3: {
+                title: "Rubber Band Slam",
+                badge: "#3",
+                class: "anim-rubber-slam",
+                desc: "<strong>translateY(-150%) scaleY(1.6) dropping into a heavy squish scaleY(0.5).</strong><br>Violent cartoon physics. The content falls from the sky, slams into the ground, squishes flat, and wobbles upright."
+            },
+            4: {
+                title: "Comic Starburst Zoom",
+                badge: "#4",
+                class: "anim-starburst",
+                desc: "<strong>clip-path polygon morphing from a tiny jagged starburst into full view while rotating.</strong><br>Straight out of a 90s comic book or arcade game intro. Super punchy."
+            },
+            5: {
+                title: "Drunk Pendulum Wobble",
+                badge: "#5",
+                class: "anim-drunk-wobble",
+                desc: "<strong>rotate(-35deg) swinging back and forth like a heavy grandfather clock pendulum.</strong><br>Woozy, playful, and completely unhinged. Adds massive personality to standard cards."
+            },
+            6: {
+                title: "Aggressive Marquee",
+                badge: "#6",
+                class: "anim-marquee-slam",
+                desc: "<strong>translateX(150vw) rushing in horizontally with extreme skewing and overshooting.</strong><br>Like a speeding race car slamming on the brakes right in front of your face."
+            },
+            7: {
+                title: "Ransom Note Sticker Slap",
+                badge: "#7",
+                class: "anim-ransom-slap",
+                desc: "<strong>scale(3) rotate(45deg) flying in and slapping onto the screen one by one.</strong><br>Every card feels like a physical sticker or magazine cutout being aggressively stamped onto the page."
+            },
+            8: {
+                title: "CRT TV Static & Flash",
+                badge: "#8",
+                class: "anim-crt-flash",
+                desc: "<strong>Extreme scale distortion, color inversion, hue rotation, and neon background flashing.</strong><br>Mimics turning on an ancient, glitchy CRT television. Pure retro cyberpunk brutalism."
+            },
+            9: {
+                title: "Pudding Squish & Jiggle",
+                badge: "#9",
+                class: "anim-pudding-squish",
+                desc: "<strong>scale(0.3) skewX(40deg) expanding into a jiggling, gelatinous wobble.</strong><br>Makes your rigid neo-brutalist boxes behave like wobbly jello pudding. Hilarious and delightful."
+            },
+            10: {
+                title: "Tornado Spiral Swirl",
+                badge: "#10",
+                class: "anim-tornado-swirl",
+                desc: "<strong>rotate(-720deg) scale(0) spinning in violently with heavy motion blur.</strong><br>A chaotic vortex that sucks the content right out of a black hole onto your screen."
+            }
+        };
+
+        let currentId = 1;
+
+        function selectTransition(id) {
+            currentId = id;
+            
+            // Update active button styling
+            document.querySelectorAll('.transition-btn').forEach((btn, idx) => {
+                if (idx + 1 === id) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Update Header & Description
+            const data = transitionsData[id];
+            document.getElementById('current-title').innerHTML = `<span style="background: var(--accent-lime); padding: 0.2rem 0.6rem; border: 3px solid var(--text-color);">${data.badge}</span> ${data.title}`;
+            document.getElementById('current-desc').innerHTML = data.desc;
+
+            // Trigger Animation Replay
+            replayTransition();
+        }
+
+        function replayTransition() {
+            const target = document.getElementById('anim-target');
+            const data = transitionsData[currentId];
+            
+            // Remove all possible animation classes
+            Object.values(transitionsData).forEach(item => {
+                target.classList.remove(item.class);
+            });
+
+            // Force reflow/repaint to restart animation
+            void target.offsetWidth;
+
+            // Add new animation class
+            target.classList.add(data.class);
+        }
+
+        // Initialize first animation on load
+        window.onload = () => {
+            replayTransition();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "index": {
+    "status": "success",
+    "indexed_count": 1,
+    "ids": [
+      1
+    ]
+  },
+  "search_bare": {
+    "query": "العالمين",
+    "normalized_query": "العالمين",
+    "results": [
+      {
+        "id": 1,
+        "original_text": "<p>الْحَمْدُ للَّهِ رَبِّ الْعَالَمِينَ</p>",
+        "normalized_text": "الحمد لله رب العالمين",
+        "rank": -0.0
+      }
+    ]
+  },
+  "search_tashkeel": {
+    "query": "الْعَالَمِينَ",
+    "normalized_query": "العالمين",
+    "results": [
+      {
+        "id": 1,
+        "original_text": "<p>الْحَمْدُ للَّهِ رَبِّ الْعَالَمِينَ</p>",
+        "normalized_text": "الحمد لله رب العالمين",
+        "rank": -0.0
+      }
+    ]
+  },
+  "search_partial": {
+    "query": "الحمد",
+    "normalized_query": "الحمد",
+    "results": [
+      {
+        "id": 1,
+        "original_text": "<p>الْحَمْدُ للَّهِ رَبِّ الْعَالَمِينَ</p>",
+        "normalized_text": "الحمد لله رب العالمين",
+        "rank": -0.0
+      }
+    ]
+  }
+}

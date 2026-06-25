@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة أوقات الليل والنهار الإسلامية</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons for UI icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts: Cairo for Arabic UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        serif: ['Amiri', 'serif'],
+                    },
+                    colors: {
+                        night: {
+                            900: '#0B1021',
+                            800: '#151C33',
+                            700: '#1F2947',
+                            card: 'rgba(21, 28, 51, 0.7)'
+                        },
+                        gold: {
+                            400: '#FBBF24',
+                            500: '#F59E0B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B1021;
+            background-image: 
+                radial-gradient(circle at 85% 50%, rgba(45, 212, 191, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 15% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .glass-card {
+            background: rgba(31, 41, 71, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="0.5" fill="%23ffffff" opacity="0.5"/><circle cx="150" cy="80" r="1" fill="%23ffffff" opacity="0.8"/><circle cx="80" cy="150" r="0.8" fill="%23ffffff" opacity="0.6"/><circle cx="180" cy="180" r="0.5" fill="%23ffffff" opacity="0.4"/></svg>') repeat;
+        }
+
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-bottom-color: #FBBF24;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Custom Select Styling */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: left 1rem center;
+            background-size: 1em;
+        }
+        select option {
+            background-color: #1F2947;
+            color: white;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans relative pb-12">
+    <div class="stars"></div>
+
+    <div class="max-w-5xl mx-auto px-4 pt-12">
+        
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center p-3 rounded-full bg-night-800 border border-night-700 mb-4 shadow-lg">
+                <i class="ph-fill ph-moon-stars text-gold-400 text-3xl"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-3">حاسبة أوقات قيام الليل</h1>
+
+        </div>
+
+        <!-- Location Controls -->
+        <div class="glass-card rounded-2xl p-6 mb-8 max-w-3xl mx-auto">
+            
+            <!-- Calculation Method Selector -->
+            <div class="mb-4 bg-night-900/50 p-3 rounded-xl border border-night-700 flex flex-col md:flex-row items-center gap-3">
+                <label for="method-select" class="text-sm text-slate-300 whitespace-nowrap flex items-center gap-2">
+                    <i class="ph-fill ph-math-operations text-indigo-400"></i> طريقة حساب المواقيت:
+                </label>
+                <select id="method-select" onchange="recalculateIfReady()" class="w-full bg-night-800 border border-night-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 transition-colors text-sm pr-4 pl-10 cursor-pointer">
+                    <option value="5">الهيئة العامة المصرية للمساحة (مصر والدول المجاورة)</option>
+                    <option value="4">جامعة أم القرى (السعودية والخليج)</option>
+                    <option value="3">رابطة العالم الإسلامي (أوروبا وعالمياً)</option>
+                    <option value="2">الجمعية الإسلامية لأمريكا الشمالية (ISNA)</option>
+                    <option value="1">جامعة العلوم الإسلامية بكراتشي (باكستان، أفغانستان)</option>
+                    <option value="13">رئاسة الشؤون الدينية بتركيا</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4">
+                <button id="btn-auto-locate" onclick="getLocationAndCalculate()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 transition-colors text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center gap-2 shadow-lg shadow-indigo-900/50">
+                    <i class="ph ph-crosshair text-xl"></i>
+                    تحديد الموقع تلقائياً
+                </button>
+                <div class="flex items-center justify-center text-slate-500 font-medium px-2">أو</div>
+                <div class="flex-1 flex gap-2">
+                    <input type="text" id="city-input" placeholder="المدينة (مثل: القاهرة)" class="w-full bg-night-900 border border-night-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors">
+                    <button onclick="calculateByCity()" class="bg-night-700 hover:bg-night-600 transition-colors border border-night-600 px-4 py-3 rounded-xl flex items-center justify-center">
+                        <i class="ph ph-magnifying-glass text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="status-message" class="mt-4 text-center text-sm text-slate-400 hidden">
+                <span class="loader w-4 h-4 ml-2 align-middle"></span>
+                <span id="status-text" class="align-middle">جاري الحساب...</span>
+            </div>
+            <div id="error-message" class="mt-4 text-center text-sm text-red-400 hidden"></div>
+        </div>
+
+        <!-- Results Section (Hidden initially) -->
+        <div id="results-container" class="hidden space-y-6">
+            
+            <!-- Context and Notifications Banner -->
+            <div class="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
+                <!-- Location & Date Context -->
+                <div class="flex-1 text-center glass-card p-4 rounded-xl border-t-2 border-indigo-500 relative overflow-hidden">
+                    <p class="text-slate-300 font-medium flex items-center justify-center gap-2 mb-2 z-10 relative">
+                        <i class="ph-fill ph-map-pin text-indigo-400 text-lg"></i>
+                        <span id="display-location">موقعك</span>
+                    </p>
+                    <p class="text-gold-400 font-bold text-lg font-serif z-10 relative" id="display-hijri-date"></p>
+                    <p class="text-slate-400 text-sm mt-1 z-10 relative" id="display-gregorian-date"></p>
+                </div>
+
+                <!-- Notifications Panel -->
+                <div class="flex-1 text-center glass-card p-4 rounded-xl border-t-2 border-emerald-500 flex flex-col justify-center items-center">
+                    <p class="text-slate-300 text-sm mb-3">احصل على تنبيه عند دخول وقت الضحى، السدس الرابع، ووقت الوتر.</p>
+                    <button id="notify-btn" onclick="toggleNotifications()" class="bg-night-700 hover:bg-night-600 border border-night-500 transition-colors text-white py-2 px-6 rounded-lg font-medium flex items-center justify-center gap-2 text-sm w-full md:w-auto">
+                        <i class="ph ph-bell text-lg"></i>
+                        تفعيل التنبيهات
+                    </button>
+                    <p class="text-[10px] text-slate-500 mt-2">ملاحظة: تعمل التنبيهات طالما هذه الصفحة مفتوحة في متصفحك.</p>
+                </div>
+            </div>
+
+            <!-- All Prayer Times -->
+            <div class="glass-card rounded-xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="ph-fill ph-mosque text-indigo-400"></i> مواقيت الصلاة
+                    </h3>
+                    <span class="text-xs bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30" id="display-method-name">طريقة الحساب</span>
+                </div>
+                
+                <div class="grid grid-cols-3 md:grid-cols-6 gap-3 text-center">
+                    <div class="bg-night-900/50 p-3 rounded-lg border border-night-700/50 hover:border-indigo-500/50 transition-colors">
+                        <p class="text-slate-400 text-xs mb-1">الفجر</p>
+                        <p class="text-white font-bold" id="pt-fajr">--:--</p>
+                    </div>
+                    <div class="bg-night-900/50 p-3 rounded-lg border border-night-700/50 hover:border-yellow-500/50 transition-colors">
+                        <p class="text-slate-400 text-xs mb-1">الشروق</p>
+                        <p class="text-white font-bold" id="pt-shrouq">--:--</p>
+                    </div>
+                    <div class="bg-night-900/50 p-3 rounded-lg border border-night-700/50 hover:border-amber-500/50 transition-colors">
+                        <p class="text-slate-400 text-xs mb-1">الظهر</p>
+                        <p class="text-white font-bold" id="pt-dhuhr">--:--</p>
+                    </div>
+                    <div class="bg-night-900/50 p-3 rounded-lg border border-night-700/50 hover:border-orange-500/50 transition-colors">
+                        <p class="text-slate-400 text-xs mb-1">العصر</p>
+                        <p class="text-white font-bold" id="pt-asr">--:--</p>
+                    </div>
+                    <div class="bg-night-900/50 p-3 rounded-lg border border-night-700/50 hover:border-red-500/50 transition-colors">
+                        <p class="text-slate-400 text-xs mb-1">المغرب</p>
+                        <p class="text-white font-bold" id="pt-maghrib">--:--</p>
+                    </div>
+                    <div class="bg-night-900/50 p-3 rounded-lg border border-night-700/50 hover:border-indigo-500/50 transition-colors">
+                        <p class="text-slate-400 text-xs mb-1">العشاء</p>
+                        <p class="text-white font-bold" id="pt-isha">--:--</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daytime: Duha -->
+            <div class="glass-card rounded-xl p-5 border-r-4 border-r-amber-500">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-amber-500/20 p-3 rounded-lg text-amber-400 hidden md:block">
+                            <i class="ph-fill ph-sun-dim text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-1">وقت صلاة الضحى (الأفضل)</h3>
+                            <p class="text-slate-400 text-sm">من قبل الظهر بساعتين إلى قبل الظهر بساعة</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <p class="text-xl font-bold text-amber-400" id="time-duha-start">--:--</p>
+                                <span class="text-slate-500">إلى</span>
+                                <p class="text-xl font-bold text-amber-400" id="time-duha-end">--:--</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-night-900/60 p-4 rounded-xl border border-amber-500/20 md:max-w-md w-full">
+                        <p class="text-xs text-amber-400/80 mb-2 flex items-center gap-1"><i class="ph-fill ph-hands-praying"></i> دعاء عقب صلاة الضحى:</p>
+                        <p class="text-white font-serif leading-relaxed text-lg">«اللَّهُمَّ اغْفِرْ لِي، وَتُبْ عَلَيَّ، إِنَّكَ أَنْتَ التَّوَّابُ الْغَفُورُ»</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculated Night Times Header -->
+            <h3 class="text-2xl font-serif font-bold text-white text-center mt-8 mb-4">أقسام الليل</h3>
+
+            <!-- Night Times Grid: Row 1 (Halves & Thirds base) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Islamic Midnight -->
+                <div class="glass-card rounded-xl p-6 text-center relative overflow-hidden group border-t border-indigo-500/30">
+                    <div class="absolute top-0 right-0 w-1 h-full bg-indigo-500"></div>
+                    <i class="ph ph-clock text-3xl text-indigo-400 mb-2 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-1">منتصف الليل الشرعي</h3>
+                    <p class="text-2xl font-bold text-indigo-300 mb-2" id="time-midnight">--:--</p>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        نصف الليل تماماً.
+                    </p>
+                </div>
+
+                <!-- Last Third Start -->
+                <div class="glass-card rounded-xl p-6 text-center relative overflow-hidden group border-t border-purple-500/30">
+                    <div class="absolute top-0 right-0 w-1 h-full bg-purple-500"></div>
+                    <i class="ph ph-moon text-3xl text-purple-400 mb-2 block"></i>
+                    <h3 class="text-lg font-bold text-white mb-1">بداية الثلث الأخير (النزول الإلهي)</h3>
+                    <p class="text-2xl font-bold text-purple-300 mb-2" id="time-last-third">--:--</p>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        يستمر حتى الفجر، وهو أفضل أوقات الليل للدعاء والاستغفار.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Night Times Grid: Row 2 (Sixths) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                <!-- Fourth Sixth -->
+                <div class="glass-card rounded-xl p-5 text-center relative overflow-hidden bg-gradient-to-b from-night-800 to-indigo-900/20 border-t border-gold-500/30">
+                    <div class="absolute top-0 right-0 w-full h-1 bg-gold-400"></div>
+                    <i class="ph-fill ph-sparkle text-2xl text-gold-400 mb-2 block"></i>
+                    <h3 class="text-md font-bold text-white mb-2">السدس الرابع</h3>
+                    <div class="bg-night-900/50 py-2 rounded-lg mb-2">
+                        <p class="text-lg font-bold text-gold-300" id="time-fourth-start">--:--</p>
+                        <p class="text-xs text-slate-500 my-1">إلى</p>
+                        <p class="text-lg font-bold text-gold-300" id="time-fourth-end">--:--</p>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                        يبدأ في منتصف الليل. وقت صلاة النبي داود عليه الصلاة  والسلام.
+                    </p>
+                </div>
+
+                <!-- Fifth Sixth -->
+                <div class="glass-card rounded-xl p-5 text-center relative overflow-hidden bg-gradient-to-b from-night-800 to-purple-900/20 border-t border-fuchsia-500/30">
+                    <div class="absolute top-0 right-0 w-full h-1 bg-fuchsia-500"></div>
+                    <i class="ph-fill ph-stars text-2xl text-fuchsia-400 mb-2 block"></i>
+                    <h3 class="text-md font-bold text-white mb-2">السدس الخامس</h3>
+                    <div class="bg-night-900/50 py-2 rounded-lg mb-2">
+                        <p class="text-lg font-bold text-fuchsia-300" id="time-fifth-start">--:--</p>
+                        <p class="text-xs text-slate-500 my-1">إلى</p>
+                        <p class="text-lg font-bold text-fuchsia-300" id="time-fifth-end">--:--</p>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                        بداية الثلث الأخير من الليل.
+                    </p>
+                </div>
+
+                <!-- Sixth Sixth -->
+                <div class="glass-card rounded-xl p-5 text-center relative overflow-hidden bg-gradient-to-b from-night-800 to-sky-900/20 border-t border-sky-400/30">
+                    <div class="absolute top-0 right-0 w-full h-1 bg-sky-400"></div>
+                    <i class="ph-fill ph-cloud-moon text-2xl text-sky-400 mb-2 block"></i>
+                    <h3 class="text-md font-bold text-white mb-2">السدس السادس (الأخير)</h3>
+                    <div class="bg-night-900/50 py-2 rounded-lg mb-3">
+                        <p class="text-lg font-bold text-sky-300" id="time-sixth-start">--:--</p>
+                        <p class="text-xs text-slate-500 my-1">إلى</p>
+                        <p class="text-lg font-bold text-sky-300" id="time-sixth-end">--:--</p>
+                    </div>
+                    
+                    <!-- Witr Dua -->
+                    <div class="text-right bg-night-900/80 p-3 rounded-lg border border-sky-500/20">
+                        <p class="text-[10px] text-sky-400 mb-1 flex items-center gap-1"><i class="ph-fill ph-book-open"></i> يُسن بعد الوتر:</p>
+                        <p class="text-white text-sm font-serif leading-relaxed mb-1">«سُبْحَانَ الْمَلِكِ الْقُدُّوسِ»</p>
+                        <p class="text-[10px] text-slate-400">(ثلاث مرات، ويمد صوته في الثالثة)</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Night Timeline Visualization -->
+            <div class="glass-card rounded-xl p-6 mt-6">
+                <h4 class="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-wider text-center">مسار أوقات الليل</h4>
+                <div class="relative pt-8 pb-4" dir="ltr">
+                    <!-- Progress Bar Track -->
+                    <div class="h-3 w-full bg-night-900 rounded-full overflow-hidden flex border border-night-700">
+                        <div class="h-full bg-slate-600/50 w-3/6 border-r border-night-900" title="النصف الأول"></div> 
+                        <div class="h-full bg-gold-500 w-1/6 border-r border-night-900" title="السدس الرابع"></div> 
+                        <div class="h-full bg-fuchsia-500 w-1/6 border-r border-night-900" title="السدس الخامس"></div> 
+                        <div class="h-full bg-sky-500 w-1/6" title="السدس السادس"></div>
+                    </div>
+                    
+                    <!-- Markers -->
+                    <div class="absolute top-2 left-0 -translate-x-1/2 flex flex-col items-center">
+                        <div class="w-0.5 h-4 bg-orange-500 mb-1"></div>
+                        <span class="text-[10px] text-slate-400 font-sans">المغرب</span>
+                    </div>
+                    
+                    <div class="absolute top-2 left-1/2 -translate-x-1/2 flex flex-col items-center">
+                        <div class="w-0.5 h-4 bg-indigo-500 mb-1"></div>
+                        <span class="text-[10px] text-indigo-300 font-bold font-sans">المنتصف</span>
+                    </div>
+                    
+                    <div class="absolute top-2 left-[66.66%] -translate-x-1/2 flex flex-col items-center">
+                        <div class="w-0.5 h-4 bg-purple-500 mb-1"></div>
+                        <span class="text-[10px] text-purple-300 font-bold font-sans">السدس 5 (الثلث الأخير)</span>
+                    </div>
+
+                    <div class="absolute top-2 left-[83.33%] -translate-x-1/2 flex flex-col items-center">
+                        <div class="w-0.5 h-4 bg-sky-400 mb-1"></div>
+                        <span class="text-[10px] text-sky-300 font-bold font-sans">السدس 6</span>
+                    </div>
+                    
+                    <div class="absolute top-2 right-0 translate-x-1/2 flex flex-col items-center">
+                        <div class="w-0.5 h-4 bg-sky-200 mb-1"></div>
+                        <span class="text-[10px] text-slate-400 font-sans">الفجر</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Global state to store current location context
+        let currentSearchState = {
+            type: null, // 'coords' or 'city'
+            lat: null,
+            lng: null,
+            city: null
+        };
+
+        // Global variables for notifications
+        let activeTimeouts = [];
+        let scheduledTargetDates = {
+            duha: null,
+            fourthSixth: null,
+            witr: null
+        };
+
+        // Formatter for dates (DD-MM-YYYY required by Aladhan API)
+        function formatDateForApi(date) {
+            const d = String(date.getDate()).padStart(2, '0');
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const y = date.getFullYear();
+            return `${d}-${m}-${y}`;
+        }
+
+        // Formatter for displaying time in 12-hour AM/PM format (Arabic locale)
+        function formatTimeDisplay(date) {
+            return date.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Parse "HH:MM" string into the provided JS Date object
+        function setTimeOnDate(dateObj, timeString) {
+            const [hours, minutes] = timeString.split(':').map(Number);
+            const newDate = new Date(dateObj);
+            newDate.setHours(hours, minutes, 0, 0);
+            return newDate;
+        }
+
+        function showStatus(text, isError = false) {
+            const statusDiv = document.getElementById('status-message');
+            const errorDiv = document.getElementById('error-message');
+            const statusText = document.getElementById('status-text');
+
+            if (isError) {
+                statusDiv.classList.add('hidden');
+                errorDiv.classList.remove('hidden');
+                errorDiv.innerText = text;
+            } else {
+                errorDiv.classList.add('hidden');
+                statusDiv.classList.remove('hidden');
+                statusText.innerText = text;
+                if(text === '') statusDiv.classList.add('hidden');
+            }
+        }
+
+        function getSelectedMethod() {
+            return document.getElementById('method-select').value;
+        }
+
+        function updateMethodDisplayName() {
+            const select = document.getElementById('method-select');
+            const name = select.options[select.selectedIndex].text.split('(')[0].trim();
+            document.getElementById('display-method-name').innerText = `طريقة: ${name}`;
+        }
+
+        // Recalculate if the user changes the method dropdown while results are showing
+        function recalculateIfReady() {
+            if (currentSearchState.type === 'coords') {
+                fetchTimesByCoords(currentSearchState.lat, currentSearchState.lng);
+            } else if (currentSearchState.type === 'city') {
+                calculateByCity(currentSearchState.city);
+            }
+        }
+
+        // Notifications Management
+        function clearScheduledNotifications() {
+            activeTimeouts.forEach(clearTimeout);
+            activeTimeouts = [];
+        }
+
+        function scheduleNotification(title, body, targetDate) {
+            if (!targetDate) return;
+            
+            const now = new Date();
+            const delay = targetDate.getTime() - now.getTime();
+            
+            // Only schedule if the time is in the future
+            if (delay > 0) {
+                const timeoutId = setTimeout(() => {
+                    if (Notification.permission === 'granted') {
+                        new Notification(title, {
+                            body: body,
+                            icon: 'https://cdn-icons-png.flaticon.com/512/1152/1152912.png', // Crescent icon
+                            dir: 'rtl'
+                        });
+                    }
+                }, delay);
+                activeTimeouts.push(timeoutId);
+            }
+        }
+
+        function setupAllNotifications() {
+            clearScheduledNotifications();
+            
+            if (Notification.permission === 'granted') {
+                scheduleNotification('دخول وقت الضحى', 'اللَّهُمَّ اغْفِرْ لِي، وَتُبْ عَلَيَّ، إِنَّكَ أَنْتَ التَّوَّابُ الْغَفُورُ', scheduledTargetDates.duha);
+                scheduleNotification('بداية السدس الرابع', 'حان الآن السدس الرابع من الليل، وهو وقت صلاة داود عليه السلام.', scheduledTargetDates.fourthSixth);
+                scheduleNotification('دخول وقت الوتر (السدس الأخير)', 'بدأ السدس السادس من الليل. لا تنسَ الوتر وقول: سُبْحَانَ الْمَلِكِ الْقُدُّوسِ.', scheduledTargetDates.witr);
+            }
+        }
+
+        async function toggleNotifications() {
+            if (!("Notification" in window)) {
+                alert("متصفحك الحالي لا يدعم ميزة التنبيهات.");
+                return;
+            }
+
+            if (Notification.permission === "granted") {
+                // Already granted, just ensure they are scheduled
+                setupAllNotifications();
+                updateNotificationBtnUI(true);
+                alert("التنبيهات مفعلة بالفعل وستعمل طالما هذه الصفحة مفتوحة.");
+            } else if (Notification.permission !== "denied") {
+                const permission = await Notification.requestPermission();
+                if (permission === "granted") {
+                    setupAllNotifications();
+                    updateNotificationBtnUI(true);
+                }
+            } else {
+                alert("لقد قمت بحظر التنبيهات مسبقاً من إعدادات المتصفح. يرجى تفعيلها يدوياً.");
+            }
+        }
+
+        function updateNotificationBtnUI(isActive) {
+            const btn = document.getElementById('notify-btn');
+            if (isActive) {
+                btn.innerHTML = '<i class="ph-fill ph-bell-ringing text-lg text-emerald-300"></i> التنبيهات مفعلة';
+                btn.classList.remove('bg-night-700', 'hover:bg-night-600', 'border-night-500');
+                btn.classList.add('bg-emerald-900/50', 'border-emerald-500/50', 'text-emerald-100');
+            }
+        }
+
+        async function exportTimesToFile(times) {
+         try {
+             const blob = new Blob([JSON.stringify(times, null, 2)], { type: "application/json" });
+
+             // Save automatically (browser download)
+             const link = document.createElement("a");
+             link.href = URL.createObjectURL(blob);
+             link.download = "prayer_times.json";
+             link.click();
+
+             console.log("✅ Times exported");
+         } catch (err) {
+             console.error("Export failed:", err);
+           }
+        }
+
+        // Core Calculation Logic
+        function calculateAllTimes(timingsToday, fajrTomorrowStr, hijriObj, todayObj, tomorrowObj) {
+            
+            // Update UI with selected calculation method name
+            updateMethodDisplayName();
+
+            // --- 0. Update Prayer Times & Dates ---
+            document.getElementById('pt-fajr').innerText = formatTimeDisplay(setTimeOnDate(todayObj, timingsToday.Fajr));
+            document.getElementById('pt-shrouq').innerText = formatTimeDisplay(setTimeOnDate(todayObj, timingsToday.Sunrise));
+            document.getElementById('pt-dhuhr').innerText = formatTimeDisplay(setTimeOnDate(todayObj, timingsToday.Dhuhr));
+            document.getElementById('pt-asr').innerText = formatTimeDisplay(setTimeOnDate(todayObj, timingsToday.Asr));
+            document.getElementById('pt-maghrib').innerText = formatTimeDisplay(setTimeOnDate(todayObj, timingsToday.Maghrib));
+            document.getElementById('pt-isha').innerText = formatTimeDisplay(setTimeOnDate(todayObj, timingsToday.Isha));
+
+            // Set Hijri and Gregorian Dates
+            document.getElementById('display-hijri-date').innerText = `${hijriObj.day} ${hijriObj.month.ar} ${hijriObj.year} هـ`;
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('display-gregorian-date').innerText = todayObj.toLocaleDateString('ar-EG', options);
+
+            // --- 1. Daytime Calculation (Duha) ---
+            const dhuhrDate = setTimeOnDate(todayObj, timingsToday.Dhuhr);
+            const duhaStart = new Date(dhuhrDate.getTime() - (2 * 60 * 60 * 1000)); // 2 hours before Dhuhr
+            const duhaEnd = new Date(dhuhrDate.getTime() - (1 * 60 * 60 * 1000));   // 1 hour before Dhuhr
+            document.getElementById('time-duha-start').innerText = formatTimeDisplay(duhaStart);
+            document.getElementById('time-duha-end').innerText = formatTimeDisplay(duhaEnd);
+           
+
+            // --- 2. Night Times Calculation ---
+            const maghribDate = setTimeOnDate(todayObj, timingsToday.Maghrib);
+            const fajrDate = setTimeOnDate(tomorrowObj, fajrTomorrowStr);
+
+            // Total Night Duration in milliseconds
+            const nightDurationMs = fajrDate.getTime() - maghribDate.getTime();
+            const halfNightMs = nightDurationMs / 2;
+            const oneSixthNightMs = nightDurationMs / 6;
+
+            // Calculate exact night times
+            const midnightDate = new Date(maghribDate.getTime() + halfNightMs);
+            const lastThirdStartDate = new Date(maghribDate.getTime() + (nightDurationMs * 2 / 3)); // 4/6ths
+            
+            // Sixths
+            const fourthSixthStart = midnightDate;
+            const fourthSixthEnd = new Date(maghribDate.getTime() + (oneSixthNightMs * 4));
+            
+            const fifthSixthStart = fourthSixthEnd; // same as lastThirdStartDate
+            const fifthSixthEnd = new Date(maghribDate.getTime() + (oneSixthNightMs * 5));
+            
+            const sixthSixthStart = fifthSixthEnd;
+            const sixthSixthEnd = fajrDate;
+
+            // Update UI for Night
+            document.getElementById('time-midnight').innerText = formatTimeDisplay(midnightDate);
+            document.getElementById('time-last-third').innerText = formatTimeDisplay(lastThirdStartDate);
+            
+            document.getElementById('time-fourth-start').innerText = formatTimeDisplay(fourthSixthStart);
+            document.getElementById('time-fourth-end').innerText = formatTimeDisplay(fourthSixthEnd);
+            
+            document.getElementById('time-fifth-start').innerText = formatTimeDisplay(fifthSixthStart);
+            document.getElementById('time-fifth-end').innerText = formatTimeDisplay(fifthSixthEnd);
+            
+            document.getElementById('time-sixth-start').innerText = formatTimeDisplay(sixthSixthStart);
+            document.getElementById('time-sixth-end').innerText = formatTimeDisplay(sixthSixthEnd);
+
+            // --- 3. Save targets for Notifications ---
+            scheduledTargetDates.duha = duhaStart;
+            scheduledTargetDates.fourthSixth = fourthSixthStart;
+            scheduledTargetDates.witr = sixthSixthStart;
+
+            // If notifications are already granted, schedule them immediately
+            if ("Notification" in window && Notification.permission === "granted") {
+                setupAllNotifications();
+                updateNotificationBtnUI(true);
+            }
+
+            // Show results
+            showStatus('');
+            document.getElementById('results-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('animate-fade-in');
+        }
+    //     function exportPrayerTimes() {
+    //      const data = {
+    //        fajr: scheduledTargetDates?.fajr,
+    //        duha: scheduledTargetDates?.duha,
+    //        fourthSixth: scheduledTargetDates?.fourthSixth,
+    //        fifthSixth: scheduledTargetDates?.fifthSixth,
+    //        witr: scheduledTargetDates?.witr
+    //      };
+
+    //      console.log("EXPORT_TIMES:", JSON.stringify(data));
+    //    }
+        // Fetch timings using Latitude and Longitude
+        async function fetchTimesByCoords(lat, lng) {
+            currentSearchState = { type: 'coords', lat: lat, lng: lng, city: null };
+            const method = getSelectedMethod();
+
+            try {
+                showStatus('جاري الحساب باستخدام طريقة الحساب المحددة...');
+                
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+
+                const todayStr = formatDateForApi(today);
+                const tomorrowStr = formatDateForApi(tomorrow);
+
+                // Fetch Today
+                const resToday = await fetch(`https://api.aladhan.com/v1/timings/${todayStr}?latitude=${lat}&longitude=${lng}&method=${method}`);
+                const dataToday = await resToday.json();
+                
+                // Fetch Tomorrow (for next day's Fajr)
+                const resTomorrow = await fetch(`https://api.aladhan.com/v1/timings/${tomorrowStr}?latitude=${lat}&longitude=${lng}&method=${method}`);
+                const dataTomorrow = await resTomorrow.json();
+
+                if (dataToday.code === 200 && dataTomorrow.code === 200) {
+                    
+                    document.getElementById('display-location').innerText = `إحداثيات: ${lat.toFixed(4)}، ${lng.toFixed(4)}`;
+                    
+                    // Attempt reverse geocoding to get City name
+                    try {
+                        const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=ar`);
+                        const geoData = await geoRes.json();
+                        if(geoData.city || geoData.locality) {
+                            document.getElementById('display-location').innerText = `${geoData.city || geoData.locality}، ${geoData.countryName}`;
+                        }
+                    } catch (e) { console.log('Reverse geocoding skipped'); }
+
+                    calculateAllTimes(
+                        dataToday.data.timings, 
+                        dataTomorrow.data.timings.Fajr, 
+                        dataToday.data.date.hijri,
+                        today, 
+                        tomorrow
+                    );
+                } else {
+                    throw new Error("فشل في استرداد الأوقات من واجهة برمجة التطبيقات (API)");
+                }
+
+            } catch (error) {
+                showStatus('خطأ في جلب الأوقات. يرجى المحاولة مرة أخرى.', true);
+                console.error(error);
+            }
+        }
+
+        // Triggered by Auto-Locate Button
+        function getLocationAndCalculate() {
+            showStatus('جاري طلب إذن الوصول للموقع...');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        fetchTimesByCoords(position.coords.latitude, position.coords.longitude);
+                    },
+                    (error) => {
+                        let msg = "تم رفض الوصول للموقع أو غير متوفر.";
+                        if(error.code === 1) msg = "يرجى السماح بالوصول للموقع أو كتابة مدينتك يدوياً.";
+                        showStatus(msg, true);
+                    },
+                    { timeout: 10000 }
+                );
+            } else {
+                showStatus("تحديد الموقع غير مدعوم في متصفحك.", true);
+            }
+        }
+
+        // Triggered by Manual City Input
+        async function calculateByCity(overrideCityName = null) {
+            const cityInput = overrideCityName || document.getElementById('city-input').value.trim();
+            if(!cityInput) {
+                showStatus("الرجاء إدخال اسم المدينة.", true);
+                return;
+            }
+
+            currentSearchState = { type: 'city', lat: null, lng: null, city: cityInput };
+            const method = getSelectedMethod();
+
+            document.getElementById('results-container').classList.add('hidden');
+            showStatus(`جاري جلب الأوقات لـ ${cityInput} بالطريقة المحددة...`);
+
+            try {
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+
+                const todayStr = formatDateForApi(today);
+                const tomorrowStr = formatDateForApi(tomorrow);
+
+                // Fetch Today 
+                const resToday = await fetch(`https://api.aladhan.com/v1/timingsByCity/${todayStr}?city=${cityInput}&country=&method=${method}`);
+                const dataToday = await resToday.json();
+
+                // Fetch Tomorrow 
+                const resTomorrow = await fetch(`https://api.aladhan.com/v1/timingsByCity/${tomorrowStr}?city=${cityInput}&country=&method=${method}`);
+                const dataTomorrow = await resTomorrow.json();
+
+                if (dataToday.code === 200 && dataTomorrow.code === 200) {
+                    document.getElementById('display-location').innerText = cityInput;
+
+                    calculateAllTimes(
+                        dataToday.data.timings, 
+                        dataTomorrow.data.timings.Fajr, 
+                        dataToday.data.date.hijri,
+                        today, 
+                        tomorrow
+                    );
+                } else {
+                    throw new Error("المدينة غير موجودة");
+                }
+            } catch (error) {
+                showStatus('المدينة غير موجودة أو خطأ في الاتصال. تأكد من التهجئة.', true);
+            }
+        }
+
+        // Allow pressing Enter on the city input
+        document.getElementById('city-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                calculateByCity();
+            }
+        });
+
+        // Check if permissions were previously granted to update UI slightly early
+        document.addEventListener('DOMContentLoaded', () => {
+            if ("Notification" in window && Notification.permission === "granted") {
+                updateNotificationBtnUI(true);
+            }
+        });
+
+        // Optional animation style
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fade-in {
+                    animation: fadeIn 0.5s ease-out forwards;
+                }
+            </style>
+        `);
+    </script>
+</body>
+</html>

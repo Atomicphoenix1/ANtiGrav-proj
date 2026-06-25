@@ -1,0 +1,382 @@
+2026-05-27 23:01:20 +03:00: [Wrapper] Spawning native n8n execution via child_process...
+2026-05-27 23:01:20 +03:00: [Wrapper] Binary Path: C:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\n8nlocal\node_modules\n8n\bin\n8n
+2026-05-27 23:01:53 +03:00: [Wrapper] Spawning native n8n execution via child_process...
+2026-05-27 23:01:53 +03:00: [Wrapper] Binary Path: C:\Users\saif_\Desktop\downs\Currently\Daily\Lectures\ANtiGrav\n8nlocal\node_modules\n8n\bin\n8n
+2026-05-28 00:00:42 +03:00: Initializing n8n process
+2026-05-28 00:00:45 +03:00: n8n ready on ::, port 5679
+2026-05-28 00:00:45 +03:00: 
+2026-05-28 00:00:45 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-05-28 00:00:45 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-05-28 00:00:45 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-05-28 00:00:45 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-05-28 00:00:45 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-05-28 00:00:45 +03:00: 
+2026-05-28 00:00:45 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-05-28 00:00:51 +03:00: Version: 1.123.48
+2026-05-28 00:00:51 +03:00: 
+2026-05-28 00:00:51 +03:00: Editor is now accessible via:
+2026-05-28 00:00:51 +03:00: http://localhost:5679
+2026-05-28 00:02:48 +03:00: Owner was set up successfully
+2026-05-28 00:03:14 +03:00: User survey updated successfully
+2026-05-29 21:16:33 +03:00: Last session crashed
+2026-05-29 21:16:43 +03:00: Initializing n8n process
+2026-05-29 21:16:46 +03:00: n8n ready on ::, port 5679
+2026-05-29 21:16:46 +03:00: 
+2026-05-29 21:16:46 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-05-29 21:16:46 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-05-29 21:16:46 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-05-29 21:16:46 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-05-29 21:16:46 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-05-29 21:16:46 +03:00: 
+2026-05-29 21:16:46 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-05-29 21:16:52 +03:00: Version: 1.123.48
+2026-05-29 21:16:52 +03:00: 
+2026-05-29 21:16:52 +03:00: Editor is now accessible via:
+2026-05-29 21:16:52 +03:00: http://localhost:5679
+2026-05-30 10:23:33 +03:00: Last session crashed
+2026-05-30 10:23:43 +03:00: Initializing n8n process
+2026-05-30 10:23:45 +03:00: n8n ready on ::, port 5679
+2026-05-30 10:23:46 +03:00: 
+2026-05-30 10:23:46 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-05-30 10:23:46 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-05-30 10:23:46 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-05-30 10:23:46 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-05-30 10:23:46 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-05-30 10:23:46 +03:00: 
+2026-05-30 10:23:46 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-05-30 10:23:54 +03:00: Version: 1.123.48
+2026-05-30 10:23:54 +03:00: 
+2026-05-30 10:23:54 +03:00: Editor is now accessible via:
+2026-05-30 10:23:54 +03:00: http://localhost:5679
+2026-05-30 10:24:42 +03:00: User attempted to access a workflow without permissions
+2026-05-30 10:24:43 +03:00: User attempted to access a workflow without permissions
+2026-05-30 10:24:47 +03:00: User attempted to access a workflow without permissions
+2026-05-30 10:46:24 +03:00: Last session crashed
+2026-05-30 10:46:34 +03:00: Initializing n8n process
+2026-05-30 10:46:36 +03:00: n8n ready on ::, port 5679
+2026-05-30 10:46:36 +03:00: 
+2026-05-30 10:46:36 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-05-30 10:46:36 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-05-30 10:46:36 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-05-30 10:46:36 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-05-30 10:46:36 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-05-30 10:46:36 +03:00: 
+2026-05-30 10:46:36 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-05-30 10:46:43 +03:00: Version: 1.123.48
+2026-05-30 10:46:43 +03:00: 
+2026-05-30 10:46:43 +03:00: Editor is now accessible via:
+2026-05-30 10:46:43 +03:00: http://localhost:5679
+2026-05-30 10:47:06 +03:00: User attempted to access a workflow without permissions
+2026-06-02 14:57:33 +03:00: Last session crashed
+2026-06-02 14:57:43 +03:00: Initializing n8n process
+2026-06-02 14:57:46 +03:00: n8n ready on ::, port 5679
+2026-06-02 14:57:46 +03:00: 
+2026-06-02 14:57:46 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 14:57:46 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 14:57:46 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 14:57:46 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 14:57:46 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 14:57:46 +03:00: 
+2026-06-02 14:57:46 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 14:57:53 +03:00: Version: 1.123.48
+2026-06-02 14:57:53 +03:00: 
+2026-06-02 14:57:53 +03:00: Editor is now accessible via:
+2026-06-02 14:57:53 +03:00: http://localhost:5679
+2026-06-02 14:58:58 +03:00: User attempted to access a workflow without permissions
+2026-06-02 15:08:49 +03:00: Last session crashed
+2026-06-02 15:08:59 +03:00: Initializing n8n process
+2026-06-02 15:09:01 +03:00: n8n ready on ::, port 5679
+2026-06-02 15:09:01 +03:00: 
+2026-06-02 15:09:01 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 15:09:01 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 15:09:01 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 15:09:01 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:09:01 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:09:01 +03:00: 
+2026-06-02 15:09:01 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 15:09:09 +03:00: Version: 1.123.48
+2026-06-02 15:09:09 +03:00: Start Active Workflows:
+2026-06-02 15:09:10 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-02 15:09:10 +03:00: 
+2026-06-02 15:09:10 +03:00: Editor is now accessible via:
+2026-06-02 15:09:10 +03:00: http://localhost:5679
+2026-06-02 15:19:26 +03:00: User attempted to access a workflow without permissions
+2026-06-02 15:19:46 +03:00: Node does not have any credentials set for "whatsAppApi"
+2026-06-02 15:19:58 +03:00: Node does not have any credentials set for "whatsAppApi"
+2026-06-02 15:32:44 +03:00: Bad request - please check your parameters
+2026-06-02 15:32:44 +03:00: Bad request - please check your parameters
+2026-06-02 15:34:14 +03:00: Bad request - please check your parameters
+2026-06-02 15:34:14 +03:00: Bad request - please check your parameters
+2026-06-02 15:43:44 +03:00: Last session crashed
+2026-06-02 15:43:54 +03:00: Initializing n8n process
+2026-06-02 15:43:56 +03:00: n8n ready on ::, port 5679
+2026-06-02 15:43:56 +03:00: 
+2026-06-02 15:43:56 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 15:43:56 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 15:43:56 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 15:43:56 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:43:56 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:43:56 +03:00: 
+2026-06-02 15:43:56 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 15:44:04 +03:00: Version: 1.123.48
+2026-06-02 15:44:04 +03:00: Start Active Workflows:
+2026-06-02 15:44:04 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-02 15:44:04 +03:00: 
+2026-06-02 15:44:04 +03:00: Editor is now accessible via:
+2026-06-02 15:44:04 +03:00: http://localhost:5679
+2026-06-02 15:44:33 +03:00: timeout of 3000ms exceeded
+2026-06-02 15:44:33 +03:00: Error while fetching community nodes: timeout of 3000ms exceeded
+2026-06-02 15:54:02 +03:00: Last session crashed
+2026-06-02 15:54:12 +03:00: Initializing n8n process
+2026-06-02 15:54:25 +03:00: Last session crashed
+2026-06-02 15:54:35 +03:00: Initializing n8n process
+2026-06-02 15:54:37 +03:00: n8n ready on ::, port 5679
+2026-06-02 15:54:37 +03:00: 
+2026-06-02 15:54:37 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 15:54:37 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 15:54:37 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 15:54:37 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:54:37 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:54:37 +03:00: 
+2026-06-02 15:54:37 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 15:54:42 +03:00: 
+2026-06-02 15:54:42 +03:00: The --tunnel option is no longer available.
+2026-06-02 15:54:42 +03:00: The tunnel service (hooks.n8n.cloud) has been shut down.
+2026-06-02 15:54:42 +03:00: 
+2026-06-02 15:54:42 +03:00: For local development with webhooks, consider using a third-party tunneling service such as ngrok or Cloudflare Tunnel.
+2026-06-02 15:54:42 +03:00: 
+2026-06-02 15:54:54 +03:00: Last session crashed
+2026-06-02 15:55:04 +03:00: Initializing n8n process
+2026-06-02 15:55:06 +03:00: n8n ready on ::, port 5679
+2026-06-02 15:55:06 +03:00: 
+2026-06-02 15:55:06 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 15:55:06 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 15:55:06 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 15:55:06 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:55:06 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:55:06 +03:00: 
+2026-06-02 15:55:06 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 15:55:11 +03:00: 
+2026-06-02 15:55:11 +03:00: The --tunnel option is no longer available.
+2026-06-02 15:55:11 +03:00: The tunnel service (hooks.n8n.cloud) has been shut down.
+2026-06-02 15:55:11 +03:00: 
+2026-06-02 15:55:11 +03:00: For local development with webhooks, consider using a third-party tunneling service such as ngrok or Cloudflare Tunnel.
+2026-06-02 15:55:11 +03:00: 
+2026-06-02 15:55:23 +03:00: Last session crashed
+2026-06-02 15:55:33 +03:00: Initializing n8n process
+2026-06-02 15:55:35 +03:00: n8n ready on ::, port 5679
+2026-06-02 15:55:35 +03:00: 
+2026-06-02 15:55:35 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 15:55:35 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 15:55:35 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 15:55:35 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:55:35 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:55:35 +03:00: 
+2026-06-02 15:55:35 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 15:55:40 +03:00: 
+2026-06-02 15:55:40 +03:00: The --tunnel option is no longer available.
+2026-06-02 15:55:40 +03:00: The tunnel service (hooks.n8n.cloud) has been shut down.
+2026-06-02 15:55:40 +03:00: 
+2026-06-02 15:55:40 +03:00: For local development with webhooks, consider using a third-party tunneling service such as ngrok or Cloudflare Tunnel.
+2026-06-02 15:55:40 +03:00: 
+2026-06-02 15:55:52 +03:00: Last session crashed
+2026-06-02 15:56:02 +03:00: Initializing n8n process
+2026-06-02 15:56:04 +03:00: n8n ready on ::, port 5679
+2026-06-02 15:56:04 +03:00: 
+2026-06-02 15:56:04 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 15:56:04 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 15:56:04 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 15:56:04 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:56:04 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:56:04 +03:00: 
+2026-06-02 15:56:04 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 15:56:08 +03:00: 
+2026-06-02 15:56:08 +03:00: The --tunnel option is no longer available.
+2026-06-02 15:56:08 +03:00: The tunnel service (hooks.n8n.cloud) has been shut down.
+2026-06-02 15:56:08 +03:00: 
+2026-06-02 15:56:08 +03:00: For local development with webhooks, consider using a third-party tunneling service such as ngrok or Cloudflare Tunnel.
+2026-06-02 15:56:08 +03:00: 
+2026-06-02 15:56:21 +03:00: Last session crashed
+2026-06-02 15:56:31 +03:00: Initializing n8n process
+2026-06-02 15:56:33 +03:00: n8n ready on ::, port 5679
+2026-06-02 15:56:33 +03:00: 
+2026-06-02 15:56:33 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 15:56:33 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 15:56:33 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 15:56:33 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:56:33 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:56:33 +03:00: 
+2026-06-02 15:56:33 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 15:56:37 +03:00: 
+2026-06-02 15:56:37 +03:00: The --tunnel option is no longer available.
+2026-06-02 15:56:37 +03:00: The tunnel service (hooks.n8n.cloud) has been shut down.
+2026-06-02 15:56:37 +03:00: 
+2026-06-02 15:56:37 +03:00: For local development with webhooks, consider using a third-party tunneling service such as ngrok or Cloudflare Tunnel.
+2026-06-02 15:56:37 +03:00: 
+2026-06-02 15:56:52 +03:00: Last session crashed
+2026-06-02 15:57:02 +03:00: Initializing n8n process
+2026-06-02 15:57:04 +03:00: n8n ready on ::, port 5679
+2026-06-02 15:57:04 +03:00: 
+2026-06-02 15:57:04 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 15:57:04 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 15:57:04 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 15:57:04 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:57:04 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:57:04 +03:00: 
+2026-06-02 15:57:04 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 15:57:09 +03:00: 
+2026-06-02 15:57:09 +03:00: The --tunnel option is no longer available.
+2026-06-02 15:57:09 +03:00: The tunnel service (hooks.n8n.cloud) has been shut down.
+2026-06-02 15:57:09 +03:00: 
+2026-06-02 15:57:09 +03:00: For local development with webhooks, consider using a third-party tunneling service such as ngrok or Cloudflare Tunnel.
+2026-06-02 15:57:09 +03:00: 
+2026-06-02 15:57:24 +03:00: Last session crashed
+2026-06-02 15:58:36 +03:00: Last session crashed
+2026-06-02 15:58:46 +03:00: Initializing n8n process
+2026-06-02 15:58:48 +03:00: n8n ready on ::, port 5679
+2026-06-02 15:58:48 +03:00: 
+2026-06-02 15:58:48 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-02 15:58:48 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-02 15:58:48 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-02 15:58:48 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:58:48 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-02 15:58:48 +03:00: 
+2026-06-02 15:58:48 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-02 15:58:55 +03:00: Version: 1.123.48
+2026-06-02 15:58:56 +03:00: Start Active Workflows:
+2026-06-02 15:58:56 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-02 15:58:56 +03:00: 
+2026-06-02 15:58:56 +03:00: Editor is now accessible via:
+2026-06-02 15:58:56 +03:00: http://localhost:5679
+2026-06-02 16:01:05 +03:00: Received request for unknown webhook: This webhook is not registered for GET requests. Did you mean to make a POST request?
+2026-06-02 16:04:39 +03:00: Bad request - please check your parameters
+2026-06-02 16:05:13 +03:00: Bad request - please check your parameters
+2026-06-02 16:24:18 +03:00: Bad request - please check your parameters
+2026-06-02 16:24:19 +03:00: Bad request - please check your parameters
+2026-06-03 14:24:42 +03:00: Last session crashed
+2026-06-03 14:24:52 +03:00: Initializing n8n process
+2026-06-03 14:24:54 +03:00: n8n ready on ::, port 5679
+2026-06-03 14:24:55 +03:00: 
+2026-06-03 14:24:55 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-03 14:24:55 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-03 14:24:55 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-03 14:24:55 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-03 14:24:55 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-03 14:24:55 +03:00: 
+2026-06-03 14:24:55 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-03 14:25:03 +03:00: Version: 1.123.48
+2026-06-03 14:25:03 +03:00: Start Active Workflows:
+2026-06-03 14:25:04 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-03 14:25:04 +03:00: Activated workflow "send docpdf" (ID: KB20fsqtZuhSVIa3)
+2026-06-03 14:25:04 +03:00: 
+2026-06-03 14:25:04 +03:00: Editor is now accessible via:
+2026-06-03 14:25:04 +03:00: http://localhost:5679
+2026-06-04 19:25:53 +03:00: Last session crashed
+2026-06-04 19:26:03 +03:00: Initializing n8n process
+2026-06-04 19:26:05 +03:00: n8n ready on ::, port 5679
+2026-06-04 19:26:05 +03:00: 
+2026-06-04 19:26:05 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-04 19:26:05 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-04 19:26:05 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-04 19:26:05 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-04 19:26:05 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-04 19:26:05 +03:00: 
+2026-06-04 19:26:05 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-04 19:26:13 +03:00: Version: 1.123.48
+2026-06-04 19:26:13 +03:00: Start Active Workflows:
+2026-06-04 19:26:14 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-04 19:26:14 +03:00: Activated workflow "send docpdf" (ID: KB20fsqtZuhSVIa3)
+2026-06-04 19:26:14 +03:00: 
+2026-06-04 19:26:14 +03:00: Editor is now accessible via:
+2026-06-04 19:26:14 +03:00: http://localhost:5679
+2026-06-04 19:43:58 +03:00: Node does not have any credentials set for "openRouterApi"
+2026-06-07 19:41:31 +03:00: Last session crashed
+2026-06-07 19:41:41 +03:00: Initializing n8n process
+2026-06-07 19:41:43 +03:00: n8n ready on ::, port 5679
+2026-06-07 19:41:44 +03:00: 
+2026-06-07 19:41:44 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-07 19:41:44 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-07 19:41:44 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-07 19:41:44 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-07 19:41:44 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-07 19:41:44 +03:00: 
+2026-06-07 19:41:44 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-07 19:41:54 +03:00: Version: 1.123.48
+2026-06-07 19:41:54 +03:00: Start Active Workflows:
+2026-06-07 19:41:55 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-07 19:41:55 +03:00: Activated workflow "send docpdf" (ID: KB20fsqtZuhSVIa3)
+2026-06-07 19:41:55 +03:00: 
+2026-06-07 19:41:55 +03:00: Editor is now accessible via:
+2026-06-07 19:41:55 +03:00: http://localhost:5679
+2026-06-18 09:49:47 +03:00: Last session crashed
+2026-06-18 09:49:57 +03:00: Initializing n8n process
+2026-06-18 09:50:00 +03:00: n8n ready on ::, port 5679
+2026-06-18 09:50:01 +03:00: 
+2026-06-18 09:50:01 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-18 09:50:01 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-18 09:50:01 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-18 09:50:01 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-18 09:50:01 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-18 09:50:01 +03:00: 
+2026-06-18 09:50:01 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-18 09:50:09 +03:00: Version: 1.123.48
+2026-06-18 09:50:09 +03:00: Start Active Workflows:
+2026-06-18 09:50:10 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-18 09:50:11 +03:00: Activated workflow "send docpdf" (ID: KB20fsqtZuhSVIa3)
+2026-06-18 09:50:11 +03:00: 
+2026-06-18 09:50:11 +03:00: Editor is now accessible via:
+2026-06-18 09:50:11 +03:00: http://localhost:5679
+2026-06-21 06:54:22 +03:00: Last session crashed
+2026-06-21 06:54:32 +03:00: Initializing n8n process
+2026-06-21 06:54:37 +03:00: n8n ready on ::, port 5679
+2026-06-21 06:54:37 +03:00: 
+2026-06-21 06:54:37 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-21 06:54:37 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-21 06:54:37 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-21 06:54:37 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-21 06:54:37 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-21 06:54:37 +03:00: 
+2026-06-21 06:54:37 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-21 06:54:50 +03:00: Version: 1.123.48
+2026-06-21 06:54:50 +03:00: Start Active Workflows:
+2026-06-21 06:54:52 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-21 06:54:53 +03:00: Activated workflow "send docpdf" (ID: KB20fsqtZuhSVIa3)
+2026-06-21 06:54:53 +03:00: 
+2026-06-21 06:54:53 +03:00: Editor is now accessible via:
+2026-06-21 06:54:53 +03:00: http://localhost:5679
+2026-06-22 13:55:22 +03:00: Last session crashed
+2026-06-22 13:55:32 +03:00: Initializing n8n process
+2026-06-22 13:55:38 +03:00: n8n ready on ::, port 5679
+2026-06-22 13:55:39 +03:00: 
+2026-06-22 13:55:39 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-22 13:55:39 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-22 13:55:39 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-22 13:55:39 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-22 13:55:39 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-22 13:55:39 +03:00: 
+2026-06-22 13:55:39 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-22 13:55:55 +03:00: Version: 1.123.48
+2026-06-22 13:55:55 +03:00: Start Active Workflows:
+2026-06-22 13:55:57 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-22 13:55:58 +03:00: Activated workflow "send docpdf" (ID: KB20fsqtZuhSVIa3)
+2026-06-22 13:55:58 +03:00: 
+2026-06-22 13:55:58 +03:00: Editor is now accessible via:
+2026-06-22 13:55:58 +03:00: http://localhost:5679
+2026-06-23 17:28:21 +03:00: Last session crashed
+2026-06-23 17:28:31 +03:00: Initializing n8n process
+2026-06-23 17:28:35 +03:00: n8n ready on ::, port 5679
+2026-06-23 17:28:35 +03:00: 
+2026-06-23 17:28:35 +03:00: There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+2026-06-23 17:28:35 +03:00:  - DB_SQLITE_POOL_SIZE -> Running SQLite without a pool of read connections is deprecated. Please set `DB_SQLITE_POOL_SIZE` to a value higher than zero. See: https://docs.n8n.io/hosting/configuration/environment-variables/database/#sqlite
+2026-06-23 17:28:35 +03:00:  - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+2026-06-23 17:28:35 +03:00:  - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-23 17:28:35 +03:00:  - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+2026-06-23 17:28:35 +03:00: 
+2026-06-23 17:28:35 +03:00: [license SDK] Skipping renewal on init: license cert is not initialized
+2026-06-23 17:28:46 +03:00: Version: 1.123.48
+2026-06-23 17:28:46 +03:00: Start Active Workflows:
+2026-06-23 17:28:47 +03:00: Activated workflow "المواعيد" (ID: xMMTCrwnbTlj8uNm)
+2026-06-23 17:28:48 +03:00: Activated workflow "send docpdf" (ID: KB20fsqtZuhSVIa3)
+2026-06-23 17:28:48 +03:00: 
+2026-06-23 17:28:48 +03:00: Editor is now accessible via:
+2026-06-23 17:28:48 +03:00: http://localhost:5679

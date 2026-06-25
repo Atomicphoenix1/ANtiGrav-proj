@@ -1,0 +1,177 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "Here is the summary of the YouTube video: {{ $json.choices[0].message.content }}",
+        "parseMode": "Markdown"
+      },
+      "name": "Send Summary to Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4.1-mini",
+        "messages": [
+          {
+            "content": "Summarize the following YouTube video transcript in a concise and informative way. Focus on key points and main ideas. Transcript: {{ $json.transcript }}",
+            "type": "user"
+          }
+        ]
+      },
+      "name": "Summarize Transcript",
+      "type": "n8n-nodes-base.chatModel",
+      "typeVersion": 1,
+      "position": [
+        1750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const xml = $json.data;\nconst regex = /<text start=\"[0-9.]+\" dur=\"[0-9.]+\">(.*?)<\/text>/g;\nlet match;\nlet transcript = \"\";\n\nwhile ((match = regex.exec(xml)) !== null) {\n  transcript += match[1].replace(/&#39;/g, \"'\").replace(/&quot;/g, \"\"\").replace(/&amp;/g, \"&\").replace(/\n/g, \" \") + \" \";\n}\n\nreturn [{ json: { transcript: transcript.trim() } }];"
+      },
+      "name": "Extract Transcript Text",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.captionUrl }}",
+        "responseFormat": "string"
+      },
+      "name": "Get Transcript XML",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        1250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const html = $json.data;\nconst ytInitialPlayerResponseMatch = html.match(/ytInitialPlayerResponse = ({.*?});/s);\n\nif (ytInitialPlayerResponseMatch && ytInitialPlayerResponseMatch[1]) {\n  const playerResponse = JSON.parse(ytInitialPlayerResponseMatch[1]);\n  const captionTracks = playerResponse.captions?.playerCaptionsTracklistRenderer?.captionTracks;\n\n  if (captionTracks && captionTracks.length > 0) {\n    const englishCaption = captionTracks.find(track => track.languageCode === \'en\');\n    if (englishCaption) {\n      return [{ json: { captionUrl: englishCaption.baseUrl } }];\n    } else {\n      // Fallback to the first available caption if no English one is found\n      return [{ json: { captionUrl: captionTracks[0].baseUrl } }];\n    }\n  } else {\n    throw new Error(\'No caption tracks found.\');\n  }\n} else {\n  throw new Error(\'Could not extract ytInitialPlayerResponse from HTML.\');\n}"
+      },
+      "name": "Extract Caption URL",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.youtube.com/watch?v={{ $json.videoId }}",
+        "sendHeaders": true,
+        "headerData": [
+          {
+            "name": "User-Agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36"
+          }
+        ],
+        "responseFormat": "string"
+      },
+      "name": "Get YouTube Page HTML",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const url = $json.message.text;\nconst videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([\w-]{11})/);\n\nif (videoIdMatch && videoIdMatch[1]) {\n  return [{ json: { videoId: videoIdMatch[1], originalUrl: url } }];\n} else {\n  throw new Error('No YouTube video ID found in the message.');\n}"
+      },
+      "name": "Extract Video ID",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ]
+      },
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": [
+      {
+        "node": "Extract Video ID",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "Extract Video ID": [
+      {
+        "node": "Get YouTube Page HTML",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "Get YouTube Page HTML": [
+      {
+        "node": "Extract Caption URL",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "Extract Caption URL": [
+      {
+        "node": "Get Transcript XML",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "Get Transcript XML": [
+      {
+        "node": "Extract Transcript Text",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "Extract Transcript Text": [
+      {
+        "node": "Summarize Transcript",
+        "type": "main",
+        "index": 0
+      }
+    ],
+    "Summarize Transcript": [
+      {
+        "node": "Send Summary to Telegram",
+        "type": "main",
+        "index": 0
+      }
+    ]
+  },
+  "active": false,
+  "settings": {},
+  "id": "youtube_summarizer_workflow",
+  "name": "YouTube Video Summarizer",
+  "startEvents": [],
+  "staticData": null,
+  "tags": []
+}

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Uploader — Pipeline Forge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/style.css" id="theme-css" data-theme="alchemist">
+  <link rel="stylesheet" href="/theme-biopunk.css" id="theme-biopunk" disabled>
+  <link rel="stylesheet" href="/theme-retroluxe.css" id="theme-retroluxe" disabled>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <div class="app-container">
+    <header class="main-header">
+      <div class="logo-area">
+        <h1 class="logo-title">SUPER UPLOADER</h1>
+        <p class="logo-subtitle">Pipeline Forge v8 — Cosmic Audio & Text Suite</p>
+      </div>
+      <div class="settings-bar">
+        <div class="settings-field">
+          <label for="api-key-input">Gemini Key</label>
+          <input type="password" id="api-key-input" placeholder="Enter API Key">
+        </div>
+        <div class="settings-field">
+          <label for="n8n-url-input">n8n URL</label>
+          <input type="url" id="n8n-url-input" placeholder="Webhook URL">
+        </div>
+        <div class="settings-field">
+          <label>Log Bridge</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="n8n-toggle" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <button class="btn btn-icon" id="settings-btn" title="Advanced Settings">
+          <i data-lucide="settings"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="main-grid">
+      <div class="card-glass controls-panel fade-in">
+        <div>
+          <div class="section-label"><i data-lucide="radio"></i> Operation Mode</div>
+          <div class="radio-group" id="op-mode-group">
+            <span class="radio-pill active" data-value="Whisper + Gemini">Whisper+Gemini</span>
+            <span class="radio-pill" data-value="Whisper Only">Whisper Only</span>
+            <span class="radio-pill" data-value="Gemini Only">Gemini Only</span>
+            <span class="radio-pill" data-value="MP3 Splitter">MP3 Splitter</span>
+            <span class="radio-pill" data-value="SRT Alignment">SRT Align</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-label"><i data-lucide="layers"></i> Scope</div>
+          <div class="radio-group" id="scope-group">
+            <span class="radio-pill active" data-value="Singular">Singular</span>
+            <span class="radio-pill" data-value="Bulk">Bulk</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="device-select">Hardware Acceleration</label>
+          <select id="device-select">
+            <option value="cuda">CUDA</option>
+            <option value="cpu">CPU</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="model-select">Gemini Model</label>
+          <select id="model-select">
+            <option value="gemini-3-flash-preview">gemini-3-flash-preview</option>
+            <option value="gemini-3.5-flash">gemini-3.5-flash</option>
+            <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview</option>
+            <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+          </select>
+        </div>
+
+        <div id="audio-inputs">
+          <div class="section-label"><i data-lucide="music"></i> Audio File</div>
+          <div class="file-upload-zone" id="single-audio-zone">
+            <span id="single-audio-label">Click to upload MP3 or drag here</span>
+            <input type="file" id="single-audio-input" accept=".mp3,.wav,.m4a,.ogg">
+          </div>
+          <div class="file-upload-zone hidden" id="multi-audio-zone">
+            <span id="multi-audio-label">Click to upload multiple MP3 files</span>
+            <input type="file" id="multi-audio-input" accept=".mp3,.wav,.m4a,.ogg" multiple>
+          </div>
+        </div>
+
+        <div id="text-inputs" class="hidden">
+          <div class="section-label"><i data-lucide="file-text"></i> Text Input</div>
+          <div class="file-upload-zone" id="single-txt-zone">
+            <span id="single-txt-label">Click to upload text file</span>
+            <input type="file" id="single-txt-input" accept=".txt">
+          </div>
+          <div class="file-upload-zone hidden" id="multi-txt-zone">
+            <span id="multi-txt-label">Click to upload multiple text files</span>
+            <input type="file" id="multi-txt-input" accept=".txt" multiple>
+          </div>
+          <textarea id="text-box" placeholder="Or paste text/markdown here..." rows="3" style="width:100%;background:rgba(5,6,13,0.6);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-primary);padding:0.6rem;font-family:var(--font-mono);font-size:0.75rem;outline:none;resize:vertical;"></textarea>
+        </div>
+
+        <div id="srt-inputs" class="hidden">
+          <div class="section-label"><i data-lucide="align-left"></i> SRT Alignment</div>
+          <div class="file-upload-zone" id="srt-txt-zone">
+            <span>Upload Formatted Text (.txt)</span>
+            <input type="file" id="srt-txt-input" accept=".txt">
+          </div>
+          <div class="file-upload-zone" id="srt-json-zone">
+            <span>Upload Timestamps JSON (.json)</span>
+            <input type="file" id="srt-json-input" accept=".json">
+          </div>
+        </div>
+
+        <div id="splitter-controls">
+          <div class="section-label"><i data-lucide="scissors"></i> MP3 Splitting</div>
+          <div class="radio-group" id="split-mode-group">
+            <span class="radio-pill active" data-value="10 min">10 min</span>
+            <span class="radio-pill" data-value="30 min">30 min</span>
+            <span class="radio-pill" data-value="Custom">Custom</span>
+            <span class="radio-pill" data-value="Full (No Split)">No Split</span>
+          </div>
+          <div class="control-group hidden" id="custom-seconds-group">
+            <label for="custom-seconds">Custom Duration (seconds)</label>
+            <input type="number" id="custom-seconds" value="600" min="60" max="7200" style="background:rgba(5,6,13,0.7);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-primary);padding:0.55rem 0.8rem;font-family:var(--font-mono);font-size:0.75rem;outline:none;width:100%;">
+          </div>
+        </div>
+
+        <div id="bulk-folder-row" class="hidden">
+          <div class="section-label"><i data-lucide="folder"></i> Bulk Folder</div>
+          <div class="folder-input-row">
+            <input type="text" id="folder-input" placeholder="Paste folder path or click Browse">
+            <button class="btn btn-secondary btn-sm" id="browse-btn">Browse</button>
+          </div>
+        </div>
+
+        <button class="btn btn-emerald" id="run-btn" style="width:100%;padding:0.75rem;font-size:0.9rem;margin-top:0.5rem;">
+          <i data-lucide="zap"></i> Run Pipeline
+        </button>
+      </div>
+
+      <div class="card-glass terminal-panel fade-in">
+        <div class="terminal-header">
+          <h3><i data-lucide="terminal"></i> Live Pipeline Terminal</h3>
+          <div class="terminal-indicator">
+            <span class="terminal-dot idle" id="terminal-dot"></span>
+            <span id="terminal-status-text">Idle</span>
+          </div>
+        </div>
+        <div class="terminal-output" id="terminal-output">
+          <span class="dim">✦ Pipeline Forge ready. Configure and run.</span>
+        </div>
+        <div class="terminal-actions">
+          <button class="btn btn-sm btn-outline" id="clear-terminal-btn">
+            <i data-lucide="trash-2"></i> Clear
+          </button>
+          <button class="btn btn-sm btn-danger hidden" id="cancel-btn">
+            <i data-lucide="x-circle"></i> Cancel
+          </button>
+          <button class="btn btn-sm btn-outline" id="copy-logs-btn">
+            <i data-lucide="clipboard-copy"></i> Copy
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="status-bar" id="status-bar">
+      <span class="status-ok" id="status-left">
+        <i data-lucide="check-circle-2" style="width:12px;height:12px;"></i> System Ready
+      </span>
+      <span id="status-right">Pipeline state: idle</span>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2><i data-lucide="settings"></i> Advanced Settings</h2>
+        <button class="btn-icon" id="close-settings-btn" style="background:transparent;border:none;color:var(--text-muted);cursor:pointer;">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Gemini API Key</label>
+          <input type="password" id="settings-api-key" placeholder="Override default API key">
+        </div>
+        <div class="form-group">
+          <label>n8n Webhook URL</label>
+          <input type="url" id="settings-n8n-url" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>Theme</label>
+          <select id="settings-theme">
+            <option value="alchemist">Cosmic Alchemist (Dark)</option>
+            <option value="biopunk">Bio-Punk (Light)</option>
+            <option value="retroluxe">RetroLuxe (Light)</option>
+          </select>
+        </div>
+        <p style="font-size:0.7rem;color:var(--text-muted);font-family:var(--font-mono);line-height:1.5;">
+          This URL overrides v2_formatter's webhook destination for DOCX/PDF delivery.
+        </p>
+        <div class="modal-actions">
+          <button class="btn btn-outline" id="settings-cancel-btn">Cancel</button>
+          <button class="btn btn-primary" id="settings-save-btn">
+            <i data-lucide="check"></i> Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/starfield.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

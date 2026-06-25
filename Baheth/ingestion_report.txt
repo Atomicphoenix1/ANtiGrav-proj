@@ -1,0 +1,14 @@
+Status:       success
+Indexed:      36 shards
+IDs created:  3 .. 38
+
+  [Heavy diacritics]
+  <p>قَالَ الْمُصَنِّفُ رَحِمَهُ اللَّهُ تَعَالَى: الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</p>...
+
+  [Alef mutations]
+  <p>وَإِبْرَاهِيمَ الَّذِي وَفَّىٰ. أَلَّا تَزِرُ وَازِرَةٌ وِزْرَ أُخْرَىٰ</p>...
+
+  [Embedded HTML]
+  <p>قَالَ <strong>سِيبَوَيْهِ</strong>: الْكَلَامُ مَا اجْتَمَعَ فِيهِ <span style="color:red">ثَلَاثَةُ أَشْيَاءَ</span>...
+
+SUCCESS: 36 shards ingested. Server stopped.

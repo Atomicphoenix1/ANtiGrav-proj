@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="auto" dir="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terminal Lite</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;900&display=swap');
+    @media screen and (max-width: 600px) {
+      .full-width { width: 100% !important; }
+      .mobile-padding { padding: 20px !important; }
+    }
+    /* Hidden elements for browser only */
+    .no-email { 
+      padding: 10px; 
+      background: #333; 
+      color: #fff; 
+      text-align: center; 
+      font-family: sans-serif; 
+      font-size: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body id="page-body" style="margin: 0; padding: 0; background-color: /*C5*/#f0f2f5/*C5*/; font-family: 'Outfit', sans-serif;">
+  
+  <!-- Browser Helper (Hidden when copied to email if you copy from the table below) -->
+  <div class="no-email" onclick="applyRandomPalette()">
+    ✨ Click here to randomize colors again | Refresh page for new look
+  </div>
+
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" id="wrapper-table" style="background-color: /*C5*/#f0f2f5/*C5*/; table-layout: fixed;">
+    <tr>
+      <td align="center" style="padding: 40px 10px;">
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="600" class="full-width" id="main-container" style="width: 600px; max-width: 100%; background-color: #ffffff; border: 1px solid /*C3*/#d1d5db/*C3*/; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+          
+          <!-- TERMINAL HEADER -->
+          <tr>
+            <td id="header-td" style="background-color: #f9fafb; border-bottom: 1px solid /*C3*/#e5e7eb/*C3*/; padding: 12px 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ff5f56; margin-right: 6px;"></span>
+                    <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #ffbd2e; margin-right: 6px;"></span>
+                    <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #27c93f;"></span>
+                  </td>
+                  <td align="right" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: /*C4*/#9ca3af/*C4*/;" data-marker="C4">
+                    bash — 80×24
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- GREETING -->
+          <tr>
+            <td style="padding: 30px 40px 10px 40px;">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="font-family: 'JetBrains Mono', monospace; font-size: 18px; color: /*C1*/#00F5D4/*C1*/; padding-right: 15px;" data-marker="C1">&gt;</td>
+                  <td><h1 contenteditable="true" style="margin: 0; font-size: 25px; font-weight: 900; color: #111827; outline: none;">السلام عليكم ورحمة الله وبركاته</h1></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="padding: 20px 40px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td width="30" valign="top" id="line-numbers" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: /*C2*/#d1d5db/*C2*/; border-right: 1px solid #f3f4f6; padding-right: 15px; text-align: right; line-height: 1.8;" data-marker="C2">
+                    01<br>02<br>03<br>04<br>05<br>06<br>07
+                  </td>
+                  <td contenteditable="true" valign="top" style="padding-left: 20px; font-size: 20px; line-height: 1.8; color: #374151; outline: none;">
+                    Dear Doctor,<br><br>
+                    I am writing to discuss the recent project submission. I have implemented the core functionality as discussed in the last meeting.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- THANKS -->
+          <tr>
+            <td style="padding: 10px 40px 40px 40px;">
+              <table border="0" cellpadding="0" cellspacing="0" id="thanks-box" style="background-color: #f9fafb; border-radius: 4px; border: 1px solid /*C3*/#e5e7eb/*C3*/; width: 100%;" data-marker="C3-border">
+                <tr>
+                  <td style="padding: 15px 20px;">
+                    <span contenteditable="true" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: /*C1*/#9B5DE5/*C1*/; outline: none;" data-marker="C1">$ echo "Thank you"</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <script>
+    const PALETTES = [
+        ["#FF006E", "#3A86FF", "#FFBE0B", "#FB5607", "#fdfcf0"], 
+        ["#FF595E", "#FFCA3A", "#8AC926", "#1982C4", "#f0f9ff"], 
+        ["#F15BB5", "#FEE440", "#00BBF9", "#00F5D4", "#f5f5f5"], 
+        ["#9B5DE5", "#F15BB5", "#FEE440", "#00BBF9", "#fafafa"], 
+        ["#FF70A6", "#FF9770", "#FFD670", "#E9FF70", "#fff9f0"], 
+        ["#FFBC42", "#D81159", "#218380", "#73D2DE", "#f0fff4"], 
+        ["#FF99C8", "#FCF6BD", "#D0F4DE", "#A9DEF9", "#fff0f5"], 
+        ["#00F5D4", "#00BBF9", "#9B5DE5", "#F15BB5", "#f0ffff"], 
+        ["#FF5F5F", "#FFD15F", "#5FFF9F", "#5F9FFF", "#f9f9f9"], 
+        ["#FF9F1C", "#2EC4B6", "#E71D36", "#011627", "#ffffff"], 
+        ["#70D6FF", "#FF70A6", "#FF9770", "#FFD670", "#f0f2f5"], 
+        ["#EF476F", "#FFD166", "#06D6A0", "#118AB2", "#f8fafc"], 
+    ];
+
+    function applyRandomPalette() {
+        const palette = PALETTES[Math.floor(Math.random() * PALETTES.length)];
+        // Shuffle the first 4 for extra variety
+        const colors = palette.slice(0, 4).sort(() => Math.random() - 0.5);
+        const bg = palette[4];
+
+        // Apply C1 (Primary Accent)
+        document.querySelectorAll('[data-marker="C1"]').forEach(el => {
+            el.style.color = colors[0];
+        });
+
+        // Apply C2 (Secondary Accent)
+        document.querySelectorAll('[data-marker="C2"]').forEach(el => {
+            el.style.color = colors[1];
+        });
+
+        // Apply C3 (Borders/Structure)
+        document.getElementById('main-container').style.borderColor = colors[2];
+        document.getElementById('header-td').style.borderBottomColor = colors[2];
+        document.getElementById('thanks-box').style.borderColor = colors[2];
+
+        // Apply C4 (Header/Metadata)
+        document.querySelectorAll('[data-marker="C4"]').forEach(el => {
+            el.style.color = colors[3];
+        });
+
+        // Apply C5 (Background)
+        document.getElementById('page-body').style.backgroundColor = bg;
+        document.getElementById('wrapper-table').style.backgroundColor = bg;
+
+        console.log("Applied Palette:", colors, bg);
+    }
+
+    // Initialize on load
+    window.onload = applyRandomPalette;
+  </script>
+</body>
+</html>

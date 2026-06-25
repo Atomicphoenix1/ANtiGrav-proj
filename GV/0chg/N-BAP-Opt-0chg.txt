@@ -1,0 +1,26 @@
+Filename = C:/Users/saif_/Desktop/downs/GV/0chg/N-BAP-Opt-0chg.log
+
+Overview Tab Data Section:
+N-BAP Opt+Freq (DFT B3lyp)
+C:/Users/saif_/Desktop/downs/GV/0chg/N-BAP-Opt-0chg.log
+File Type = .log
+Calculation Type = FOPT
+Calculation Method = UB3LYP
+Basis Set = 6-31++G(d,p)
+Charge = 0
+Spin = Doublet
+Solvation = scrf=(cpcm,solvent=water)
+E(UB3LYP) = -926.04809 Hartree
+RMS Gradient Norm = 2.986e-06 Hartree/Bohr
+Imaginary Freq = 
+Dipole Moment = 8.5579569 Debye
+Point Group = C1
+Job cpu time:       1 days 18 hours 44 minutes 12.6 seconds.
+
+Opt Tab Data Section:
+Step number = 18
+Maximum force = 8e-06 Converged
+RMS force = 2e-06 Converged
+Maximum displacement = 0.000771 Converged
+RMS displacement = 0.000136 Converged
+Predicted energy change = -2.782649e-09 Hartree
